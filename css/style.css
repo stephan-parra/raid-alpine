@@ -601,6 +601,22 @@ a:hover {
     color: var(--text-dark);
 }
 
+.day-image {
+    margin-bottom: var(--spacing-md);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    background: var(--white);
+    padding: var(--spacing-sm);
+}
+
+.elevation-profile {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 5px;
+}
+
 .day-description {
     font-size: 1.1rem;
     font-weight: 600;
