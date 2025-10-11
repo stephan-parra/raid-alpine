@@ -1,0 +1,22 @@
+# RAID Alpine Website - Git Ignore
+
+# Word documents and source files
+*.docx
+*.doc
+
+# Temporary files
+extracted_content.txt
+*.tmp
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Claude Code files (keep local only)
+.claude/
