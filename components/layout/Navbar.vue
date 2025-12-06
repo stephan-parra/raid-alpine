@@ -100,6 +100,8 @@
 </template>
 
 <script setup lang="ts">
+import { useWindowScroll } from '@vueuse/core'
+
 const route = useRoute()
 const { y } = useWindowScroll()
 
