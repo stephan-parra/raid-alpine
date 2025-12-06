@@ -11,6 +11,7 @@ export interface Col {
 
 export interface DayStage {
   day: number
+  date: string // Format: DD/MM/YYYY
   start: string
   finish: string
   distance: number
@@ -19,7 +20,9 @@ export interface DayStage {
   cols: Col[]
   highlights: string[]
   profileImage?: string
-  coordinates: {
+  rideWithGPSEmbed?: string
+  isTransitDay?: boolean
+  coordinates?: {
     start: [number, number]
     end: [number, number]
   }
@@ -29,21 +32,40 @@ export interface RouteStats {
   totalDistance: number
   totalElevation: number
   totalDays: number
+  ridingDays: number
   highestPoint: number
   lowestPoint: number
+  startDate: string
+  endDate: string
 }
 
 export const routeStats: RouteStats = {
-  totalDistance: 770,
-  totalElevation: 18000,
-  totalDays: 6,
+  totalDistance: 763,
+  totalElevation: 17360,
+  totalDays: 8,
+  ridingDays: 6,
   highestPoint: 2802,
   lowestPoint: 0,
+  startDate: '18/07/2026',
+  endDate: '25/07/2026',
 }
 
 export const days: DayStage[] = [
   {
+    day: 0,
+    date: '18/07/2026',
+    start: 'UK',
+    finish: 'Thonon-les-Bains',
+    distance: 0,
+    elevation: 0,
+    description: 'Travel day to reach the starting point at Thonon-les-Bains on the shores of Lake Geneva. Assemble bikes and prepare for the adventure ahead.',
+    cols: [],
+    highlights: ['Arrive at Lake Geneva', 'Bike assembly', 'Pre-ride briefing'],
+    isTransitDay: true,
+  },
+  {
     day: 1,
+    date: '19/07/2026',
     start: 'Thonon-les-Bains',
     finish: 'La Clusaz',
     distance: 110,
@@ -57,7 +79,8 @@ export const days: DayStage[] = [
       { name: 'Col de la Colombiere', elevation: 1613 },
     ],
     highlights: ['Lake Geneva views', 'Pine forest climbs', 'Alpine villages'],
-    profileImage: 'https://preview.marmot-tours.co.uk/storage/media/images/general/rfi-d1-25-ramaz-colombiere-raid-alpine-67ed62c2d60dd.gif',
+    profileImage: '/images/raid-alpine-0.gif',
+    rideWithGPSEmbed: 'https://ridewithgps.com/embeds?type=route&id=52996180&metricUnits=true&sampleGraph=true&distanceMarkers=true&privacyCode=c3s2xgryfW4I5TWXsIxRyxyLLGJM4DpM',
     coordinates: {
       start: [6.4793, 46.3706],
       end: [6.4249, 45.9046],
@@ -65,6 +88,7 @@ export const days: DayStage[] = [
   },
   {
     day: 2,
+    date: '20/07/2026',
     start: 'La Clusaz',
     finish: 'Sainte-Foy-Tarentaise',
     distance: 109,
@@ -83,7 +107,8 @@ export const days: DayStage[] = [
       },
     ],
     highlights: ['Beaufort cheese country', 'Roselend Dam views', '26km descent'],
-    profileImage: 'https://preview.marmot-tours.co.uk/storage/media/images/general/rfi-d2-25-aravis-saisies-col-du-pre-cormet-roselend-raid-alpine-67ed62c2d3d91.gif',
+    profileImage: '/images/raid-alpine-1.gif',
+    rideWithGPSEmbed: 'https://ridewithgps.com/embeds?type=route&id=52996303&metricUnits=true&sampleGraph=true&distanceMarkers=true&privacyCode=J3eufVyErGiYV10wsDc1nqXJ1s5N2WTI',
     coordinates: {
       start: [6.4249, 45.9046],
       end: [6.8807, 45.5842],
@@ -91,6 +116,7 @@ export const days: DayStage[] = [
   },
   {
     day: 3,
+    date: '21/07/2026',
     start: 'Sainte-Foy-Tarentaise',
     finish: 'Valloire',
     distance: 129,
@@ -111,7 +137,8 @@ export const days: DayStage[] = [
       { name: 'Col du Télégraphe', elevation: 1566 },
     ],
     highlights: ['Highest paved pass in Alps', '36km epic climb', 'Maurienne Valley'],
-    profileImage: 'https://preview.marmot-tours.co.uk/storage/media/images/general/rfi-d3-25-iseran-aussois-telegraphe-raid-alpine-67ed62c2dda19.gif',
+    profileImage: '/images/raid-alpine-2.gif',
+    rideWithGPSEmbed: 'https://ridewithgps.com/embeds?type=route&id=52996478&metricUnits=true&sampleGraph=true&distanceMarkers=true&privacyCode=3GdVOGi89e7bNmVAZxMma7gRAEvEoX8P',
     coordinates: {
       start: [6.8807, 45.5842],
       end: [6.4283, 45.1647],
@@ -119,6 +146,7 @@ export const days: DayStage[] = [
   },
   {
     day: 4,
+    date: '22/07/2026',
     start: 'Valloire',
     finish: 'Vars',
     distance: 121,
@@ -148,7 +176,7 @@ export const days: DayStage[] = [
       { name: 'Col de Vars', elevation: 2109 },
     ],
     highlights: ['Tour de France legends', 'Coppi & Bobet monuments', 'Casse Déserte'],
-    profileImage: 'https://preview.marmot-tours.co.uk/storage/media/images/general/rfi-d4-25-galibier-lautaret-izoard-raid-alpine-67ed62c3befee.gif',
+    profileImage: '/images/raid-alpine-3.gif',
     coordinates: {
       start: [6.4283, 45.1647],
       end: [6.6892, 44.5603],
@@ -156,6 +184,7 @@ export const days: DayStage[] = [
   },
   {
     day: 5,
+    date: '23/07/2026',
     start: 'Vars',
     finish: 'Valberg',
     distance: 134,
@@ -176,7 +205,8 @@ export const days: DayStage[] = [
       { name: 'Col de la Couillole', elevation: 1678 },
     ],
     highlights: ['Highest paved road in Europe', '53km descent', 'Alpine to Mediterranean transition'],
-    profileImage: 'https://preview.marmot-tours.co.uk/storage/media/images/general/rfi-d5-25-vars-bonette-couillole-raid-alpine-67ed62c3ddba5.gif',
+    profileImage: '/images/raid-alpine-4.gif',
+    rideWithGPSEmbed: 'https://ridewithgps.com/embeds?type=route&id=52996577&metricUnits=true&sampleGraph=true&distanceMarkers=true&privacyCode=6FMpVykvtbdBBVOtUREUzMoSuOIoP6j4',
     coordinates: {
       start: [6.6892, 44.5603],
       end: [6.9317, 44.0858],
@@ -184,27 +214,45 @@ export const days: DayStage[] = [
   },
   {
     day: 6,
+    date: '24/07/2026',
     start: 'Valberg',
     finish: 'Nice',
     distance: 160,
     elevation: 2000,
     description: 'The finale! Scenery transforms from alpine to Mediterranean as you descend to the Côte d\'Azur.',
     cols: [
+      { name: 'Gorges du Cians', elevation: 0 },
       { name: 'Col de Saint-Raphaël', elevation: 876 },
       { name: 'Col de Bleine', elevation: 1439 },
       { name: 'Col du Pilon', elevation: 786 },
     ],
     highlights: ['Mediterranean arrival', 'Gorges du Cians', 'Nice seafront finish'],
-    profileImage: 'https://preview.marmot-tours.co.uk/storage/media/images/general/rfi-d6-25-saint-raphael-bleine-pilon-nice-raid-alpine-67ed62c3c79a0.gif',
+    profileImage: '/images/raid-alpine-5.gif',
+    rideWithGPSEmbed: 'https://ridewithgps.com/embeds?type=route&id=52996614&metricUnits=true&sampleGraph=true&distanceMarkers=true&privacyCode=yxGoz5vz4xvCIi8BtCLX6mfM60wOaDEl',
     coordinates: {
       start: [6.9317, 44.0858],
       end: [7.2620, 43.7102],
     },
   },
+  {
+    day: 7,
+    date: '25/07/2026',
+    start: 'Nice',
+    finish: 'UK',
+    distance: 0,
+    elevation: 0,
+    description: 'Return journey from Nice. Disassemble bikes, celebrate the achievement, and travel home with incredible memories.',
+    cols: [],
+    highlights: ['Celebration in Nice', 'Return travel', 'Mission accomplished'],
+    isTransitDay: true,
+  },
 ]
 
+// Get only riding days (non-transit)
+export const ridingDays = days.filter(day => !day.isTransitDay)
+
 // Extract all unique cols for the cols page
-export const allCols: Col[] = days.flatMap(day => day.cols)
+export const allCols: Col[] = ridingDays.flatMap(day => day.cols).filter(col => col.elevation > 0)
 
 // Featured cols (the legendary ones)
 export const featuredCols = [
@@ -278,7 +326,7 @@ export const featuredCols = [
   },
 ]
 
-// Route coordinates for map
+// Route coordinates for map (riding days only)
 export const routeCoordinates: [number, number][] = [
   [6.4793, 46.3706], // Thonon-les-Bains
   [6.4249, 45.9046], // La Clusaz

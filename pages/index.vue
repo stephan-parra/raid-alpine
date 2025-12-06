@@ -20,7 +20,7 @@
           class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-8"
         >
           <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-          <span class="text-sm text-snow-300">Lake Geneva to Nice</span>
+          <span class="text-sm text-snow-300">18/07/2026 - 25/07/2026 | Lake Geneva to Nice</span>
         </div>
 
         <!-- Main title -->
@@ -41,7 +41,7 @@
           :enter="{ opacity: 1, y: 0, transition: { delay: 600 } }"
           class="text-xl md:text-2xl text-snow-400 max-w-2xl mx-auto mt-6 text-balance"
         >
-          A 770km cycling adventure through the French Alps.
+          A 763km cycling adventure through the French Alps.
           Conquer legendary cols from the shores of Lake Geneva to the Mediterranean coast.
         </p>
 
@@ -53,16 +53,16 @@
           class="flex flex-wrap justify-center gap-8 md:gap-16 mt-12"
         >
           <div class="text-center">
-            <div class="text-4xl md:text-5xl font-display text-white">770</div>
+            <div class="text-4xl md:text-5xl font-display text-white">763</div>
             <div class="text-sm text-snow-500 uppercase tracking-wider mt-1">Kilometers</div>
           </div>
           <div class="text-center">
-            <div class="text-4xl md:text-5xl font-display text-gradient">18,000</div>
+            <div class="text-4xl md:text-5xl font-display text-gradient">17,360</div>
             <div class="text-sm text-snow-500 uppercase tracking-wider mt-1">Meters Climbing</div>
           </div>
           <div class="text-center">
             <div class="text-4xl md:text-5xl font-display text-white">6</div>
-            <div class="text-sm text-snow-500 uppercase tracking-wider mt-1">Epic Days</div>
+            <div class="text-sm text-snow-500 uppercase tracking-wider mt-1">Riding Days</div>
           </div>
           <div class="text-center">
             <div class="text-4xl md:text-5xl font-display text-gradient">2,802</div>
