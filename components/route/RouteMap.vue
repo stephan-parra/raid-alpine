@@ -77,7 +77,6 @@ const initMap = async () => {
 
   // Dynamically import maplibre-gl to avoid SSR issues
   const maplibregl = await import('maplibre-gl')
-  await import('maplibre-gl/dist/maplibre-gl.css')
 
   map = new maplibregl.default.Map({
     container: mapContainer.value,
