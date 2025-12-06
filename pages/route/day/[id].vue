@@ -106,21 +106,6 @@
               </div>
             </div>
           </div>
-
-          <!-- Profile image -->
-          <div
-            v-if="day.profileImage"
-            v-motion
-            :initial="{ opacity: 0, scale: 0.95 }"
-            :enter="{ opacity: 1, scale: 1, transition: { delay: 400 } }"
-            class="glass-dark rounded-3xl overflow-hidden"
-          >
-            <img
-              :src="day.profileImage"
-              :alt="`Day ${day.day} elevation profile`"
-              class="w-full h-auto"
-            />
-          </div>
         </div>
       </div>
     </section>

@@ -19,7 +19,6 @@ export interface DayStage {
   description: string
   cols: Col[]
   highlights: string[]
-  profileImage?: string
   rideWithGPSEmbed?: string
   isTransitDay?: boolean
   coordinates?: {
@@ -79,7 +78,6 @@ export const days: DayStage[] = [
       { name: 'Col de la Colombiere', elevation: 1613 },
     ],
     highlights: ['Lake Geneva views', 'Pine forest climbs', 'Alpine villages'],
-    profileImage: '/images/raid-alpine-0.gif',
     rideWithGPSEmbed: 'https://ridewithgps.com/embeds?type=route&id=52996180&metricUnits=true&sampleGraph=true&distanceMarkers=true&privacyCode=c3s2xgryfW4I5TWXsIxRyxyLLGJM4DpM',
     coordinates: {
       start: [6.4793, 46.3706],
@@ -107,7 +105,6 @@ export const days: DayStage[] = [
       },
     ],
     highlights: ['Beaufort cheese country', 'Roselend Dam views', '26km descent'],
-    profileImage: '/images/raid-alpine-1.gif',
     rideWithGPSEmbed: 'https://ridewithgps.com/embeds?type=route&id=52996303&metricUnits=true&sampleGraph=true&distanceMarkers=true&privacyCode=J3eufVyErGiYV10wsDc1nqXJ1s5N2WTI',
     coordinates: {
       start: [6.4249, 45.9046],
@@ -137,7 +134,6 @@ export const days: DayStage[] = [
       { name: 'Col du Télégraphe', elevation: 1566 },
     ],
     highlights: ['Highest paved pass in Alps', '36km epic climb', 'Maurienne Valley'],
-    profileImage: '/images/raid-alpine-2.gif',
     rideWithGPSEmbed: 'https://ridewithgps.com/embeds?type=route&id=52996478&metricUnits=true&sampleGraph=true&distanceMarkers=true&privacyCode=3GdVOGi89e7bNmVAZxMma7gRAEvEoX8P',
     coordinates: {
       start: [6.8807, 45.5842],
@@ -176,7 +172,6 @@ export const days: DayStage[] = [
       { name: 'Col de Vars', elevation: 2109 },
     ],
     highlights: ['Tour de France legends', 'Coppi & Bobet monuments', 'Casse Déserte'],
-    profileImage: '/images/raid-alpine-3.gif',
     coordinates: {
       start: [6.4283, 45.1647],
       end: [6.6892, 44.5603],
@@ -205,7 +200,6 @@ export const days: DayStage[] = [
       { name: 'Col de la Couillole', elevation: 1678 },
     ],
     highlights: ['Highest paved road in Europe', '53km descent', 'Alpine to Mediterranean transition'],
-    profileImage: '/images/raid-alpine-4.gif',
     rideWithGPSEmbed: 'https://ridewithgps.com/embeds?type=route&id=52996577&metricUnits=true&sampleGraph=true&distanceMarkers=true&privacyCode=6FMpVykvtbdBBVOtUREUzMoSuOIoP6j4',
     coordinates: {
       start: [6.6892, 44.5603],
@@ -227,7 +221,6 @@ export const days: DayStage[] = [
       { name: 'Col du Pilon', elevation: 786 },
     ],
     highlights: ['Mediterranean arrival', 'Gorges du Cians', 'Nice seafront finish'],
-    profileImage: '/images/raid-alpine-5.gif',
     rideWithGPSEmbed: 'https://ridewithgps.com/embeds?type=route&id=52996614&metricUnits=true&sampleGraph=true&distanceMarkers=true&privacyCode=yxGoz5vz4xvCIi8BtCLX6mfM60wOaDEl',
     coordinates: {
       start: [6.9317, 44.0858],
