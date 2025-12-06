@@ -60,7 +60,7 @@ export const days: DayStage[] = [
     elevation: 0,
     description: 'Travel day to reach the starting point at Thonon-les-Bains on the shores of Lake Geneva. Assemble bikes and prepare for the adventure ahead.',
     cols: [],
-    highlights: ['Arrive at Lake Geneva', 'Bike assembly', 'Pre-ride briefing'],
+    highlights: ['Arrive at Lake Geneva'],
     isTransitDay: true,
   },
   {
