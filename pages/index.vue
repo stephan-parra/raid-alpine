@@ -62,7 +62,7 @@
         >
           <div class="text-center">
             <div class="text-4xl md:text-5xl font-display text-white">763</div>
-            <div class="text-sm text-snow-500 uppercase tracking-wider mt-1">Kilometers</div>
+            <div class="text-sm text-snow-500 uppercase tracking-wider mt-1">Kilometres</div>
           </div>
           <div class="text-center">
             <div class="text-4xl md:text-5xl font-display text-gradient">17,360</div>
