@@ -42,10 +42,10 @@
         <UiSectionHeading
           eyebrow="Transport"
           title="Getting There"
-          description="Three options to reach the start at Thonon-les-Bains."
+          description="Four options to reach the start at Thonon-les-Bains."
         />
 
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <!-- Option 1: Drive -->
           <div
             v-motion
@@ -162,6 +162,46 @@
               BA Sports Equipment Info
               <Icon name="heroicons:arrow-top-right-on-square" class="w-4 h-4" />
             </a>
+          </div>
+
+          <!-- Option 4: Fly & Hire Bikes -->
+          <div
+            v-motion
+            :initial="{ opacity: 0, y: 20 }"
+            :visibleOnce="{ opacity: 1, y: 0, transition: { delay: 300 } }"
+            class="glass-dark rounded-3xl p-8"
+          >
+            <div class="w-14 h-14 rounded-2xl bg-green-500/20 flex items-center justify-center mb-6">
+              <Icon name="mdi:bicycle" class="w-7 h-7 text-green-400" />
+            </div>
+            <h3 class="text-2xl font-display text-white mb-4">Option 4: Fly & Hire Bikes</h3>
+            <div class="space-y-4 text-snow-400">
+              <p>
+                Faster option depending on bike rental availability and flight schedules.
+              </p>
+              <p>
+                <strong class="text-white">Outbound</strong><br>
+                Fly to Nice, hire bikes locally, train to Thonon-les-Bains to begin the ride.
+              </p>
+              <p>
+                <strong class="text-white">Return</strong><br>
+                Drop bikes back in Nice after finishing, fly home.
+              </p>
+              <div class="pt-4 border-t border-white/10">
+                <div class="flex items-center gap-2 text-green-400">
+                  <Icon name="heroicons:check" class="w-5 h-5" />
+                  <span>No bike box logistics</span>
+                </div>
+                <div class="flex items-center gap-2 text-green-400 mt-2">
+                  <Icon name="heroicons:check" class="w-5 h-5" />
+                  <span>Lighter travel</span>
+                </div>
+                <div class="flex items-center gap-2 text-yellow-400 mt-2">
+                  <Icon name="heroicons:exclamation-triangle" class="w-5 h-5" />
+                  <span>Need to find suitable bike hire</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
