@@ -86,18 +86,18 @@
             View the Cols
           </NuxtLink>
         </div>
+      </div>
 
-        <!-- Scroll indicator -->
-        <div
-          v-motion
-          :initial="{ opacity: 0 }"
-          :enter="{ opacity: 1, transition: { delay: 1500 } }"
-          class="absolute bottom-8 left-1/2 -translate-x-1/2"
-        >
-          <div class="flex flex-col items-center gap-2 text-snow-500">
-            <span class="text-xs uppercase tracking-wider">Scroll to explore</span>
-            <Icon name="heroicons:chevron-down" class="w-5 h-5 animate-bounce" />
-          </div>
+      <!-- Scroll indicator - positioned at bottom of hero section -->
+      <div
+        v-motion
+        :initial="{ opacity: 0 }"
+        :enter="{ opacity: 1, transition: { delay: 1500 } }"
+        class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
+      >
+        <div class="flex flex-col items-center gap-2 text-snow-500">
+          <span class="text-xs uppercase tracking-wider">Scroll to explore</span>
+          <Icon name="heroicons:chevron-down" class="w-5 h-5 animate-bounce" />
         </div>
       </div>
     </section>
