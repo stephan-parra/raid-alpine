@@ -1,0 +1,32 @@
+{
+  "name": "raid-alpine",
+  "version": "1.0.0",
+  "private": true,
+  "description": "RAID Alpine: Lake Geneva to Nice - A 770km cycling adventure through the French Alps",
+  "scripts": {
+    "dev": "nuxt dev",
+    "build": "nuxt build",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "deploy": "nuxt generate && gh-pages -d .output/public"
+  },
+  "dependencies": {
+    "@nuxt/image": "^1.8.0",
+    "@vueuse/core": "^11.0.0",
+    "@vueuse/motion": "^2.2.3",
+    "maplibre-gl": "^4.5.0",
+    "vue": "^3.4.38",
+    "vue-router": "^4.4.3"
+  },
+  "devDependencies": {
+    "@iconify-json/heroicons": "^1.1.24",
+    "@iconify-json/mdi": "^1.1.68",
+    "@nuxt/icon": "^1.4.5",
+    "@nuxtjs/tailwindcss": "^6.12.1",
+    "@nuxtjs/color-mode": "^3.4.4",
+    "gh-pages": "^6.1.1",
+    "nuxt": "^3.13.0",
+    "typescript": "^5.5.4"
+  }
+}

@@ -1,0 +1,205 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-slate-950 text-snow-300 font-sans;
+  }
+
+  ::selection {
+    @apply bg-summit-500/30 text-white;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    @apply w-2;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-slate-900;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-slate-700 rounded-full hover:bg-slate-600;
+  }
+}
+
+@layer components {
+  /* Glass morphism card */
+  .glass {
+    @apply bg-white/5 backdrop-blur-xl border border-white/10 shadow-glass;
+  }
+
+  .glass-dark {
+    @apply bg-slate-900/60 backdrop-blur-xl border border-white/5;
+  }
+
+  /* Gradient text */
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-summit-400 via-summit-500 to-summit-600;
+  }
+
+  .text-gradient-alpine {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-alpine-400 via-alpine-500 to-glacier-500;
+  }
+
+  /* Button styles */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3
+           font-semibold text-sm rounded-xl transition-all duration-300
+           focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-950;
+  }
+
+  .btn-primary {
+    @apply btn bg-gradient-summit text-white shadow-glow
+           hover:shadow-glow-lg hover:scale-105 focus:ring-summit-500;
+  }
+
+  .btn-secondary {
+    @apply btn glass text-white hover:bg-white/10 focus:ring-white/30;
+  }
+
+  .btn-ghost {
+    @apply btn text-snow-400 hover:text-white hover:bg-white/5 focus:ring-white/20;
+  }
+
+  /* Section containers */
+  .section {
+    @apply relative py-24 lg:py-32;
+  }
+
+  .container-narrow {
+    @apply max-w-4xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .container-wide {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .container-full {
+    @apply max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Stat card */
+  .stat-card {
+    @apply glass rounded-2xl p-6 text-center;
+  }
+
+  .stat-value {
+    @apply text-4xl lg:text-5xl font-display text-white;
+  }
+
+  .stat-label {
+    @apply text-sm text-snow-500 uppercase tracking-wider mt-2;
+  }
+
+  /* Day card */
+  .day-card {
+    @apply glass-dark rounded-3xl overflow-hidden transition-all duration-500
+           hover:bg-slate-800/60 hover:border-summit-500/30 hover:shadow-glow;
+  }
+
+  /* Col badge */
+  .col-badge {
+    @apply inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full
+           bg-alpine-500/20 text-alpine-300 text-sm font-medium
+           border border-alpine-500/30;
+  }
+
+  /* Elevation indicator */
+  .elevation-bar {
+    @apply h-1 rounded-full bg-gradient-to-r from-glacier-500 via-alpine-500 to-summit-500;
+  }
+
+  /* Navigation link */
+  .nav-link {
+    @apply relative text-snow-400 hover:text-white transition-colors duration-300
+           after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5
+           after:bg-summit-500 after:transition-all after:duration-300
+           hover:after:w-full;
+  }
+
+  .nav-link-active {
+    @apply text-white after:w-full;
+  }
+}
+
+@layer utilities {
+  /* Responsive text utilities */
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .text-pretty {
+    text-wrap: pretty;
+  }
+
+  /* Animation delays */
+  .animation-delay-100 { animation-delay: 100ms; }
+  .animation-delay-200 { animation-delay: 200ms; }
+  .animation-delay-300 { animation-delay: 300ms; }
+  .animation-delay-500 { animation-delay: 500ms; }
+  .animation-delay-700 { animation-delay: 700ms; }
+  .animation-delay-1000 { animation-delay: 1000ms; }
+
+  /* Mask gradients for fade effects */
+  .mask-gradient-b {
+    mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+  }
+
+  .mask-gradient-t {
+    mask-image: linear-gradient(to top, black 60%, transparent 100%);
+  }
+
+  /* Mountain peak shape */
+  .clip-peak {
+    clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+  }
+
+  /* Perspective for 3D effects */
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+
+  .perspective-2000 {
+    perspective: 2000px;
+  }
+
+  /* Background patterns */
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  .bg-dots {
+    background-image: radial-gradient(rgba(255,255,255,0.1) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+}
+
+/* MapLibre overrides */
+.maplibregl-map {
+  font-family: inherit;
+}
+
+.maplibregl-popup-content {
+  @apply glass rounded-xl p-4 text-white shadow-xl;
+  background: rgba(15, 23, 42, 0.9) !important;
+}
+
+.maplibregl-popup-tip {
+  border-top-color: rgba(15, 23, 42, 0.9) !important;
+}
+
+.maplibregl-ctrl-attrib {
+  @apply text-xs text-snow-600;
+}
