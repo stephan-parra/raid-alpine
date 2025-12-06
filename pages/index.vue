@@ -2,9 +2,17 @@
   <div>
     <!-- Hero Section -->
     <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
-      <!-- Background -->
-      <div class="absolute inset-0 bg-gradient-alpine" />
-      <div class="absolute inset-0 bg-grid opacity-30" />
+      <!-- Background Image -->
+      <div class="absolute inset-0">
+        <img
+          src="/images/raid-alpine-6.jpg"
+          alt="Alpine mountain scenery"
+          class="w-full h-full object-cover"
+        />
+      </div>
+      <!-- Dark overlay with gradient -->
+      <div class="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-slate-900/70 to-slate-950/90" />
+      <div class="absolute inset-0 bg-grid opacity-20" />
 
       <!-- Animated gradient orbs -->
       <div class="absolute top-1/4 -left-32 w-96 h-96 bg-summit-500/20 rounded-full blur-3xl animate-float" />
