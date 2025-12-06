@@ -2,9 +2,17 @@
   <div>
     <!-- Hero Section -->
     <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
-      <!-- Background -->
-      <div class="absolute inset-0 bg-gradient-alpine" />
-      <div class="absolute inset-0 bg-grid opacity-30" />
+      <!-- Background Image -->
+      <div class="absolute inset-0">
+        <img
+          src="/images/raid-alpine-6.jpg"
+          alt="Alpine mountain scenery"
+          class="w-full h-full object-cover"
+        />
+      </div>
+      <!-- Dark overlay with gradient -->
+      <div class="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-slate-900/70 to-slate-950/90" />
+      <div class="absolute inset-0 bg-grid opacity-20" />
 
       <!-- Animated gradient orbs -->
       <div class="absolute top-1/4 -left-32 w-96 h-96 bg-summit-500/20 rounded-full blur-3xl animate-float" />
@@ -86,18 +94,18 @@
             View the Cols
           </NuxtLink>
         </div>
+      </div>
 
-        <!-- Scroll indicator -->
-        <div
-          v-motion
-          :initial="{ opacity: 0 }"
-          :enter="{ opacity: 1, transition: { delay: 1500 } }"
-          class="absolute bottom-8 left-1/2 -translate-x-1/2"
-        >
-          <div class="flex flex-col items-center gap-2 text-snow-500">
-            <span class="text-xs uppercase tracking-wider">Scroll to explore</span>
-            <Icon name="heroicons:chevron-down" class="w-5 h-5 animate-bounce" />
-          </div>
+      <!-- Scroll indicator - positioned at bottom of hero section -->
+      <div
+        v-motion
+        :initial="{ opacity: 0 }"
+        :enter="{ opacity: 1, transition: { delay: 1500 } }"
+        class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
+      >
+        <div class="flex flex-col items-center gap-2 text-snow-500">
+          <span class="text-xs uppercase tracking-wider">Scroll to explore</span>
+          <Icon name="heroicons:chevron-down" class="w-5 h-5 animate-bounce" />
         </div>
       </div>
     </section>

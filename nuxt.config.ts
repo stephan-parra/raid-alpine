@@ -5,6 +5,11 @@ export default defineNuxtConfig({
   // Static site generation for GitHub Pages
   ssr: false,
 
+  // Global CSS
+  css: [
+    'maplibre-gl/dist/maplibre-gl.css',
+  ],
+
   app: {
     // GitHub Pages base URL - set to repo name
     baseURL: '/raid-alpine/',

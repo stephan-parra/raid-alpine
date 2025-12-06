@@ -69,19 +69,6 @@
       </div>
     </div>
 
-    <!-- Profile image -->
-    <div v-if="day.profileImage" class="px-6 pb-6">
-      <div class="relative rounded-xl overflow-hidden bg-slate-800/50">
-        <img
-          :src="day.profileImage"
-          :alt="`Day ${day.day} elevation profile`"
-          class="w-full h-auto opacity-90"
-          loading="lazy"
-        />
-        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent pointer-events-none" />
-      </div>
-    </div>
-
     <!-- Highlights -->
     <div class="px-6 pb-6 pt-2 border-t border-white/5">
       <div class="flex flex-wrap gap-3">
