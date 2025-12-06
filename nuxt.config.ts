@@ -6,9 +6,8 @@ export default defineNuxtConfig({
   ssr: false,
 
   app: {
-    // Update this to your GitHub repo name if not using custom domain
-    // e.g., baseURL: '/raid-alpine/' for https://username.github.io/raid-alpine/
-    baseURL: process.env.NUXT_APP_BASE_URL || '/',
+    // GitHub Pages base URL - set to repo name
+    baseURL: '/raid-alpine/',
 
     head: {
       title: 'RAID Alpine | Lake Geneva to Nice',
