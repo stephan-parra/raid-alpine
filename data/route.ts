@@ -149,7 +149,7 @@ export const days: DayStage[] = [
     finish: 'Vars',
     distance: 121,
     elevation: 3200,
-    description: 'Legendary Tour de France climbs. The Galibier with its brutal 10% final kilometer, followed by the historic Izoard.',
+    description: 'Legendary Tour de France climbs. The Galibier with its brutal 10% final kilometre, followed by the historic Izoard.',
     cols: [
       {
         name: 'Col du Galibier',
@@ -269,7 +269,7 @@ export const featuredCols = [
     length: 18.1,
     avgGrade: 6.9,
     maxGrade: 10.1,
-    description: 'One of the most iconic climbs in cycling history. The brutal final kilometer at 10% grade has broken countless riders.',
+    description: 'One of the most iconic climbs in cycling history. The brutal final kilometre at 10% grade has broken countless riders.',
     tourAppearances: 61,
     firstCrossed: 1911,
     day: 4,
