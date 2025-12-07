@@ -1,7 +1,7 @@
 <template>
-  <div class="relative w-full h-full min-h-[400px] rounded-2xl overflow-hidden">
+  <div class="relative w-full h-[500px] md:h-[700px] rounded-2xl overflow-hidden">
     <!-- Map container -->
-    <div ref="mapContainer" class="absolute inset-0" />
+    <div ref="mapContainer" class="w-full h-full" />
 
     <!-- Loading state -->
     <div
@@ -100,7 +100,7 @@ const initMap = async () => {
               'https://b.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}@2x.png',
               'https://c.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}@2x.png',
             ],
-            tileSize: 256,
+            tileSize: 512,
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
           },
         },
@@ -241,7 +241,9 @@ const fitBounds = () => {
   map.fitBounds(bounds, { padding: 60 })
 }
 
-onMounted(() => {
+onMounted(async () => {
+  // Wait for DOM to be fully ready
+  await nextTick()
   initMap()
 })
 
