@@ -86,12 +86,12 @@
           v-motion
           :initial="{ opacity: 0, scale: 0.98 }"
           :visibleOnce="{ opacity: 1, scale: 1 }"
-          class="h-[500px] md:h-[700px] rounded-3xl overflow-hidden border border-white/5"
+          class="rounded-3xl overflow-hidden border border-white/5"
         >
           <ClientOnly>
             <RouteRouteMap />
             <template #fallback>
-              <div class="w-full h-full bg-slate-900 flex items-center justify-center">
+              <div class="w-full h-[500px] md:h-[700px] bg-slate-900 flex items-center justify-center rounded-2xl">
                 <div class="text-snow-500">Loading map...</div>
               </div>
             </template>
