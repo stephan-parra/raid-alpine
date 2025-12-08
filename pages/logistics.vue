@@ -84,10 +84,6 @@
                 <strong class="text-white">Drive to Thonon-les-Bains</strong><br>
                 Approximately 850km drive (9-9.5 hours) from Calais. Complete in one day and park close to the start point.
               </p>
-              <p>
-                <strong class="text-white">Set off the next day</strong><br>
-                Begin the ride fresh after a good night's rest.
-              </p>
               <div class="pt-4 border-t border-white/10">
                 <div class="flex items-center gap-2 text-green-400">
                   <Icon name="heroicons:check" class="w-5 h-5" />
