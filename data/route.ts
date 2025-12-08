@@ -236,7 +236,7 @@ export const days: DayStage[] = [
     finish: 'UK',
     distance: 0,
     elevation: 0,
-    description: 'Return journey from Nice. Disassemble bikes, celebrate the achievement, and travel home with incredible memories.',
+    description: 'Return travel day. Disassemble bikes and depart from Nice.',
     cols: [],
     highlights: ['Celebration in Nice', 'Return travel', 'Mission accomplished'],
     isTransitDay: true,
