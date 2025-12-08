@@ -115,7 +115,7 @@
             <div class="w-14 h-14 rounded-2xl bg-alpine-500/20 flex items-center justify-center mb-6">
               <Icon name="heroicons:truck" class="w-7 h-7 text-alpine-400" />
             </div>
-            <h3 class="text-2xl font-display text-white mb-4">Option 2: Drive</h3>
+            <h3 class="text-2xl font-display text-white mb-4">Option 2: Hire Drive</h3>
             <div class="space-y-4 text-snow-400">
               <p>
                 <strong class="text-white">Van hire UK (one-way)</strong><br>
