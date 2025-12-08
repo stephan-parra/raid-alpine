@@ -45,14 +45,14 @@ export const routeStats: RouteStats = {
   ridingDays: 6,
   highestPoint: 2802,
   lowestPoint: 0,
-  startDate: '18/07/2026',
-  endDate: '25/07/2026',
+  startDate: '11/07/2026',
+  endDate: '18/07/2026',
 }
 
 export const days: DayStage[] = [
   {
     day: 0,
-    date: '18/07/2026',
+    date: '11/07/2026',
     start: 'UK',
     finish: 'Thonon-les-Bains',
     distance: 0,
@@ -64,7 +64,7 @@ export const days: DayStage[] = [
   },
   {
     day: 1,
-    date: '19/07/2026',
+    date: '12/07/2026',
     start: 'Thonon-les-Bains',
     finish: 'La Clusaz',
     distance: 110,
@@ -86,7 +86,7 @@ export const days: DayStage[] = [
   },
   {
     day: 2,
-    date: '20/07/2026',
+    date: '13/07/2026',
     start: 'La Clusaz',
     finish: 'Sainte-Foy-Tarentaise',
     distance: 109,
@@ -115,7 +115,7 @@ export const days: DayStage[] = [
   },
   {
     day: 3,
-    date: '21/07/2026',
+    date: '14/07/2026',
     start: 'Sainte-Foy-Tarentaise',
     finish: 'Valloire',
     distance: 129,
@@ -144,7 +144,7 @@ export const days: DayStage[] = [
   },
   {
     day: 4,
-    date: '22/07/2026',
+    date: '15/07/2026',
     start: 'Valloire',
     finish: 'Vars',
     distance: 121,
@@ -181,7 +181,7 @@ export const days: DayStage[] = [
   },
   {
     day: 5,
-    date: '23/07/2026',
+    date: '16/07/2026',
     start: 'Vars',
     finish: 'Valberg',
     distance: 134,
@@ -210,7 +210,7 @@ export const days: DayStage[] = [
   },
   {
     day: 6,
-    date: '24/07/2026',
+    date: '17/07/2026',
     start: 'Valberg',
     finish: 'Nice',
     distance: 160,
@@ -231,7 +231,7 @@ export const days: DayStage[] = [
   },
   {
     day: 7,
-    date: '25/07/2026',
+    date: '18/07/2026',
     start: 'Nice',
     finish: 'UK',
     distance: 0,
