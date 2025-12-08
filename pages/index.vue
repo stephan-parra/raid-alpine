@@ -28,7 +28,7 @@
           class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-8"
         >
           <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-          <span class="text-sm text-snow-300">18/07/2026 - 25/07/2026 | Lake Geneva to Nice</span>
+          <span class="text-sm text-snow-300">11/07/2026 - 18/07/2026 | Lake Geneva to Nice</span>
         </div>
 
         <!-- Main title -->
