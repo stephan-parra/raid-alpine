@@ -51,21 +51,75 @@
         <UiSectionHeading
           eyebrow="Transport"
           title="Getting There"
-          description="Four options to reach the start at Thonon-les-Bains."
+          description="Five options to reach the start at Thonon-les-Bains."
         />
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <!-- Option 1: Drive -->
+          <!-- Option 1: Drive Own Car -->
           <div
             v-motion
             :initial="{ opacity: 0, y: 20 }"
             :visibleOnce="{ opacity: 1, y: 0 }"
+            class="glass-dark rounded-3xl p-8 ring-2 ring-green-500/30"
+          >
+            <div class="absolute -top-3 right-6">
+              <span class="px-3 py-1 bg-green-500 text-white text-xs font-semibold rounded-full">
+                Easiest
+              </span>
+            </div>
+            <div class="w-14 h-14 rounded-2xl bg-green-500/20 flex items-center justify-center mb-6">
+              <Icon name="heroicons:truck" class="w-7 h-7 text-green-400" />
+            </div>
+            <h3 class="text-2xl font-display text-white mb-4">Option 1: Drive Own Car</h3>
+            <div class="space-y-4 text-snow-400">
+              <p>
+                <strong class="text-white">Drive to Dover with bikes onboard</strong><br>
+                Load bikes onto/into your own car and drive to Dover.
+              </p>
+              <p>
+                <strong class="text-white">Ferry to Calais or Dunkirk</strong><br>
+                Cross the Channel by ferry. Book in advance for best rates.
+              </p>
+              <p>
+                <strong class="text-white">Drive to Thonon-les-Bains</strong><br>
+                780-850km drive (7.5-8 hours) from Calais. Complete in one day and park close to the start point.
+              </p>
+              <p>
+                <strong class="text-white">Set off the next day</strong><br>
+                Begin the ride fresh after a good night's rest.
+              </p>
+              <div class="pt-4 border-t border-white/10">
+                <div class="flex items-center gap-2 text-green-400">
+                  <Icon name="heroicons:check" class="w-5 h-5" />
+                  <span>No rental logistics</span>
+                </div>
+                <div class="flex items-center gap-2 text-green-400 mt-2">
+                  <Icon name="heroicons:check" class="w-5 h-5" />
+                  <span>Maximum flexibility</span>
+                </div>
+                <div class="flex items-center gap-2 text-green-400 mt-2">
+                  <Icon name="heroicons:check" class="w-5 h-5" />
+                  <span>Simplest planning</span>
+                </div>
+                <div class="flex items-center gap-2 text-yellow-400 mt-2">
+                  <Icon name="heroicons:exclamation-triangle" class="w-5 h-5" />
+                  <span>Long driving day to France</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Option 2: Drive -->
+          <div
+            v-motion
+            :initial="{ opacity: 0, y: 20 }"
+            :visibleOnce="{ opacity: 1, y: 0, transition: { delay: 100 } }"
             class="glass-dark rounded-3xl p-8"
           >
             <div class="w-14 h-14 rounded-2xl bg-alpine-500/20 flex items-center justify-center mb-6">
               <Icon name="heroicons:truck" class="w-7 h-7 text-alpine-400" />
             </div>
-            <h3 class="text-2xl font-display text-white mb-4">Option 1: Drive</h3>
+            <h3 class="text-2xl font-display text-white mb-4">Option 2: Drive</h3>
             <div class="space-y-4 text-snow-400">
               <p>
                 <strong class="text-white">Van hire UK (one-way)</strong><br>
@@ -88,17 +142,17 @@
             </div>
           </div>
 
-          <!-- Option 2: Train -->
+          <!-- Option 3: Train -->
           <div
             v-motion
             :initial="{ opacity: 0, y: 20 }"
-            :visibleOnce="{ opacity: 1, y: 0, transition: { delay: 100 } }"
+            :visibleOnce="{ opacity: 1, y: 0, transition: { delay: 200 } }"
             class="glass-dark rounded-3xl p-8"
           >
             <div class="w-14 h-14 rounded-2xl bg-glacier-500/20 flex items-center justify-center mb-6">
               <Icon name="mdi:train" class="w-7 h-7 text-glacier-400" />
             </div>
-            <h3 class="text-2xl font-display text-white mb-4">Option 2: Train</h3>
+            <h3 class="text-2xl font-display text-white mb-4">Option 3: Train</h3>
             <div class="space-y-4 text-snow-400">
               <p>
                 <strong class="text-white">Leamington Spa → Dover</strong><br>
@@ -121,22 +175,22 @@
             </div>
           </div>
 
-          <!-- Option 3: Fly -->
+          <!-- Option 4: Fly -->
           <div
             v-motion
             :initial="{ opacity: 0, y: 20 }"
-            :visibleOnce="{ opacity: 1, y: 0, transition: { delay: 200 } }"
+            :visibleOnce="{ opacity: 1, y: 0, transition: { delay: 300 } }"
             class="glass-dark rounded-3xl p-8 ring-2 ring-summit-500/30"
           >
             <div class="absolute -top-3 right-6">
               <span class="px-3 py-1 bg-summit-500 text-white text-xs font-semibold rounded-full">
-                Recommended
+                Fastest
               </span>
             </div>
             <div class="w-14 h-14 rounded-2xl bg-summit-500/20 flex items-center justify-center mb-6">
               <Icon name="heroicons:paper-airplane" class="w-7 h-7 text-summit-400" />
             </div>
-            <h3 class="text-2xl font-display text-white mb-4">Option 3: Fly</h3>
+            <h3 class="text-2xl font-display text-white mb-4">Option 4: Fly</h3>
             <div class="space-y-4 text-snow-400">
               <p>
                 <strong class="text-white">Fly to Geneva</strong><br>
@@ -173,17 +227,17 @@
             </a>
           </div>
 
-          <!-- Option 4: Fly & Hire Bikes -->
+          <!-- Option 5: Fly & Hire Bikes -->
           <div
             v-motion
             :initial="{ opacity: 0, y: 20 }"
-            :visibleOnce="{ opacity: 1, y: 0, transition: { delay: 300 } }"
+            :visibleOnce="{ opacity: 1, y: 0, transition: { delay: 400 } }"
             class="glass-dark rounded-3xl p-8"
           >
             <div class="w-14 h-14 rounded-2xl bg-green-500/20 flex items-center justify-center mb-6">
               <Icon name="mdi:bicycle" class="w-7 h-7 text-green-400" />
             </div>
-            <h3 class="text-2xl font-display text-white mb-4">Option 4: Fly & Hire Bikes</h3>
+            <h3 class="text-2xl font-display text-white mb-4">Option 5: Fly & Hire Bikes</h3>
             <div class="space-y-4 text-snow-400">
               <p>
                 Faster option depending on bike rental availability and flight schedules.
