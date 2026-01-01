@@ -78,6 +78,11 @@
           </div>
         </div>
 
+        <!-- Countdown Timer -->
+        <div class="max-w-4xl mx-auto">
+          <UiCountdownTimer />
+        </div>
+
         <!-- CTA buttons -->
         <div
           v-motion
