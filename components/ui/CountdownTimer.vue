@@ -3,47 +3,42 @@
     v-motion
     :initial="{ opacity: 0, y: 20 }"
     :enter="{ opacity: 1, y: 0, transition: { delay: 900 } }"
-    class="glass-dark rounded-3xl p-6 md:p-8 mt-10"
+    class="glass-dark rounded-2xl p-4 md:p-6 mt-10"
   >
-    <div class="text-center mb-6">
-      <h3 class="text-xl md:text-2xl font-semibold text-white mb-1">Event Starts In</h3>
-      <p class="text-sm text-snow-500">Countdown to midnight, July 11th 2026</p>
-    </div>
-
-    <div class="grid grid-cols-4 gap-4 md:gap-6">
+    <div class="grid grid-cols-4 gap-3 md:gap-4">
       <div class="text-center">
-        <div class="glass rounded-2xl p-4 md:p-6">
-          <div class="text-4xl md:text-5xl lg:text-6xl font-display text-gradient">
+        <div class="glass rounded-xl p-3 md:p-4">
+          <div class="text-3xl md:text-4xl font-display text-gradient">
             {{ days }}
           </div>
-          <div class="text-xs md:text-sm text-snow-500 uppercase tracking-wider mt-2">Days</div>
+          <div class="text-2xs md:text-xs text-snow-500 uppercase tracking-wider mt-1">Days</div>
         </div>
       </div>
 
       <div class="text-center">
-        <div class="glass rounded-2xl p-4 md:p-6">
-          <div class="text-4xl md:text-5xl lg:text-6xl font-display text-white">
+        <div class="glass rounded-xl p-3 md:p-4">
+          <div class="text-3xl md:text-4xl font-display text-white">
             {{ hours }}
           </div>
-          <div class="text-xs md:text-sm text-snow-500 uppercase tracking-wider mt-2">Hours</div>
+          <div class="text-2xs md:text-xs text-snow-500 uppercase tracking-wider mt-1">Hours</div>
         </div>
       </div>
 
       <div class="text-center">
-        <div class="glass rounded-2xl p-4 md:p-6">
-          <div class="text-4xl md:text-5xl lg:text-6xl font-display text-white">
+        <div class="glass rounded-xl p-3 md:p-4">
+          <div class="text-3xl md:text-4xl font-display text-white">
             {{ minutes }}
           </div>
-          <div class="text-xs md:text-sm text-snow-500 uppercase tracking-wider mt-2">Minutes</div>
+          <div class="text-2xs md:text-xs text-snow-500 uppercase tracking-wider mt-1">Minutes</div>
         </div>
       </div>
 
       <div class="text-center">
-        <div class="glass rounded-2xl p-4 md:p-6">
-          <div class="text-4xl md:text-5xl lg:text-6xl font-display text-gradient">
+        <div class="glass rounded-xl p-3 md:p-4">
+          <div class="text-3xl md:text-4xl font-display text-gradient">
             {{ seconds }}
           </div>
-          <div class="text-xs md:text-sm text-snow-500 uppercase tracking-wider mt-2">Seconds</div>
+          <div class="text-2xs md:text-xs text-snow-500 uppercase tracking-wider mt-1">Seconds</div>
         </div>
       </div>
     </div>
