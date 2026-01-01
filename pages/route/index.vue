@@ -106,7 +106,7 @@
         <UiSectionHeading
           eyebrow="Elevation Profile"
           title="The Challenge Ahead"
-          description="18,000 meters of climbing across 6 days. Here's what you're up against."
+          description="18,000 metres of climbing across 6 days. Here's what you're up against."
         />
 
         <div
