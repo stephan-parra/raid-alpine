@@ -1,3 +1,9 @@
+export interface ColVideo {
+  youtubeId: string
+  source: 'col-collective' | 'tour-de-france' | 'other'
+  title?: string
+}
+
 export interface Col {
   name: string
   elevation: number
@@ -7,6 +13,7 @@ export interface Col {
   description?: string
   tourAppearances?: number
   firstCrossed?: number
+  video?: ColVideo
 }
 
 export interface DayStage {
@@ -249,8 +256,15 @@ export const ridingDays = days.filter(day => !day.isTransitDay)
 // Extract all unique cols for the cols page
 export const allCols: Col[] = ridingDays.flatMap(day => day.cols).filter(col => col.elevation > 0)
 
+// Featured col interface with additional properties
+export interface FeaturedCol extends Col {
+  day: number
+  image?: string
+  video?: ColVideo
+}
+
 // Featured cols (the legendary ones)
-export const featuredCols = [
+export const featuredCols: FeaturedCol[] = [
   {
     name: "Col de l'Iseran",
     elevation: 2770,
@@ -262,6 +276,11 @@ export const featuredCols = [
     firstCrossed: 1938,
     day: 3,
     image: '/images/cols/iseran.jpg',
+    video: {
+      youtubeId: '8oZPlxP1UNU',
+      source: 'col-collective',
+      title: "Col de l'Iseran - The Col Collective",
+    },
   },
   {
     name: 'Col du Galibier',
@@ -274,6 +293,11 @@ export const featuredCols = [
     firstCrossed: 1911,
     day: 4,
     image: '/images/cols/galibier.jpg',
+    video: {
+      youtubeId: '1hDj23a9y1c',
+      source: 'col-collective',
+      title: 'Col du Galibier - The Col Collective',
+    },
   },
   {
     name: 'Cime de la Bonette',
@@ -286,6 +310,11 @@ export const featuredCols = [
     firstCrossed: 1962,
     day: 5,
     image: '/images/cols/bonette.jpg',
+    video: {
+      youtubeId: 'qHPfqErMpMo',
+      source: 'col-collective',
+      title: 'Col de la Bonette - The Col Collective',
+    },
   },
   {
     name: "Col d'Izoard",
@@ -298,6 +327,11 @@ export const featuredCols = [
     firstCrossed: 1922,
     day: 4,
     image: '/images/cols/izoard.jpg',
+    video: {
+      youtubeId: 'qN5rD9bVjH8',
+      source: 'col-collective',
+      title: "Col d'Izoard - The Col Collective",
+    },
   },
   {
     name: 'Cormet de Roselend',
@@ -309,6 +343,11 @@ export const featuredCols = [
     tourAppearances: 7,
     day: 2,
     image: '/images/cols/roselend.jpg',
+    video: {
+      youtubeId: 'DMxLvHfRmrY',
+      source: 'col-collective',
+      title: 'Cormet de Roselend via Col du Pré - The Col Collective',
+    },
   },
   {
     name: 'Col de la Colombiere',
@@ -320,6 +359,7 @@ export const featuredCols = [
     tourAppearances: 22,
     day: 1,
     image: '/images/cols/colombiere.jpg',
+    // No Col Collective video available
   },
 ]
 

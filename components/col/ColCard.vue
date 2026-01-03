@@ -11,38 +11,43 @@
 
     <!-- Content -->
     <div class="relative p-6">
+      <!-- Video Thumbnail -->
+      <div class="mb-4">
+        <ColColVideoThumbnail
+          :video="col.video"
+          :col-name="col.name"
+          :elevation="col.elevation"
+        />
+      </div>
+
       <!-- Header -->
       <div class="flex items-start justify-between mb-4">
         <div>
           <span class="text-xs font-semibold uppercase tracking-wider text-summit-400">
             Day {{ col.day }}
           </span>
-          <h3 class="text-2xl font-display text-white mt-1 group-hover:text-summit-300 transition-colors">
+          <h3 class="text-xl font-display text-white mt-1 group-hover:text-summit-300 transition-colors">
             {{ col.name }}
           </h3>
         </div>
-        <div class="w-14 h-14 rounded-2xl bg-gradient-summit flex items-center justify-center shadow-glow group-hover:shadow-glow-lg transition-shadow">
-          <span class="font-display text-lg text-white">{{ col.elevation }}</span>
+        <div class="w-12 h-12 rounded-xl bg-gradient-summit flex items-center justify-center shadow-glow group-hover:shadow-glow-lg transition-shadow flex-shrink-0">
+          <span class="font-display text-sm text-white">{{ col.elevation }}m</span>
         </div>
       </div>
 
-      <!-- Stats grid -->
-      <div class="grid grid-cols-3 gap-4 mb-4">
-        <div class="text-center p-3 rounded-xl bg-white/5">
-          <div class="text-lg font-semibold text-white">{{ col.elevation }}m</div>
-          <div class="text-xs text-snow-500 uppercase tracking-wider">Elevation</div>
+      <!-- Stats row -->
+      <div class="flex items-center gap-3 mb-4 text-sm">
+        <div v-if="col.length" class="flex items-center gap-1.5 text-snow-400">
+          <Icon name="heroicons:arrow-long-right" class="w-4 h-4 text-alpine-400" />
+          <span>{{ col.length }}km</span>
         </div>
-        <div v-if="col.length" class="text-center p-3 rounded-xl bg-white/5">
-          <div class="text-lg font-semibold text-white">{{ col.length }}km</div>
-          <div class="text-xs text-snow-500 uppercase tracking-wider">Length</div>
+        <div v-if="col.avgGrade" class="flex items-center gap-1.5 text-snow-400">
+          <Icon name="heroicons:arrow-trending-up" class="w-4 h-4 text-summit-400" />
+          <span>{{ col.avgGrade }}%</span>
         </div>
-        <div v-if="col.avgGrade" class="text-center p-3 rounded-xl bg-white/5">
-          <div class="text-lg font-semibold text-white">{{ col.avgGrade }}%</div>
-          <div class="text-xs text-snow-500 uppercase tracking-wider">Avg Grade</div>
-        </div>
-        <div v-if="col.maxGrade && !col.length" class="text-center p-3 rounded-xl bg-white/5">
-          <div class="text-lg font-semibold text-summit-400">{{ col.maxGrade }}%</div>
-          <div class="text-xs text-snow-500 uppercase tracking-wider">Max Grade</div>
+        <div v-if="col.maxGrade" class="flex items-center gap-1.5 text-snow-400">
+          <Icon name="heroicons:exclamation-triangle" class="w-4 h-4 text-orange-400" />
+          <span>{{ col.maxGrade }}% max</span>
         </div>
       </div>
 
@@ -74,6 +79,8 @@
 </template>
 
 <script setup lang="ts">
+import type { ColVideo } from '~/data/route'
+
 interface ColWithDay {
   name: string
   elevation: number
@@ -84,6 +91,7 @@ interface ColWithDay {
   tourAppearances?: number
   firstCrossed?: number
   day: number
+  video?: ColVideo
 }
 
 defineProps<{
