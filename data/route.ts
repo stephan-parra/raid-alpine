@@ -311,7 +311,7 @@ export const featuredCols: FeaturedCol[] = [
     day: 5,
     image: '/images/cols/bonette.jpg',
     video: {
-      youtubeId: 'qHPfqErMpMo',
+      youtubeId: 'QlRrAeO7aIM',
       source: 'col-collective',
       title: 'Col de la Bonette - The Col Collective',
     },
@@ -328,7 +328,7 @@ export const featuredCols: FeaturedCol[] = [
     day: 4,
     image: '/images/cols/izoard.jpg',
     video: {
-      youtubeId: 'qN5rD9bVjH8',
+      youtubeId: 'HVBWY7TjtPw',
       source: 'col-collective',
       title: "Col d'Izoard - The Col Collective",
     },
@@ -344,7 +344,7 @@ export const featuredCols: FeaturedCol[] = [
     day: 2,
     image: '/images/cols/roselend.jpg',
     video: {
-      youtubeId: 'DMxLvHfRmrY',
+      youtubeId: 'IwJMlMfs5bI',
       source: 'col-collective',
       title: 'Cormet de Roselend via Col du Pré - The Col Collective',
     },
