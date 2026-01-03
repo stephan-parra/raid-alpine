@@ -120,7 +120,7 @@
                     Experience in 3D
                   </h3>
                   <p class="text-sm text-snow-500">
-                    Fly through the Alps with our immersive 3D terrain viewer
+                    Fly through the Alps in the immersive 3D terrain viewer
                   </p>
                 </div>
               </div>
