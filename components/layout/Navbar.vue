@@ -110,6 +110,7 @@ const mobileMenuOpen = ref(false)
 
 const navLinks = [
   { to: '/', label: 'Home' },
+  { to: '/journey', label: 'The Journey' },
   { to: '/route', label: 'The Route' },
   { to: '/cols', label: 'The Cols' },
   { to: '/logistics', label: 'Logistics' },
