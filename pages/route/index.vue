@@ -260,7 +260,14 @@
 </template>
 
 <script setup lang="ts">
-import { days, ridingDays, getDownloadUrl, hasDownload } from '~/data/route'
+import { days, ridingDays, getDownloadPath, hasDownload } from '~/data/route'
+
+const config = useRuntimeConfig()
+
+function getDownloadUrl(day: number, format: 'gpx' | 'fit' | 'tcx'): string {
+  const baseURL = config.app.baseURL || '/'
+  return `${baseURL}${getDownloadPath(day, format)}`
+}
 
 useHead({
   title: 'The Route',
