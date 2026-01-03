@@ -2,57 +2,121 @@
 
 ## Overview
 
-Add a downloads section where users can download the RAID Alpine route files in their preferred GPS format (GPX, FIT, TCX).
+Add download functionality in two places:
+1. **Day Cards** - Download buttons integrated into each route info card
+2. **Home Page** - Dedicated downloads section with all routes
 
 ---
 
-## Design Concept
+## Available Files
 
-### Visual Layout
+| Day | GPX | FIT | TCX | Status |
+|-----|-----|-----|-----|--------|
+| Day 1 (Nice → Jausiers) | ✅ | ✅ | ✅ | Available |
+| Day 2 (Jausiers → Briançon) | ✅ | ✅ | ✅ | Available |
+| Day 3 | — | — | — | Coming Soon (placeholder) |
+| Day 4 | ✅ | ✅ | ✅ | Available |
+| Day 5 | ✅ | ✅ | ✅ | Available |
+| Day 6 (→ Thonon) | ✅ | ✅ | ✅ | Available |
 
+File path pattern: `/downloads/routes/{format}/RAID_Alpine_Day_{day}.{format}`
+
+### Day 3 Placeholder
+Day 3 route is not yet complete. Show a "Coming Soon" state with disabled download buttons.
+
+---
+
+## Part 1: Day Card Downloads
+
+### Current DayCard Structure
+```
+┌─────────────────────────────────────┐
+│ Day 1                               │
+│ Nice → Jausiers                     │
+│ 145km • 4,200m • 3 cols             │
+│                                     │
+│ Description text...                 │
+│                                     │
+│ [Col badges]                        │
+│ • Highlights                        │
+├─────────────────────────────────────┤
+│ View stage details              →   │
+└─────────────────────────────────────┘
+```
+
+### Proposed: Add Download Dropdown
+```
+┌─────────────────────────────────────┐
+│ Day 1                               │
+│ Nice → Jausiers                     │
+│ 145km • 4,200m • 3 cols             │
+│                                     │
+│ Description text...                 │
+│                                     │
+│ [Col badges]                        │
+│ • Highlights                        │
+├─────────────────────────────────────┤
+│ View stage details              →   │
+│ ↓ Download route  [GPX ▾]           │  ← NEW
+└─────────────────────────────────────┘
+```
+
+**Implementation:**
+- Add a download row below "View stage details"
+- Dropdown to select format (GPX/FIT/TCX)
+- Icon: `heroicons:arrow-down-tray`
+- Only show for riding days (not transit)
+
+---
+
+## Part 2: Home Page Downloads Section
+
+### Location
+Add new section after "Key Info" section (before footer)
+
+### Design
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│                            DOWNLOADS SECTION                                 │
+│                              DOWNLOADS SECTION                               │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │                                                                              │
-│  Eyebrow: ROUTE FILES                                                       │
-│  Title: Download Your Route                                                  │
-│  Description: Get the complete RAID Alpine route files in your              │
-│               preferred GPS format                                           │
+│  Eyebrow: ROUTE FILES                                                        │
+│  Title: Download Your Routes                                                 │
+│  Description: Get the RAID Alpine route files for your GPS device            │
 │                                                                              │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │                                                                              │
-│  ┌─── FORMAT SELECTOR TABS ───────────────────────────────────────────┐     │
-│  │   [ GPX ]    [ FIT ]    [ TCX ]    [ All Formats ]                 │     │
-│  └────────────────────────────────────────────────────────────────────┘     │
-│                                                                              │
-├─────────────────────────────────────────────────────────────────────────────┤
+│  FORMAT INFO CARDS (3 columns)                                               │
 │                                                                              │
 │  ┌─────────────────────┐  ┌─────────────────────┐  ┌─────────────────────┐  │
-│  │ 📥 COMPLETE ROUTE   │  │                     │  │                     │  │
+│  │ 🗺️  GPX              │  │ 📊 FIT              │  │ 📄 TCX              │  │
 │  │                     │  │                     │  │                     │  │
-│  │ All 6 days in one   │  │  Format Info Card   │  │  Device Compat.     │  │
-│  │ download            │  │  (description of    │  │  Card               │  │
-│  │                     │  │   selected format)  │  │                     │  │
-│  │ [Download .gpx]     │  │                     │  │                     │  │
+│  │ Universal format    │  │ Garmin native       │  │ Training Center     │  │
+│  │ Works with most     │  │ format. Best for    │  │ XML format. Broad   │  │
+│  │ apps & devices      │  │ Garmin/Wahoo        │  │ compatibility       │  │
+│  │                     │  │                     │  │                     │  │
+│  │ Strava, Komoot,     │  │ Garmin Edge,        │  │ Garmin, Strava,     │  │
+│  │ RideWithGPS...      │  │ Wahoo ELEMNT...     │  │ TrainingPeaks...    │  │
 │  └─────────────────────┘  └─────────────────────┘  └─────────────────────┘  │
 │                                                                              │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │                                                                              │
-│  INDIVIDUAL DAY DOWNLOADS                                                    │
+│  DOWNLOAD GRID (3 columns on desktop, 2 on tablet, 1 on mobile)             │
 │                                                                              │
 │  ┌──────────────────┐ ┌──────────────────┐ ┌──────────────────┐             │
 │  │ Day 1            │ │ Day 2            │ │ Day 3            │             │
-│  │ Nice → Jausiers  │ │ Jausiers → ...   │ │ ...              │             │
-│  │ 145km • 4,200m ↑ │ │ 128km • 3,800m ↑ │ │                  │             │
-│  │ [Download]       │ │ [Download]       │ │ [Download]       │             │
+│  │ Nice → Jausiers  │ │ Jausiers → ...   │ │ ... → ...        │             │
+│  │ 145km • 4,200m   │ │ 128km • 3,800m   │ │                  │             │
+│  │                  │ │                  │ │  ⏳ Coming Soon  │             │
+│  │ [GPX] [FIT] [TCX]│ │ [GPX] [FIT] [TCX]│ │   (disabled)     │             │
 │  └──────────────────┘ └──────────────────┘ └──────────────────┘             │
 │                                                                              │
 │  ┌──────────────────┐ ┌──────────────────┐ ┌──────────────────┐             │
 │  │ Day 4            │ │ Day 5            │ │ Day 6            │             │
 │  │ ...              │ │ ...              │ │ ... → Thonon     │             │
-│  │                  │ │                  │ │ 132km • 2,900m ↑ │             │
-│  │ [Download]       │ │ [Download]       │ │ [Download]       │             │
+│  │                  │ │                  │ │ 132km • 2,900m   │             │
+│  │                  │ │                  │ │                  │             │
+│  │ [GPX] [FIT] [TCX]│ │ [GPX] [FIT] [TCX]│ │ [GPX] [FIT] [TCX]│             │
 │  └──────────────────┘ └──────────────────┘ └──────────────────┘             │
 │                                                                              │
 └─────────────────────────────────────────────────────────────────────────────┘
@@ -60,103 +124,79 @@ Add a downloads section where users can download the RAID Alpine route files in 
 
 ---
 
-## Implementation Details
+## Component Structure
 
-### Option A: Section on Home Page (Recommended)
+### New Components
 
-Add as a new section on `pages/index.vue` after the "Key Info" section and before the footer.
-
-**Pros:**
-- Everything in one place
-- No additional navigation needed
-- Follows existing page pattern
-
-**Cons:**
-- Makes home page longer
-
-### Option B: Dedicated Downloads Page
-
-Create new page at `pages/downloads.vue` with navigation link.
-
-**Pros:**
-- Clean separation of concerns
-- Room for expansion (guides, PDFs, etc.)
-
-**Cons:**
-- Additional navigation step
-
-### Option C: Add to Route Page
-
-Add downloads section to `pages/route/index.vue`
-
-**Pros:**
-- Contextually relevant (route page = route downloads)
-- Already has day information nearby
-
----
-
-## Components to Create
-
-### 1. `components/downloads/DownloadSection.vue`
-Main section wrapper with format tabs and layout
-
-### 2. `components/downloads/FormatCard.vue`
-Card explaining each format with icon and compatibility info
+#### 1. `components/downloads/FormatInfoCard.vue`
+Explains each format and its compatibility.
 
 ```vue
-<FormatCard
+<FormatInfoCard
   format="gpx"
   icon="mdi:map-marker-path"
-  title="GPX Format"
-  description="Universal GPS format compatible with most apps"
-  :compatibleWith="['Strava', 'Komoot', 'Garmin', 'Wahoo', 'RideWithGPS']"
-  variant="alpine"
+  title="GPX"
+  description="Universal GPS format"
+  :compatibleWith="['Strava', 'Komoot', 'Garmin', 'Wahoo']"
 />
 ```
 
-### 3. `components/downloads/DayDownloadCard.vue`
-Individual day download card
+#### 2. `components/downloads/DownloadCard.vue`
+Card for each day with all format download buttons.
 
 ```vue
-<DayDownloadCard
-  :day="1"
-  start="Nice"
-  finish="Jausiers"
-  :distance="145"
-  :elevation="4200"
+<DownloadCard
+  :day="day"
   :formats="['gpx', 'fit', 'tcx']"
-  :selectedFormat="currentFormat"
 />
 ```
 
-### 4. `components/downloads/BulkDownloadCard.vue`
-Card for downloading all days at once (if we create combined files)
+#### 3. `components/downloads/DownloadButton.vue`
+Reusable download button (used in both DayCard and DownloadCard).
+
+```vue
+<DownloadButton
+  :day="1"
+  format="gpx"
+  variant="compact" <!-- or "full" -->
+/>
+```
+
+### Modified Components
+
+#### `components/route/DayCard.vue`
+Add download dropdown/buttons to existing card.
 
 ---
 
-## Styling Guidelines
+## Styling
 
-### Color Coding by Format
+### Color Scheme by Format
 
-| Format | Color Variant | Hex Color | Icon |
-|--------|--------------|-----------|------|
-| GPX | Alpine (blue) | #0ea5e9 | `mdi:map-marker-path` |
-| FIT | Summit (orange) | #ee7712 | `mdi:file-chart` |
-| TCX | Glacier (teal) | #498181 | `mdi:xml` |
+| Format | Color | Background | Border Hover |
+|--------|-------|------------|--------------|
+| GPX | Alpine (blue) | `bg-alpine-500/20` | `border-alpine-500` |
+| FIT | Summit (orange) | `bg-summit-500/20` | `border-summit-500` |
+| TCX | Glacier (teal) | `bg-glacier-500/20` | `border-glacier-500` |
 
-### Card Styling
-- Use `.glass-dark` background
-- Hover: `.shadow-glow` effect
-- Border: `border-white/10` default, color on hover
-- Icons: 48x48 with gradient background circle
+### Download Buttons
+```css
+/* Compact style (for DayCard) */
+.download-btn-compact {
+  @apply px-3 py-1.5 rounded-lg text-xs font-medium
+         transition-all hover:scale-105;
+}
 
-### Buttons
-- Primary download: `.btn-primary` (summit gradient)
-- Secondary/format toggle: `.btn-secondary` (glass style)
+/* Full style (for Downloads section) */
+.download-btn {
+  @apply px-4 py-2 rounded-lg text-sm font-semibold
+         flex items-center gap-2 transition-all;
+}
+```
 
 ---
 
-## Data Structure Addition
+## Data Structure
 
 Add to `data/route.ts`:
 
@@ -164,7 +204,6 @@ Add to `data/route.ts`:
 export interface DownloadFormat {
   id: 'gpx' | 'fit' | 'tcx'
   name: string
-  extension: string
   icon: string
   description: string
   compatibleWith: string[]
@@ -175,111 +214,87 @@ export const downloadFormats: DownloadFormat[] = [
   {
     id: 'gpx',
     name: 'GPX',
-    extension: '.gpx',
     icon: 'mdi:map-marker-path',
-    description: 'GPS Exchange Format - Universal format supported by most GPS apps and devices',
-    compatibleWith: ['Strava', 'Komoot', 'Garmin Connect', 'Wahoo', 'RideWithGPS', 'Google Maps'],
+    description: 'Universal GPS format compatible with most apps and devices',
+    compatibleWith: ['Strava', 'Komoot', 'Garmin Connect', 'Wahoo', 'RideWithGPS'],
     color: 'alpine'
   },
   {
     id: 'fit',
     name: 'FIT',
-    extension: '.fit',
     icon: 'mdi:file-chart',
-    description: 'Flexible and Interoperable Data Transfer - Native Garmin format with rich data support',
-    compatibleWith: ['Garmin Edge', 'Garmin Forerunner', 'Wahoo ELEMNT', 'Hammerhead Karoo'],
+    description: 'Native Garmin format with rich activity data support',
+    compatibleWith: ['Garmin Edge', 'Garmin Forerunner', 'Wahoo ELEMNT', 'Hammerhead'],
     color: 'summit'
   },
   {
     id: 'tcx',
     name: 'TCX',
-    extension: '.tcx',
-    icon: 'mdi:xml',
-    description: 'Training Center XML - Legacy format with broad compatibility',
+    icon: 'mdi:file-code',
+    description: 'Training Center XML format with broad compatibility',
     compatibleWith: ['Garmin devices', 'Strava', 'TrainingPeaks', 'Zwift'],
     color: 'glacier'
   }
 ]
 
-// File paths helper
-export function getDownloadPath(day: number, format: 'gpx' | 'fit' | 'tcx'): string {
+export function getDownloadUrl(day: number, format: 'gpx' | 'fit' | 'tcx'): string {
   return `/downloads/routes/${format}/RAID_Alpine_Day_${day}.${format}`
+}
+
+export function hasDownload(day: number): boolean {
+  // Day 3 not yet available - returns false for placeholder state
+  return [1, 2, 4, 5, 6].includes(day)
+}
+
+export function isComingSoon(day: number): boolean {
+  // Day 3 route is not yet complete
+  return day === 3
 }
 ```
 
 ---
 
-## File Structure
+## Implementation Steps
 
-Current structure (confirmed from screenshot):
-```
-/downloads/routes/
-├── fit/
-│   └── RAID_Alpine_Day_1.fit ... Day_6.fit
-├── gpx/
-│   └── RAID_Alpine_Day_1.gpx ... Day_6.gpx
-└── tcx/
-    └── RAID_Alpine_Day_1.tcx ... Day_6.tcx
-```
+### Phase 1: Foundation
+- [ ] Add download format types and helper functions to `data/route.ts`
+- [ ] Create `DownloadButton.vue` component
+
+### Phase 2: Day Card Integration
+- [ ] Modify `DayCard.vue` to include download buttons
+- [ ] Add format dropdown or button group
+- [ ] Test on route page and home page
+
+### Phase 3: Home Page Section
+- [ ] Create `FormatInfoCard.vue` component
+- [ ] Create `DownloadCard.vue` component
+- [ ] Add Downloads section to `pages/index.vue`
+- [ ] Style and animate
+
+### Phase 4: Polish
+- [ ] Test all download links work
+- [ ] Verify mobile responsiveness
+- [ ] Add hover effects and transitions
+- [ ] Test across browsers
 
 ---
 
-## User Flow
+## Mobile Considerations
 
-1. User scrolls to Downloads section (or navigates to /downloads)
-2. Sees format explanation cards - understands which format to choose
-3. Selects preferred format via tabs (GPX default)
-4. Can download complete route OR individual days
-5. Download button triggers browser download
+### DayCard Downloads
+- Compact button row: `[GPX] [FIT] [TCX]`
+- Or dropdown menu to save space
 
----
-
-## Animation & Interactions
-
-- Section entrance: Fade up on scroll (existing pattern)
-- Format tabs: Smooth background slide on selection
-- Cards: Staggered entrance animation
-- Download button: Hover glow effect
-- Success feedback: Brief checkmark animation after download starts
+### Home Page Section
+- Format info cards: Stack vertically
+- Download cards: Single column
+- Buttons: Full width, stacked
 
 ---
 
 ## Accessibility
 
-- All buttons have descriptive aria-labels
-- Format tabs use proper tab role/keyboard navigation
-- Download links have clear file format in text
-- Color is not the only indicator (icons + text)
-
----
-
-## Mobile Responsive
-
-- Format tabs: Horizontal scroll or 2x2 grid
-- Day cards: Single column stack
-- Download buttons: Full width on mobile
-- Touch targets: Minimum 44x44px
-
----
-
-## Implementation Steps
-
-1. [ ] Add download format types to `data/route.ts`
-2. [ ] Create `FormatCard.vue` component
-3. [ ] Create `DayDownloadCard.vue` component
-4. [ ] Create `DownloadSection.vue` main component
-5. [ ] Add section to home page OR create downloads page
-6. [ ] Add navigation link (if separate page)
-7. [ ] Test downloads work correctly
-8. [ ] Verify mobile responsiveness
-9. [ ] Add analytics tracking (optional)
-
----
-
-## Future Enhancements
-
-- Combined "All Days" download as single file
-- Cue sheet PDFs
-- Elevation profiles as images
-- Print-friendly route cards
-- Email route to device option
+- Download buttons have aria-labels: "Download Day 1 route in GPX format"
+- Format descriptions visible (not just colors)
+- Keyboard navigable
+- Focus states on all interactive elements
