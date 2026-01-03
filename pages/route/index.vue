@@ -97,6 +97,40 @@
             </template>
           </ClientOnly>
         </div>
+
+        <!-- 3D Flythrough CTA -->
+        <div
+          v-motion
+          :initial="{ opacity: 0, y: 20 }"
+          :visibleOnce="{ opacity: 1, y: 0, transition: { delay: 200 } }"
+          class="mt-8"
+        >
+          <NuxtLink
+            to="/flythrough"
+            class="group block relative overflow-hidden rounded-2xl border border-white/10 hover:border-summit-500/50 transition-all duration-300"
+          >
+            <div class="absolute inset-0 bg-gradient-to-r from-alpine-500/10 via-summit-500/10 to-glacier-500/10 group-hover:opacity-100 opacity-50 transition-opacity" />
+            <div class="relative px-6 py-5 md:px-8 md:py-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+              <div class="flex items-center gap-4">
+                <div class="w-14 h-14 rounded-xl bg-summit-500/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <Icon name="mdi:rotate-3d-variant" class="w-7 h-7 text-summit-400" />
+                </div>
+                <div>
+                  <h3 class="text-lg font-semibold text-white group-hover:text-summit-400 transition-colors">
+                    Experience in 3D
+                  </h3>
+                  <p class="text-sm text-snow-500">
+                    Fly through the Alps with our immersive 3D terrain viewer
+                  </p>
+                </div>
+              </div>
+              <div class="flex items-center gap-2 text-summit-400 group-hover:translate-x-1 transition-transform">
+                <span class="text-sm font-medium">Launch Flythrough</span>
+                <Icon name="heroicons:arrow-right" class="w-5 h-5" />
+              </div>
+            </div>
+          </NuxtLink>
+        </div>
       </div>
     </section>
 
