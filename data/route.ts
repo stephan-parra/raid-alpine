@@ -400,8 +400,8 @@ export const downloadFormats: DownloadFormat[] = [
   }
 ]
 
-export function getDownloadUrl(day: number, format: 'gpx' | 'fit' | 'tcx'): string {
-  return `/downloads/routes/${format}/RAID_Alpine_Day_${day}.${format}`
+export function getDownloadPath(day: number, format: 'gpx' | 'fit' | 'tcx'): string {
+  return `downloads/routes/${format}/RAID_Alpine_Day_${day}.${format}`
 }
 
 export function hasDownload(day: number): boolean {
