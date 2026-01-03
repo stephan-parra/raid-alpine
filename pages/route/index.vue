@@ -207,24 +207,60 @@
       </div>
     </section>
 
-    <!-- GPX Downloads placeholder -->
+    <!-- GPX Downloads -->
     <section class="section bg-slate-900/50">
-      <div class="container-narrow text-center">
-        <div class="glass-dark rounded-3xl p-8 md:p-12">
-          <Icon name="heroicons:arrow-down-tray" class="w-16 h-16 text-summit-400 mx-auto mb-6" />
-          <h2 class="text-3xl font-display text-white mb-4">GPX Files Coming Soon</h2>
-          <p class="text-snow-400 max-w-md mx-auto">
-            Individual stage GPX files and Strava routes will be available for download here.
-            Check back soon for updates.
-          </p>
+      <div class="container-wide">
+        <UiSectionHeading
+          eyebrow="Downloads"
+          title="GPX Files"
+          description="Download individual stage routes for your GPS device or cycling app."
+        />
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div
+            v-for="day in ridingDays"
+            :key="day.day"
+            class="glass-dark rounded-2xl p-6"
+          >
+            <div class="flex items-start justify-between mb-4">
+              <div>
+                <span class="text-sm text-summit-400 font-semibold">Day {{ day.day }}</span>
+                <h3 class="text-lg font-display text-white">{{ day.start }} to {{ day.finish }}</h3>
+                <p class="text-sm text-snow-500">{{ day.distance }}km / {{ day.elevation.toLocaleString() }}m</p>
+              </div>
+              <div class="w-10 h-10 rounded-lg bg-alpine-500/20 flex items-center justify-center">
+                <Icon name="mdi:map-marker-path" class="w-5 h-5 text-alpine-400" />
+              </div>
+            </div>
+
+            <div v-if="hasDownload(day.day)" class="flex gap-2">
+              <a
+                :href="getDownloadUrl(day.day, 'gpx')"
+                download
+                class="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2 bg-alpine-500/20 hover:bg-alpine-500/30 text-alpine-400 rounded-lg text-sm font-medium transition-colors"
+              >
+                <Icon name="heroicons:arrow-down-tray" class="w-4 h-4" />
+                GPX
+              </a>
+            </div>
+
+            <div v-else class="flex items-center gap-2 text-snow-500 text-sm">
+              <Icon name="heroicons:clock" class="w-4 h-4" />
+              <span>Coming soon</span>
+            </div>
+          </div>
         </div>
+
+        <p class="text-center text-snow-500 text-sm mt-6">
+          Compatible with Garmin, Wahoo, Strava, Komoot, and most GPS cycling computers.
+        </p>
       </div>
     </section>
   </div>
 </template>
 
 <script setup lang="ts">
-import { days } from '~/data/route'
+import { days, ridingDays, getDownloadUrl, hasDownload } from '~/data/route'
 
 useHead({
   title: 'The Route',
