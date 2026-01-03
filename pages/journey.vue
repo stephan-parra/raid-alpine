@@ -1,5 +1,13 @@
 <template>
   <div ref="containerRef" class="scrolly-container">
+    <!-- Fixed background image -->
+    <div class="fixed inset-0 -z-20">
+      <img
+        src="/images/raid-alpine-6.jpg"
+        alt="Alpine mountain scenery"
+        class="w-full h-full object-cover opacity-30"
+      />
+    </div>
     <!-- Fixed background gradient that transitions -->
     <div
       class="fixed inset-0 transition-colors duration-1000 -z-10"
