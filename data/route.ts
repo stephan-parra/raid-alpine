@@ -323,6 +323,57 @@ export const featuredCols = [
   },
 ]
 
+// Download format types
+export interface DownloadFormat {
+  id: 'gpx' | 'fit' | 'tcx'
+  name: string
+  icon: string
+  description: string
+  compatibleWith: string[]
+  color: 'alpine' | 'summit' | 'glacier'
+}
+
+export const downloadFormats: DownloadFormat[] = [
+  {
+    id: 'gpx',
+    name: 'GPX',
+    icon: 'mdi:map-marker-path',
+    description: 'Universal GPS format compatible with most apps and devices',
+    compatibleWith: ['Strava', 'Komoot', 'Garmin Connect', 'Wahoo', 'RideWithGPS'],
+    color: 'alpine'
+  },
+  {
+    id: 'fit',
+    name: 'FIT',
+    icon: 'mdi:file-chart',
+    description: 'Native Garmin format with rich activity data support',
+    compatibleWith: ['Garmin Edge', 'Garmin Forerunner', 'Wahoo ELEMNT', 'Hammerhead'],
+    color: 'summit'
+  },
+  {
+    id: 'tcx',
+    name: 'TCX',
+    icon: 'mdi:file-code',
+    description: 'Training Center XML format with broad compatibility',
+    compatibleWith: ['Garmin devices', 'Strava', 'TrainingPeaks', 'Zwift'],
+    color: 'glacier'
+  }
+]
+
+export function getDownloadUrl(day: number, format: 'gpx' | 'fit' | 'tcx'): string {
+  return `/downloads/routes/${format}/RAID_Alpine_Day_${day}.${format}`
+}
+
+export function hasDownload(day: number): boolean {
+  // Day 3 not yet available - returns false for placeholder state
+  return [1, 2, 4, 5, 6].includes(day)
+}
+
+export function isComingSoon(day: number): boolean {
+  // Day 3 route is not yet complete
+  return day === 3
+}
+
 // Route coordinates for map (riding days only)
 export const routeCoordinates: [number, number][] = [
   [6.4793, 46.3706], // Thonon-les-Bains
