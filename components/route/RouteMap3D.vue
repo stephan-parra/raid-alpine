@@ -290,7 +290,7 @@ const initMap = async () => {
       },
       center: routePoints[0],
       zoom: 11.5, // Higher altitude view
-      pitch: 25, // Tilted up to see further into distance
+      pitch: 55, // Angled to see terrain ahead
       bearing: initialBearing,
       attributionControl: false,
       maxPitch: 85,
@@ -506,11 +506,18 @@ function animateFlythrough() {
   // Smooth the bearing change
   smoothedBearing = lerpBearing(smoothedBearing, targetBearing, bearingSmoothFactor)
 
-  // Fixed high altitude, directly over the route, looking forward
+  // Offset camera center ahead of current position so we look forward into the distance
+  // This creates a proper forward-looking view rather than looking straight down
+  const offsetDistance = 0.015 // degrees (~1.5km ahead)
+  const bearingRad = smoothedBearing * Math.PI / 180
+  const lookAtLng = lng + Math.sin(bearingRad) * offsetDistance
+  const lookAtLat = lat + Math.cos(bearingRad) * offsetDistance
+
+  // Fixed high altitude, looking forward along the route
   map.easeTo({
-    center: [lng, lat],
-    zoom: 11.5, // Higher altitude
-    pitch: 25,
+    center: [lookAtLng, lookAtLat],
+    zoom: 11.5,
+    pitch: 55, // Higher pitch to see terrain ahead
     bearing: smoothedBearing,
     duration: 0,
   })
@@ -560,7 +567,7 @@ function restartFlythrough() {
     map.easeTo({
       center: routePoints[0],
       zoom: 11.5,
-      pitch: 25,
+      pitch: 55,
       bearing: initialBearing,
       duration: 1000,
     })
