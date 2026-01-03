@@ -19,7 +19,7 @@
       <div class="absolute bottom-1/4 -right-32 w-96 h-96 bg-alpine-500/20 rounded-full blur-3xl animate-float animation-delay-1000" />
 
       <!-- Content -->
-      <div class="relative z-10 container-wide text-center pt-20">
+      <div class="relative z-10 container-wide text-center pt-20 pb-28">
         <!-- Eyebrow -->
         <div
           v-motion
