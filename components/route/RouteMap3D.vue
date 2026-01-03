@@ -73,7 +73,7 @@
     </div>
 
     <!-- Current elevation display -->
-    <div v-if="mapLoaded" class="absolute top-6 right-6 z-10">
+    <div v-if="mapLoaded" class="absolute top-20 right-6 z-10">
       <div class="glass rounded-xl p-4 text-right">
         <div class="text-xs text-snow-500 uppercase tracking-wider mb-1">Altitude</div>
         <div class="text-3xl font-bebas text-white">{{ currentElevation.toLocaleString() }}m</div>
@@ -81,15 +81,15 @@
     </div>
 
     <!-- Day indicator -->
-    <div v-if="mapLoaded && currentDay > 0" class="absolute top-6 left-6 z-10">
+    <div v-if="mapLoaded && currentDay > 0" class="absolute top-20 left-6 z-10">
       <div class="glass rounded-xl p-4">
         <div class="text-xs text-summit-400 uppercase tracking-wider mb-1">Day {{ currentDay }}</div>
         <div class="text-lg font-semibold text-white">{{ currentStageName }}</div>
       </div>
     </div>
 
-    <!-- Toggle terrain button -->
-    <div v-if="mapLoaded" class="absolute top-6 left-1/2 -translate-x-1/2 z-10">
+    <!-- Toggle terrain exaggeration - moved lower to avoid nav conflicts -->
+    <div v-if="mapLoaded" class="absolute top-20 left-1/2 -translate-x-1/2 z-10">
       <div class="glass rounded-xl p-2 flex gap-2">
         <button
           @click="terrainExaggeration = 1.0"
@@ -121,10 +121,10 @@
       </div>
     </div>
 
-    <!-- Exit button -->
+    <!-- Exit button (mobile) -->
     <NuxtLink
       to="/route"
-      class="absolute top-6 right-6 z-20 md:hidden glass rounded-full p-3"
+      class="absolute top-20 right-6 z-20 md:hidden glass rounded-full p-3"
       aria-label="Exit flythrough"
     >
       <Icon name="heroicons:x-mark" class="w-6 h-6 text-white" />
@@ -134,7 +134,7 @@
 
 <script setup lang="ts">
 import { routeCoordinates, days } from '~/data/route'
-import type { Map as MaplibreMap } from 'maplibre-gl'
+import type { Map as MaplibreMap, LngLatLike } from 'maplibre-gl'
 
 const mapContainer = ref<HTMLElement | null>(null)
 const mapLoaded = ref(false)
@@ -145,7 +145,7 @@ const isPlaying = ref(false)
 const progress = ref(0)
 const flythroughSpeed = ref(1)
 const terrainExaggeration = ref(1.5)
-const currentElevation = ref(372) // Start at Lake Geneva elevation
+const currentElevation = ref(372)
 const currentDay = ref(0)
 const currentLocationName = ref('Thonon-les-Bains')
 const currentStageName = ref('')
@@ -155,50 +155,44 @@ let maplibreModule: typeof import('maplibre-gl') | null = null
 let animationFrame: number | null = null
 let lastTimestamp: number = 0
 
-// Extended route with more interpolated points for smooth camera path
-const extendedRoute = computed(() => {
-  const points: [number, number, number][] = []
+// Densely interpolated route for smooth camera path
+const denseRoute = computed(() => {
+  const points: [number, number][] = []
 
-  // Interpolate between waypoints for smoother camera movement
   for (let i = 0; i < routeCoordinates.length - 1; i++) {
     const start = routeCoordinates[i]
     const end = routeCoordinates[i + 1]
-    const steps = 50 // Points between each waypoint
+    const steps = 100 // More points for smoother path
 
-    for (let j = 0; j <= steps; j++) {
+    for (let j = 0; j < steps; j++) {
       const t = j / steps
       const lng = start[0] + (end[0] - start[0]) * t
       const lat = start[1] + (end[1] - start[1]) * t
-      // Estimate elevation based on route profile (simplified)
-      const baseElevation = getEstimatedElevation(i, t)
-      points.push([lng, lat, baseElevation])
+      points.push([lng, lat])
     }
   }
+  // Add final point
+  points.push(routeCoordinates[routeCoordinates.length - 1])
 
   return points
 })
 
-// Rough elevation estimates for camera height
-function getEstimatedElevation(segment: number, t: number): number {
-  const elevations = [
-    [372, 1200],   // Day 1: Thonon to La Clusaz
-    [1200, 1800],  // Day 2: La Clusaz to Sainte-Foy
-    [1800, 1500],  // Day 3: Sainte-Foy to Valloire (over Iseran 2770)
-    [1500, 1800],  // Day 4: Valloire to Vars (over Galibier 2642)
-    [1800, 1400],  // Day 5: Vars to Valberg (over Bonette 2802)
-    [1400, 0],     // Day 6: Valberg to Nice
-  ]
+// Get terrain elevation at a point
+function getTerrainElevation(lng: number, lat: number): number {
+  if (!map) return 0
 
-  if (segment >= elevations.length) return 0
-
-  const [startElev, endElev] = elevations[segment]
-  return startElev + (endElev - startElev) * t
+  try {
+    const elevation = map.queryTerrainElevation([lng, lat] as LngLatLike)
+    return elevation || 0
+  } catch {
+    return 0
+  }
 }
 
 // Get day info based on progress
 function updateDayInfo(progressValue: number) {
   const segmentIndex = Math.floor(progressValue * (routeCoordinates.length - 1))
-  const dayIndex = Math.min(segmentIndex + 1, days.length - 2) // +1 because day 0 is transit
+  const dayIndex = Math.min(segmentIndex + 1, days.length - 2)
 
   const locations = [
     'Thonon-les-Bains',
@@ -230,14 +224,12 @@ const initMap = async () => {
 
     loadingText.value = 'Initializing 3D terrain...'
 
-    // Create map with 3D terrain capabilities
     map = new maplibregl.Map({
       container: mapContainer.value,
       style: {
         version: 8,
         glyphs: 'https://demotiles.maplibre.org/font/{fontstack}/{range}.pbf',
         sources: {
-          // Satellite imagery for terrain texture
           'satellite': {
             type: 'raster',
             tiles: [
@@ -247,7 +239,6 @@ const initMap = async () => {
             attribution: '&copy; Esri',
             maxzoom: 18,
           },
-          // Terrain DEM source
           'terrainSource': {
             type: 'raster-dem',
             tiles: [
@@ -257,7 +248,6 @@ const initMap = async () => {
             maxzoom: 15,
             encoding: 'terrarium',
           },
-          // Hillshade for depth
           'hillshadeSource': {
             type: 'raster-dem',
             tiles: [
@@ -269,7 +259,6 @@ const initMap = async () => {
           },
         },
         layers: [
-          // Satellite base layer
           {
             id: 'satellite-layer',
             type: 'raster',
@@ -277,7 +266,6 @@ const initMap = async () => {
             minzoom: 0,
             maxzoom: 18,
           },
-          // Hillshade overlay for depth
           {
             id: 'hillshade',
             type: 'hillshade',
@@ -303,9 +291,9 @@ const initMap = async () => {
           exaggeration: terrainExaggeration.value,
         },
       },
-      center: [6.4793, 46.3706], // Start at Thonon-les-Bains
-      zoom: 12,
-      pitch: 75,
+      center: routeCoordinates[0],
+      zoom: 14,
+      pitch: 80,
       bearing: 150,
       attributionControl: false,
       maxPitch: 85,
@@ -316,7 +304,7 @@ const initMap = async () => {
 
       loadingText.value = 'Adding route...'
 
-      // Add route source
+      // Add route source with all coordinates
       map.addSource('route', {
         type: 'geojson',
         data: {
@@ -329,7 +317,7 @@ const initMap = async () => {
         },
       })
 
-      // Route line glow (outer)
+      // Route glow outer
       map.addLayer({
         id: 'route-glow-outer',
         type: 'line',
@@ -341,12 +329,12 @@ const initMap = async () => {
         paint: {
           'line-color': '#f19333',
           'line-width': 20,
-          'line-opacity': 0.2,
+          'line-opacity': 0.3,
           'line-blur': 10,
         },
       })
 
-      // Route line glow (inner)
+      // Route glow inner
       map.addLayer({
         id: 'route-glow',
         type: 'line',
@@ -358,7 +346,7 @@ const initMap = async () => {
         paint: {
           'line-color': '#f19333',
           'line-width': 10,
-          'line-opacity': 0.4,
+          'line-opacity': 0.5,
           'line-blur': 4,
         },
       })
@@ -374,13 +362,13 @@ const initMap = async () => {
         },
         paint: {
           'line-color': '#f19333',
-          'line-width': 5,
+          'line-width': 6,
         },
       })
 
       mapLoaded.value = true
 
-      // Start with a nice overview, then begin flythrough
+      // Brief pause then start
       setTimeout(() => {
         startFlythrough()
       }, 1500)
@@ -397,11 +385,15 @@ const initMap = async () => {
   }
 }
 
-// Camera animation along route
+// Smooth value tracking for camera height
+let smoothedElevation = 372
+const elevationSmoothFactor = 0.1
+
 function startFlythrough() {
   if (!map) return
   isPlaying.value = true
   lastTimestamp = performance.now()
+  smoothedElevation = getTerrainElevation(routeCoordinates[0][0], routeCoordinates[0][1]) || 372
   animateFlythrough()
 }
 
@@ -409,11 +401,11 @@ function animateFlythrough() {
   if (!map || !isPlaying.value) return
 
   const now = performance.now()
-  const delta = (now - lastTimestamp) / 1000 // seconds
+  const delta = (now - lastTimestamp) / 1000
   lastTimestamp = now
 
-  // Progress speed (adjust for desired flythrough duration)
-  const baseSpeed = 0.008 // ~2 minutes for full route at 1x
+  // Slower speed for more immersive experience
+  const baseSpeed = 0.005
   progress.value += delta * baseSpeed * flythroughSpeed.value
 
   if (progress.value >= 1) {
@@ -422,32 +414,50 @@ function animateFlythrough() {
     return
   }
 
-  // Get current position on route
-  const routeProgress = progress.value * (extendedRoute.value.length - 1)
-  const currentIndex = Math.floor(routeProgress)
-  const nextIndex = Math.min(currentIndex + 1, extendedRoute.value.length - 1)
-  const t = routeProgress - currentIndex
+  // Get current position on dense route
+  const routeIndex = progress.value * (denseRoute.value.length - 1)
+  const currentIdx = Math.floor(routeIndex)
+  const nextIdx = Math.min(currentIdx + 1, denseRoute.value.length - 1)
+  const t = routeIndex - currentIdx
 
-  const current = extendedRoute.value[currentIndex]
-  const next = extendedRoute.value[nextIndex]
+  const current = denseRoute.value[currentIdx]
+  const next = denseRoute.value[nextIdx]
 
   // Interpolate position
   const lng = current[0] + (next[0] - current[0]) * t
   const lat = current[1] + (next[1] - current[1]) * t
-  const elevation = current[2] + (next[2] - current[2]) * t
 
-  currentElevation.value = Math.round(elevation)
+  // Get actual terrain elevation at current position
+  const terrainHeight = getTerrainElevation(lng, lat)
+
+  // Smooth the elevation changes for less jarring movement
+  smoothedElevation = smoothedElevation + (terrainHeight - smoothedElevation) * elevationSmoothFactor
+
+  // Update displayed elevation (terrain height, not camera height)
+  currentElevation.value = Math.round(smoothedElevation)
   updateDayInfo(progress.value)
 
   // Calculate bearing based on direction of travel
   const bearing = calculateBearing(current[0], current[1], next[0], next[1])
 
-  // Update camera position
+  // Camera follows terrain - positioned above ground level
+  // The camera height is handled by MapLibre's 3D terrain automatically
+  // We just set center and it places camera appropriately above terrain
+
+  // Dynamic zoom based on terrain - zoom in more in valleys, out on peaks
+  const baseZoom = 14.5
+  const elevationFactor = Math.min(smoothedElevation / 2500, 1) // 0 to 1 based on elevation
+  const dynamicZoom = baseZoom - elevationFactor * 1.5 // Zoom out slightly at higher elevations
+
+  // Dynamic pitch - more level when high, steeper when low
+  const basePitch = 78
+  const pitchVariation = Math.sin(progress.value * Math.PI * 6) * 5 // Gentle oscillation
+
   map.easeTo({
     center: [lng, lat],
-    zoom: 13 + (elevation / 3000) * 1.5, // Zoom out at higher elevations
-    pitch: 70 + Math.sin(progress.value * Math.PI * 4) * 10, // Subtle pitch variation
-    bearing: bearing + 30, // Offset to show route ahead
+    zoom: dynamicZoom,
+    pitch: basePitch + pitchVariation,
+    bearing: bearing + 20, // Slight offset to see route ahead
     duration: 0,
   })
 
@@ -484,12 +494,13 @@ function restartFlythrough() {
   currentElevation.value = 372
   currentDay.value = 0
   currentLocationName.value = 'Thonon-les-Bains'
+  smoothedElevation = 372
 
   if (map) {
     map.easeTo({
       center: routeCoordinates[0],
-      zoom: 12,
-      pitch: 75,
+      zoom: 14,
+      pitch: 80,
       bearing: 150,
       duration: 1000,
     })
@@ -500,7 +511,6 @@ function restartFlythrough() {
   }, 1200)
 }
 
-// Watch terrain exaggeration changes
 watch(terrainExaggeration, (newValue) => {
   if (map) {
     map.setTerrain({
