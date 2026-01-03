@@ -1,5 +1,11 @@
 <template>
   <div class="relative">
-    <slot />
+    <!-- Navigation -->
+    <LayoutNavbar />
+
+    <!-- Main Content (no footer for immersive experience) -->
+    <main>
+      <slot />
+    </main>
   </div>
 </template>
