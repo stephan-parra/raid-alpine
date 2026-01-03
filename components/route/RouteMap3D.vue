@@ -144,7 +144,7 @@ const loadingText = ref('Loading 3D terrain...')
 // Flythrough state
 const isPlaying = ref(false)
 const progress = ref(0)
-const flythroughSpeed = ref(2) // Default to 2x speed
+const flythroughSpeed = ref(1) // Default to 1x speed
 const terrainExaggeration = ref(1.5)
 const currentDay = ref(0)
 const currentLocationName = ref('Thonon-les-Bains')
@@ -281,7 +281,7 @@ const initMap = async () => {
         },
       },
       center: routePoints[0],
-      zoom: 13,
+      zoom: 11.5, // Higher altitude view
       pitch: 45, // More forward-looking angle
       bearing: initialBearing,
       attributionControl: false,
@@ -438,7 +438,7 @@ function animateFlythrough() {
   // Fixed high altitude, directly over the route, looking forward
   map.easeTo({
     center: [lng, lat],
-    zoom: 13,
+    zoom: 11.5, // Higher altitude
     pitch: 45,
     bearing: smoothedBearing,
     duration: 0,
@@ -488,7 +488,7 @@ function restartFlythrough() {
   if (map) {
     map.easeTo({
       center: routePoints[0],
-      zoom: 13,
+      zoom: 11.5,
       pitch: 45,
       bearing: initialBearing,
       duration: 1000,
