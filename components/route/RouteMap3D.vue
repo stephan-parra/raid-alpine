@@ -58,7 +58,7 @@
         <div class="hidden md:flex items-center gap-2">
           <span class="text-xs text-snow-500">Speed:</span>
           <button
-            v-for="speed in [0.5, 1, 2]"
+            v-for="speed in [1, 2, 4]"
             :key="speed"
             @click="flythroughSpeed = speed"
             class="px-2 py-1 rounded text-xs transition-colors"
@@ -133,7 +133,8 @@
 </template>
 
 <script setup lang="ts">
-import { routeCoordinates, days } from '~/data/route'
+import { detailedRouteCoordinates } from '~/data/detailedRoute'
+import { days } from '~/data/route'
 import type { Map as MaplibreMap } from 'maplibre-gl'
 
 const mapContainer = ref<HTMLElement | null>(null)
@@ -143,7 +144,7 @@ const loadingText = ref('Loading 3D terrain...')
 // Flythrough state
 const isPlaying = ref(false)
 const progress = ref(0)
-const flythroughSpeed = ref(1)
+const flythroughSpeed = ref(2) // Default to 2x speed
 const terrainExaggeration = ref(1.5)
 const currentDay = ref(0)
 const currentLocationName = ref('Thonon-les-Bains')
@@ -158,51 +159,35 @@ let lastTimestamp: number = 0
 // Total route distance
 const totalDistance = 763
 
-// Densely interpolated route for smooth camera path
-const denseRoute = computed(() => {
-  const points: [number, number][] = []
+// Use detailed route coordinates from GPX files
+const routePoints = detailedRouteCoordinates
 
-  for (let i = 0; i < routeCoordinates.length - 1; i++) {
-    const start = routeCoordinates[i]
-    const end = routeCoordinates[i + 1]
-    const steps = 150 // Many points for very smooth path
+// Day boundaries (approximate indices in the route)
+const dayBoundaries = [
+  { index: 0, day: 1, name: 'Thonon-les-Bains → La Clusaz' },
+  { index: 171, day: 2, name: 'La Clusaz → Sainte-Foy' },
+  { index: 358, day: 3, name: 'Sainte-Foy → Valloire' },
+  { index: 481, day: 4, name: 'Valloire → Vars' },
+  { index: 604, day: 5, name: 'Vars → Valberg' },
+  { index: 726, day: 6, name: 'Valberg → Nice' },
+]
 
-    for (let j = 0; j < steps; j++) {
-      const t = j / steps
-      const lng = start[0] + (end[0] - start[0]) * t
-      const lat = start[1] + (end[1] - start[1]) * t
-      points.push([lng, lat])
+// Get day info based on route index
+function updateDayInfo(routeIndex: number) {
+  let currentDayInfo = dayBoundaries[0]
+  for (const boundary of dayBoundaries) {
+    if (routeIndex >= boundary.index) {
+      currentDayInfo = boundary
     }
   }
-  // Add final point
-  points.push(routeCoordinates[routeCoordinates.length - 1])
+  currentDay.value = currentDayInfo.day
+  currentStageName.value = currentDayInfo.name
+  currentDistance.value = Math.round((routeIndex / routePoints.length) * totalDistance)
 
-  return points
-})
-
-// Get day info based on progress
-function updateDayInfo(progressValue: number) {
-  const segmentIndex = Math.floor(progressValue * (routeCoordinates.length - 1))
-  const dayIndex = Math.min(segmentIndex + 1, days.length - 2)
-
-  const locations = [
-    'Thonon-les-Bains',
-    'La Clusaz',
-    'Sainte-Foy-Tarentaise',
-    'Valloire',
-    'Vars',
-    'Valberg',
-    'Nice'
-  ]
-
-  currentDay.value = dayIndex
-  currentLocationName.value = locations[Math.min(segmentIndex, locations.length - 1)]
-  currentDistance.value = Math.round(progressValue * totalDistance)
-
-  if (dayIndex > 0 && dayIndex < days.length - 1) {
-    const day = days[dayIndex]
-    currentStageName.value = `${day.start} → ${day.finish}`
-  }
+  // Update location name based on progress
+  const locations = ['Thonon-les-Bains', 'La Clusaz', 'Sainte-Foy', 'Valloire', 'Vars', 'Valberg', 'Nice']
+  const dayIdx = Math.min(currentDayInfo.day - 1, locations.length - 1)
+  currentLocationName.value = locations[dayIdx]
 }
 
 const initMap = async () => {
@@ -216,12 +201,12 @@ const initMap = async () => {
 
     loadingText.value = 'Initializing 3D terrain...'
 
-    // Calculate initial bearing from first two points
+    // Calculate initial bearing
     const initialBearing = calculateBearing(
-      routeCoordinates[0][0],
-      routeCoordinates[0][1],
-      routeCoordinates[1][0],
-      routeCoordinates[1][1]
+      routePoints[0][0],
+      routePoints[0][1],
+      routePoints[10][0],
+      routePoints[10][1]
     )
 
     map = new maplibregl.Map({
@@ -291,9 +276,9 @@ const initMap = async () => {
           exaggeration: terrainExaggeration.value,
         },
       },
-      center: routeCoordinates[0],
-      zoom: 12,
-      pitch: 60,
+      center: routePoints[0],
+      zoom: 13,
+      pitch: 45, // More forward-looking angle
       bearing: initialBearing,
       attributionControl: false,
       maxPitch: 85,
@@ -304,7 +289,7 @@ const initMap = async () => {
 
       loadingText.value = 'Adding route...'
 
-      // Add route source
+      // Add detailed route source
       map.addSource('route', {
         type: 'geojson',
         data: {
@@ -312,7 +297,7 @@ const initMap = async () => {
           properties: {},
           geometry: {
             type: 'LineString',
-            coordinates: routeCoordinates,
+            coordinates: routePoints,
           },
         },
       })
@@ -399,8 +384,8 @@ function animateFlythrough() {
   const delta = (now - lastTimestamp) / 1000
   lastTimestamp = now
 
-  // Speed control - about 3 minutes at 1x for full route
-  const baseSpeed = 0.004
+  // Faster base speed - completes in ~60 seconds at 1x
+  const baseSpeed = 0.015
   progress.value += delta * baseSpeed * flythroughSpeed.value
 
   if (progress.value >= 1) {
@@ -409,30 +394,32 @@ function animateFlythrough() {
     return
   }
 
-  // Get current position on dense route
-  const routeIndex = progress.value * (denseRoute.value.length - 1)
+  // Get current position on route
+  const routeIndex = progress.value * (routePoints.length - 1)
   const currentIdx = Math.floor(routeIndex)
-  const nextIdx = Math.min(currentIdx + 1, denseRoute.value.length - 1)
+  const nextIdx = Math.min(currentIdx + 1, routePoints.length - 1)
   const t = routeIndex - currentIdx
 
-  const current = denseRoute.value[currentIdx]
-  const next = denseRoute.value[nextIdx]
+  const current = routePoints[currentIdx]
+  const next = routePoints[nextIdx]
 
-  // Interpolate position - camera directly over the route
+  // Interpolate position
   const lng = current[0] + (next[0] - current[0]) * t
   const lat = current[1] + (next[1] - current[1]) * t
 
-  updateDayInfo(progress.value)
+  updateDayInfo(currentIdx)
 
-  // Calculate bearing - point camera in direction of travel
-  const bearing = calculateBearing(current[0], current[1], next[0], next[1])
+  // Calculate bearing - look ahead several points for smoother direction
+  const lookAheadIdx = Math.min(currentIdx + 5, routePoints.length - 1)
+  const lookAhead = routePoints[lookAheadIdx]
+  const bearing = calculateBearing(current[0], current[1], lookAhead[0], lookAhead[1])
 
-  // Fixed high altitude, directly over the route
+  // Fixed high altitude, directly over the route, looking forward
   map.easeTo({
     center: [lng, lat],
-    zoom: 12, // Fixed zoom for consistent high altitude
-    pitch: 60, // Looking forward along the route
-    bearing: bearing, // Directly following the route direction
+    zoom: 13,
+    pitch: 45, // Lower pitch = looking more forward/horizontal
+    bearing: bearing,
     duration: 0,
   })
 
@@ -466,22 +453,22 @@ function toggleFlythrough() {
 
 function restartFlythrough() {
   progress.value = 0
-  currentDay.value = 0
+  currentDay.value = 1
   currentLocationName.value = 'Thonon-les-Bains'
   currentDistance.value = 0
 
   const initialBearing = calculateBearing(
-    routeCoordinates[0][0],
-    routeCoordinates[0][1],
-    routeCoordinates[1][0],
-    routeCoordinates[1][1]
+    routePoints[0][0],
+    routePoints[0][1],
+    routePoints[10][0],
+    routePoints[10][1]
   )
 
   if (map) {
     map.easeTo({
-      center: routeCoordinates[0],
-      zoom: 12,
-      pitch: 60,
+      center: routePoints[0],
+      zoom: 13,
+      pitch: 45,
       bearing: initialBearing,
       duration: 1000,
     })
