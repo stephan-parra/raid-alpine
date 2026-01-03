@@ -42,10 +42,11 @@
       </p>
 
       <h1
-        class="text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 transition-all duration-700 delay-200"
+        class="text-display-lg md:text-display-xl lg:text-display-2xl font-display tracking-tight mb-6 transition-all duration-700 delay-200"
         :class="isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'"
       >
-        <span class="text-gradient">RAID</span> Alpine
+        <span class="text-white">RAID</span>
+        <span class="text-gradient"> ALPINE</span>
       </h1>
 
       <p
@@ -57,24 +58,24 @@
 
       <!-- Stats row -->
       <div
-        class="flex flex-wrap justify-center gap-8 md:gap-12 mb-12 transition-all duration-700 delay-500"
+        class="flex flex-wrap justify-center gap-8 md:gap-16 mb-12 transition-all duration-700 delay-500"
         :class="isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'"
       >
         <div class="text-center">
-          <div class="text-3xl md:text-4xl font-bold text-summit-400">{{ routeStats.totalDistance }}</div>
-          <div class="text-snow-500 text-sm">Kilometers</div>
+          <div class="text-4xl md:text-5xl font-display text-white">{{ routeStats.totalDistance }}</div>
+          <div class="text-sm text-snow-500 uppercase tracking-wider mt-1">Kilometres</div>
         </div>
         <div class="text-center">
-          <div class="text-3xl md:text-4xl font-bold text-summit-400">{{ routeStats.totalElevation.toLocaleString() }}</div>
-          <div class="text-snow-500 text-sm">Meters Climbed</div>
+          <div class="text-4xl md:text-5xl font-display text-gradient">{{ routeStats.totalElevation.toLocaleString() }}</div>
+          <div class="text-sm text-snow-500 uppercase tracking-wider mt-1">Metres Climbing</div>
         </div>
         <div class="text-center">
-          <div class="text-3xl md:text-4xl font-bold text-summit-400">{{ routeStats.ridingDays }}</div>
-          <div class="text-snow-500 text-sm">Epic Days</div>
+          <div class="text-4xl md:text-5xl font-display text-white">{{ routeStats.ridingDays }}</div>
+          <div class="text-sm text-snow-500 uppercase tracking-wider mt-1">Riding Days</div>
         </div>
         <div class="text-center">
-          <div class="text-3xl md:text-4xl font-bold text-summit-400">{{ routeStats.highestPoint }}</div>
-          <div class="text-snow-500 text-sm">Peak Altitude</div>
+          <div class="text-4xl md:text-5xl font-display text-gradient">{{ routeStats.highestPoint }}</div>
+          <div class="text-sm text-snow-500 uppercase tracking-wider mt-1">Highest Point (m)</div>
         </div>
       </div>
 
@@ -103,17 +104,6 @@ defineProps<{
 </script>
 
 <style scoped>
-.text-gradient {
-  @apply bg-gradient-to-r from-alpine-400 via-summit-400 to-alpine-400 bg-clip-text text-transparent;
-  background-size: 200% auto;
-  animation: gradient-shift 8s ease infinite;
-}
-
-@keyframes gradient-shift {
-  0%, 100% { background-position: 0% center; }
-  50% { background-position: 100% center; }
-}
-
 .animate-float {
   animation: float 6s ease-in-out infinite;
 }
