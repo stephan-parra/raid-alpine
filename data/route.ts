@@ -136,7 +136,7 @@ export const days: DayStage[] = [
       { name: 'Col du Télégraphe', elevation: 1566, length: 11.8, avgGrade: 7.1, maxGrade: 9.8, description: 'A steady first-category climb often used as a warm-up for the Galibier.', tourAppearances: 38 },
     ],
     highlights: ['Highest paved pass in Alps', '36km epic climb', 'Maurienne Valley'],
-    rideWithGPSEmbed: 'https://ridewithgps.com/embeds?type=route&id=52996478&metricUnits=true&sampleGraph=true&distanceMarkers=true&privacyCode=3GdVOGi89e7bNmVAZxMma7gRAEvEoX8P',
+    rideWithGPSEmbed: 'https://ridewithgps.com/embeds?type=route&id=53643775&metricUnits=true&sampleGraph=true&distanceMarkers=true&privacyCode=ujLMaMNzIOmBFwEZYy2XGiEZWlY1tsen',
     coordinates: {
       start: [6.8807, 45.5842],
       end: [6.4283, 45.1647],
