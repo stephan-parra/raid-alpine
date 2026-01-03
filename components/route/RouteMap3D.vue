@@ -156,20 +156,24 @@ let maplibreModule: typeof import('maplibre-gl') | null = null
 let animationFrame: number | null = null
 let lastTimestamp: number = 0
 
+// Smoothing state
+let smoothedBearing = 0
+const bearingSmoothFactor = 0.05 // Lower = smoother (0.05 = very smooth)
+
 // Total route distance
 const totalDistance = 763
 
-// Use detailed route coordinates from GPX files
-const routePoints = detailedRouteCoordinates
+// Sample every 3rd point for smoother movement (reduces jerkiness)
+const routePoints = detailedRouteCoordinates.filter((_, i) => i % 3 === 0)
 
-// Day boundaries (approximate indices in the route)
+// Day boundaries (approximate indices in sampled route - divided by 3)
 const dayBoundaries = [
   { index: 0, day: 1, name: 'Thonon-les-Bains → La Clusaz' },
-  { index: 171, day: 2, name: 'La Clusaz → Sainte-Foy' },
-  { index: 358, day: 3, name: 'Sainte-Foy → Valloire' },
-  { index: 481, day: 4, name: 'Valloire → Vars' },
-  { index: 604, day: 5, name: 'Vars → Valberg' },
-  { index: 726, day: 6, name: 'Valberg → Nice' },
+  { index: 57, day: 2, name: 'La Clusaz → Sainte-Foy' },
+  { index: 119, day: 3, name: 'Sainte-Foy → Valloire' },
+  { index: 160, day: 4, name: 'Valloire → Vars' },
+  { index: 201, day: 5, name: 'Vars → Valberg' },
+  { index: 242, day: 6, name: 'Valberg → Nice' },
 ]
 
 // Get day info based on route index
@@ -374,7 +378,21 @@ function startFlythrough() {
   if (!map) return
   isPlaying.value = true
   lastTimestamp = performance.now()
+
+  // Initialize smoothed bearing from starting direction
+  const initialBearing = calculateBearing(
+    routePoints[0][0], routePoints[0][1],
+    routePoints[10][0], routePoints[10][1]
+  )
+  smoothedBearing = initialBearing
+
   animateFlythrough()
+}
+
+// Smoothly interpolate between two bearings (handles 360° wraparound)
+function lerpBearing(from: number, to: number, t: number): number {
+  const diff = ((to - from + 540) % 360) - 180
+  return (from + diff * t + 360) % 360
 }
 
 function animateFlythrough() {
@@ -384,7 +402,7 @@ function animateFlythrough() {
   const delta = (now - lastTimestamp) / 1000
   lastTimestamp = now
 
-  // Faster base speed - completes in ~60 seconds at 1x
+  // Base speed - completes in ~60 seconds at 1x
   const baseSpeed = 0.015
   progress.value += delta * baseSpeed * flythroughSpeed.value
 
@@ -409,17 +427,20 @@ function animateFlythrough() {
 
   updateDayInfo(currentIdx)
 
-  // Calculate bearing - look ahead several points for smoother direction
-  const lookAheadIdx = Math.min(currentIdx + 5, routePoints.length - 1)
+  // Calculate target bearing - look far ahead for smooth direction
+  const lookAheadIdx = Math.min(currentIdx + 15, routePoints.length - 1)
   const lookAhead = routePoints[lookAheadIdx]
-  const bearing = calculateBearing(current[0], current[1], lookAhead[0], lookAhead[1])
+  const targetBearing = calculateBearing(current[0], current[1], lookAhead[0], lookAhead[1])
+
+  // Smooth the bearing change
+  smoothedBearing = lerpBearing(smoothedBearing, targetBearing, bearingSmoothFactor)
 
   // Fixed high altitude, directly over the route, looking forward
   map.easeTo({
     center: [lng, lat],
     zoom: 13,
-    pitch: 45, // Lower pitch = looking more forward/horizontal
-    bearing: bearing,
+    pitch: 45,
+    bearing: smoothedBearing,
     duration: 0,
   })
 
