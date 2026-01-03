@@ -217,7 +217,7 @@ const initMap = async () => {
       container: mapContainer.value,
       style: {
         version: 8,
-        glyphs: 'https://protomaps.github.io/basemaps-assets/fonts/{fontstack}/{range}.pbf',
+        glyphs: 'https://api.maptiler.com/fonts/{fontstack}/{range}.pbf?key=get_your_own_OpIi9ZULNHzrESv6T2vL',
         sources: {
           'satellite': {
             type: 'raster',
@@ -246,10 +246,13 @@ const initMap = async () => {
             maxzoom: 15,
             encoding: 'terrarium',
           },
-          'protomaps': {
+          'openmaptiles': {
             type: 'vector',
-            url: 'https://api.protomaps.com/tiles/v3.json?key=1003762824b9687f',
-            attribution: '&copy; <a href="https://protomaps.com">Protomaps</a> &copy; <a href="https://openstreetmap.org">OpenStreetMap</a>',
+            tiles: [
+              'https://api.maptiler.com/tiles/v3/{z}/{x}/{y}.pbf?key=get_your_own_OpIi9ZULNHzrESv6T2vL'
+            ],
+            maxzoom: 14,
+            attribution: '&copy; <a href="https://www.maptiler.com/">MapTiler</a> &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a>',
           },
         },
         layers: [
@@ -364,16 +367,16 @@ const initMap = async () => {
       map.addLayer({
         id: 'place-labels',
         type: 'symbol',
-        source: 'protomaps',
-        'source-layer': 'places',
-        filter: ['in', ['get', 'pmap:kind'], ['literal', ['city', 'town', 'village']]],
+        source: 'openmaptiles',
+        'source-layer': 'place',
+        filter: ['in', ['get', 'class'], ['literal', ['city', 'town', 'village']]],
         layout: {
           'text-field': ['get', 'name'],
           'text-font': ['Noto Sans Regular'],
           'text-size': [
             'interpolate', ['linear'], ['zoom'],
-            8, ['match', ['get', 'pmap:kind'], 'city', 14, 'town', 12, 10],
-            12, ['match', ['get', 'pmap:kind'], 'city', 18, 'town', 14, 12],
+            8, ['match', ['get', 'class'], 'city', 14, 'town', 12, 10],
+            12, ['match', ['get', 'class'], 'city', 18, 'town', 14, 12],
           ],
           'text-transform': 'uppercase',
           'text-letter-spacing': 0.1,
@@ -394,15 +397,14 @@ const initMap = async () => {
       map.addLayer({
         id: 'peak-labels',
         type: 'symbol',
-        source: 'protomaps',
-        'source-layer': 'natural',
-        filter: ['==', ['get', 'pmap:kind'], 'peak'],
+        source: 'openmaptiles',
+        'source-layer': 'mountain_peak',
         minzoom: 9,
         layout: {
           'text-field': [
             'case',
             ['has', 'ele'],
-            ['concat', ['get', 'name'], '\n▲ ', ['get', 'ele'], 'm'],
+            ['concat', ['get', 'name'], '\n▲ ', ['to-string', ['get', 'ele']], 'm'],
             ['get', 'name'],
           ],
           'text-font': ['Noto Sans Regular'],
