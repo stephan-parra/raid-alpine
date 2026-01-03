@@ -177,6 +177,16 @@
                   </div>
                 </div>
 
+                <!-- Video button -->
+                <button
+                  v-if="getVideoForCol(col.name)"
+                  @click="openVideo(getVideoForCol(col.name)!)"
+                  class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-red-500/20 hover:bg-red-500/30 transition-colors"
+                >
+                  <Icon name="mdi:youtube" class="w-4 h-4 text-red-500" />
+                  <span class="text-xs font-medium text-red-400 hidden sm:inline">Watch</span>
+                </button>
+
                 <!-- Tour appearances -->
                 <div v-if="col.tourAppearances" class="hidden md:flex items-center gap-1.5 text-sm text-snow-400">
                   <Icon name="mdi:trophy" class="w-4 h-4 text-yellow-500" />
@@ -198,6 +208,35 @@
         </div>
       </div>
     </section>
+
+    <!-- Video Modal -->
+    <Teleport to="body">
+      <Transition name="fade">
+        <div
+          v-if="showVideoModal && activeVideo"
+          class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90"
+          @click.self="closeVideo"
+        >
+          <div class="relative w-full max-w-4xl">
+            <button
+              @click="closeVideo"
+              class="absolute -top-12 right-0 text-white/70 hover:text-white transition-colors"
+            >
+              <Icon name="heroicons:x-mark" class="w-8 h-8" />
+            </button>
+            <div class="aspect-video rounded-xl overflow-hidden bg-black">
+              <iframe
+                :src="`https://www.youtube.com/embed/${activeVideo.youtubeId}?autoplay=1&rel=0`"
+                class="w-full h-full"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              />
+            </div>
+          </div>
+        </div>
+      </Transition>
+    </Teleport>
 
     <!-- Quick Facts -->
     <section class="py-16 bg-slate-950">
@@ -251,10 +290,54 @@
 </template>
 
 <script setup lang="ts">
-import { ridingDays, featuredCols, type Col } from '~/data/route'
+import { ridingDays, featuredCols, type Col, type ColVideo } from '~/data/route'
 
 useHead({
   title: 'The Cols',
+})
+
+// Video modal state
+const showVideoModal = ref(false)
+const activeVideo = ref<ColVideo | null>(null)
+
+// Map col names to their videos
+const videoMap = computed(() => {
+  const map = new Map<string, ColVideo>()
+  for (const col of featuredCols) {
+    if (col.video) {
+      map.set(col.name, col.video)
+    }
+  }
+  return map
+})
+
+function getVideoForCol(colName: string): ColVideo | undefined {
+  return videoMap.value.get(colName)
+}
+
+function openVideo(video: ColVideo) {
+  activeVideo.value = video
+  showVideoModal.value = true
+  document.body.style.overflow = 'hidden'
+}
+
+function closeVideo() {
+  showVideoModal.value = false
+  activeVideo.value = null
+  document.body.style.overflow = ''
+}
+
+// Close on escape key
+onMounted(() => {
+  const handleEscape = (e: KeyboardEvent) => {
+    if (e.key === 'Escape' && showVideoModal.value) {
+      closeVideo()
+    }
+  }
+  window.addEventListener('keydown', handleEscape)
+  onUnmounted(() => {
+    window.removeEventListener('keydown', handleEscape)
+  })
 })
 
 function getElevationColor(elevation: number): string {
@@ -286,3 +369,15 @@ function getCategoryClass(col: Col): string {
   }
 }
 </script>
+
+<style scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>
