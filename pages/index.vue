@@ -324,11 +324,42 @@
         </div>
       </div>
     </section>
+
+    <!-- Downloads Section -->
+    <section class="section bg-slate-900/50">
+      <div class="container-wide">
+        <UiSectionHeading
+          eyebrow="Route Files"
+          title="Download Your Routes"
+          description="Get the RAID Alpine route files for your GPS device in your preferred format."
+        />
+
+        <!-- Format info cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+          <DownloadsFormatInfoCard
+            v-for="(format, index) in downloadFormats"
+            :key="format.id"
+            :format="format"
+            :index="index"
+          />
+        </div>
+
+        <!-- Download cards grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <DownloadsDownloadCard
+            v-for="(day, index) in ridingDays"
+            :key="day.day"
+            :day="day"
+            :index="index"
+          />
+        </div>
+      </div>
+    </section>
   </div>
 </template>
 
 <script setup lang="ts">
-import { days, featuredCols } from '~/data/route'
+import { days, featuredCols, ridingDays, downloadFormats } from '~/data/route'
 
 useHead({
   title: 'RAID Alpine | Lake Geneva to Nice',

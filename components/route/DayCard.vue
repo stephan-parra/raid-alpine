@@ -95,14 +95,41 @@
         <Icon name="heroicons:arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform" />
       </span>
     </NuxtLink>
+
+    <!-- Download buttons (only for riding days) -->
+    <div
+      v-if="!day.isTransitDay"
+      class="px-6 py-4 bg-white/[0.02] border-t border-white/5"
+    >
+      <div class="flex items-center justify-between">
+        <span class="flex items-center gap-2 text-sm text-snow-500">
+          <Icon name="heroicons:arrow-down-tray" class="w-4 h-4" />
+          <span>Download route</span>
+        </span>
+        <div class="flex items-center gap-2">
+          <template v-if="hasDownloadForDay">
+            <DownloadsDownloadButton :day="day.day" format="gpx" />
+            <DownloadsDownloadButton :day="day.day" format="fit" />
+            <DownloadsDownloadButton :day="day.day" format="tcx" />
+          </template>
+          <span v-else class="text-xs text-snow-500 bg-white/5 px-3 py-1.5 rounded-lg">
+            Coming Soon
+          </span>
+        </div>
+      </div>
+    </div>
   </article>
 </template>
 
 <script setup lang="ts">
 import type { DayStage } from '~/data/route'
+import { hasDownload } from '~/data/route'
+import { computed } from 'vue'
 
-defineProps<{
+const props = defineProps<{
   day: DayStage
   index: number
 }>()
+
+const hasDownloadForDay = computed(() => hasDownload(props.day.day))
 </script>
