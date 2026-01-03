@@ -290,7 +290,7 @@ const initMap = async () => {
       },
       center: routePoints[0],
       zoom: 11.5, // Higher altitude view
-      pitch: 35, // Tilted up to see further into distance
+      pitch: 25, // Tilted up to see further into distance
       bearing: initialBearing,
       attributionControl: false,
       maxPitch: 85,
@@ -510,7 +510,7 @@ function animateFlythrough() {
   map.easeTo({
     center: [lng, lat],
     zoom: 11.5, // Higher altitude
-    pitch: 35,
+    pitch: 25,
     bearing: smoothedBearing,
     duration: 0,
   })
@@ -560,7 +560,7 @@ function restartFlythrough() {
     map.easeTo({
       center: routePoints[0],
       zoom: 11.5,
-      pitch: 35,
+      pitch: 25,
       bearing: initialBearing,
       duration: 1000,
     })
