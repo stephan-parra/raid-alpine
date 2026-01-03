@@ -31,6 +31,10 @@
 </template>
 
 <script setup lang="ts">
+definePageMeta({
+  layout: 'fullscreen',
+})
+
 useHead({
   title: '3D Flythrough | RAID Alpine',
   meta: [
