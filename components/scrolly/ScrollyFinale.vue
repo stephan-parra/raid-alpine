@@ -35,7 +35,7 @@
         </div>
 
         <h2
-          class="text-5xl md:text-7xl font-bold text-white mb-6 transition-all duration-700 delay-100"
+          class="text-5xl md:text-7xl font-display text-white mb-6 transition-all duration-700 delay-100"
           :class="isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'"
         >
           Welcome to <span class="text-gradient">Nice</span>

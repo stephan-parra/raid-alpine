@@ -13,6 +13,8 @@
       class="fixed inset-0 transition-colors duration-1000 -z-10"
       :style="{ background: currentGradient }"
     />
+    <!-- Grid overlay for visual consistency -->
+    <div class="fixed inset-0 bg-grid opacity-10 -z-10" />
 
     <!-- Fixed elevation profile -->
     <div class="fixed bottom-0 left-0 right-0 z-20 pointer-events-none">

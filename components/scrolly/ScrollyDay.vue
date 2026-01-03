@@ -15,7 +15,7 @@
           </div>
 
           <!-- Route info -->
-          <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-2">
+          <h2 class="text-3xl md:text-4xl lg:text-5xl font-display text-white mb-2">
             {{ day.start }}
           </h2>
           <div class="flex items-center gap-2 text-snow-400 mb-4">
