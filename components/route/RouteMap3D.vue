@@ -246,6 +246,14 @@ const initMap = async () => {
             maxzoom: 15,
             encoding: 'terrarium',
           },
+          'openmaptiles': {
+            type: 'vector',
+            tiles: [
+              'https://tiles.stadiamaps.com/data/openmaptiles/{z}/{x}/{y}.pbf'
+            ],
+            maxzoom: 14,
+            attribution: '&copy; OpenMapTiles &copy; OpenStreetMap contributors',
+          },
         },
         layers: [
           {
@@ -352,6 +360,69 @@ const initMap = async () => {
         paint: {
           'line-color': '#f19333',
           'line-width': 6,
+        },
+      })
+
+      // Add place labels (cities, towns, villages)
+      map.addLayer({
+        id: 'place-labels',
+        type: 'symbol',
+        source: 'openmaptiles',
+        'source-layer': 'place',
+        filter: ['in', 'class', 'city', 'town', 'village'],
+        layout: {
+          'text-field': ['get', 'name'],
+          'text-font': ['Open Sans Bold', 'Arial Unicode MS Bold'],
+          'text-size': [
+            'interpolate', ['linear'], ['zoom'],
+            8, ['match', ['get', 'class'], 'city', 14, 'town', 12, 10],
+            12, ['match', ['get', 'class'], 'city', 18, 'town', 14, 12],
+          ],
+          'text-transform': 'uppercase',
+          'text-letter-spacing': 0.1,
+          'text-max-width': 8,
+          'text-anchor': 'center',
+          'text-allow-overlap': false,
+          'text-ignore-placement': false,
+        },
+        paint: {
+          'text-color': '#ffffff',
+          'text-halo-color': 'rgba(0, 0, 0, 0.8)',
+          'text-halo-width': 2,
+          'text-halo-blur': 1,
+        },
+      })
+
+      // Add mountain peak labels (cols, summits)
+      map.addLayer({
+        id: 'peak-labels',
+        type: 'symbol',
+        source: 'openmaptiles',
+        'source-layer': 'mountain_peak',
+        minzoom: 9,
+        layout: {
+          'text-field': [
+            'case',
+            ['has', 'ele'],
+            ['concat', ['get', 'name'], '\n▲ ', ['get', 'ele'], 'm'],
+            ['get', 'name'],
+          ],
+          'text-font': ['Open Sans Regular', 'Arial Unicode MS Regular'],
+          'text-size': [
+            'interpolate', ['linear'], ['zoom'],
+            9, 11,
+            12, 14,
+          ],
+          'text-anchor': 'center',
+          'text-max-width': 10,
+          'text-allow-overlap': false,
+          'text-padding': 5,
+        },
+        paint: {
+          'text-color': '#ffcc00',
+          'text-halo-color': 'rgba(0, 0, 0, 0.9)',
+          'text-halo-width': 2.5,
+          'text-halo-blur': 0.5,
         },
       })
 
