@@ -29,7 +29,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import { getDownloadUrl, downloadFormats, hasDownload } from '~/data/route'
+import { downloadFormats, hasDownload } from '~/data/route'
 
 const props = withDefaults(defineProps<{
   day: number
@@ -41,13 +41,18 @@ const props = withDefaults(defineProps<{
   showLabel: true
 })
 
+const config = useRuntimeConfig()
+
 const formatConfig = computed(() => {
   return downloadFormats.find(f => f.id === props.format)!
 })
 
 const icon = computed(() => formatConfig.value.icon)
 
-const downloadUrl = computed(() => getDownloadUrl(props.day, props.format))
+const downloadUrl = computed(() => {
+  const baseURL = config.app.baseURL || '/'
+  return `${baseURL}downloads/routes/${props.format}/RAID_Alpine_Day_${props.day}.${props.format}`
+})
 
 const fileName = computed(() => `RAID_Alpine_Day_${props.day}.${props.format}`)
 
