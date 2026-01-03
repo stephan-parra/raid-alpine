@@ -58,6 +58,11 @@
                 Logistics
               </NuxtLink>
             </li>
+            <li>
+              <NuxtLink to="/sitemap" class="text-snow-500 hover:text-summit-400 transition-colors">
+                Sitemap
+              </NuxtLink>
+            </li>
           </ul>
         </div>
 
