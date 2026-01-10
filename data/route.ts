@@ -425,14 +425,14 @@ export const routeCoordinates: [number, number][] = [
   [7.2620, 43.7102], // Nice
 ]
 
-// Town name to coordinates mapping for accommodation maps
+// Town name to coordinates mapping for accommodation maps (town centers)
 export const townCoordinates: Record<string, [number, number]> = {
   'Thonon-les-Bains': [6.4793, 46.3706],
   'La Clusaz': [6.4249, 45.9046],
-  'Sainte-Foy-Tarentaise': [6.8807, 45.5842],
+  'Sainte-Foy-Tarentaise': [6.8833, 45.5833],
   'Valloire': [6.4283, 45.1647],
-  'Vars': [6.6892, 44.5603],
-  'Valberg': [6.9317, 44.0858],
+  'Vars': [6.6700, 44.5600],
+  'Valberg': [6.9283, 44.0925],
   'Nice': [7.2620, 43.7102],
 }
 
