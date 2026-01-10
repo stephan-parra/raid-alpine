@@ -53,7 +53,7 @@
                 <span class="text-sm font-semibold uppercase tracking-wider text-snow-500">Day</span>
               </div>
               <div class="col-span-3">
-                <span class="text-sm font-semibold uppercase tracking-wider text-snow-500">Finish Town</span>
+                <span class="text-sm font-semibold uppercase tracking-wider text-snow-500">Town</span>
               </div>
               <div class="col-span-2">
                 <span class="text-sm font-semibold uppercase tracking-wider text-snow-500">Map</span>
@@ -174,7 +174,7 @@
             <div class="mb-3">
               <div class="flex items-center gap-2 mb-1">
                 <Icon name="heroicons:map-pin" class="w-4 h-4 text-summit-400" />
-                <span class="text-xs uppercase tracking-wider text-snow-500 font-semibold">Finish Town</span>
+                <span class="text-xs uppercase tracking-wider text-snow-500 font-semibold">{{ acc.day === 0 ? 'Start Town' : 'Finish Town' }}</span>
               </div>
               <p class="text-lg font-semibold text-white ml-6">{{ acc.town }}</p>
             </div>
