@@ -20,7 +20,7 @@
       v-if="mapLoaded"
       class="absolute bottom-2 left-2 right-2 z-10"
     >
-      <div class="glass rounded-lg px-2 py-1 text-center">
+      <div class="bg-slate-900/90 backdrop-blur-sm rounded-lg px-2 py-1 text-center">
         <span class="text-xs font-medium text-white">{{ townName }}</span>
       </div>
     </div>
@@ -30,17 +30,15 @@
       v-if="mapLoaded"
       class="absolute top-2 right-2 z-10"
     >
-      <div class="glass rounded-lg px-2 py-1">
-        <span class="text-[10px] text-snow-400">{{ radiusMiles }}mi radius</span>
+      <div class="bg-slate-900/90 backdrop-blur-sm rounded-lg px-2 py-1">
+        <span class="text-[10px] text-snow-300">{{ radiusMiles }}mi radius</span>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { townCoordinates } from '~/data/route'
 import { createCirclePolygon } from '~/utils/geoCircle'
-import { findNearbyTowns } from '~/utils/geoDistance'
 import type { Map as MaplibreMap } from 'maplibre-gl'
 
 const props = withDefaults(defineProps<{
@@ -100,21 +98,23 @@ const initMap = async () => {
       style: {
         version: 8,
         sources: {
-          'carto-dark': {
+          // Use OSM tiles which show town/village labels clearly
+          'osm': {
             type: 'raster',
             tiles: [
-              'https://a.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}@2x.png',
-              'https://b.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}@2x.png',
-              'https://c.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}@2x.png',
+              'https://a.tile.openstreetmap.org/{z}/{x}/{y}.png',
+              'https://b.tile.openstreetmap.org/{z}/{x}/{y}.png',
+              'https://c.tile.openstreetmap.org/{z}/{x}/{y}.png',
             ],
-            tileSize: 512,
+            tileSize: 256,
+            attribution: '© OpenStreetMap contributors',
           },
         },
         layers: [
           {
-            id: 'carto-dark-layer',
+            id: 'osm-layer',
             type: 'raster',
-            source: 'carto-dark',
+            source: 'osm',
             minzoom: 0,
             maxzoom: 19,
           },
@@ -140,63 +140,43 @@ const initMap = async () => {
         data: circleGeoJSON as GeoJSON.Feature
       })
 
-      // Circle fill
+      // Circle fill - more visible on light map
       map.addLayer({
         id: 'radius-circle-fill',
         type: 'fill',
         source: 'radius-circle',
         paint: {
           'fill-color': '#0ea5e9',
-          'fill-opacity': 0.15,
+          'fill-opacity': 0.2,
         },
       })
 
-      // Circle stroke
+      // Circle stroke - bolder for visibility
       map.addLayer({
         id: 'radius-circle-stroke',
         type: 'line',
         source: 'radius-circle',
         paint: {
-          'line-color': '#38bdf8',
-          'line-width': 2,
-          'line-opacity': 0.6,
-          'line-dasharray': [3, 2],
+          'line-color': '#0284c7',
+          'line-width': 3,
+          'line-opacity': 0.8,
         },
       })
 
       // Add center marker (the finish town)
       const centerMarker = document.createElement('div')
       centerMarker.style.cssText = `
-        width: 12px;
-        height: 12px;
+        width: 14px;
+        height: 14px;
         background: #f19333;
-        border: 2px solid white;
+        border: 3px solid white;
         border-radius: 50%;
-        box-shadow: 0 0 8px rgba(241, 147, 51, 0.5);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.3);
       `
 
       new maplibregl.Marker({ element: centerMarker })
         .setLngLat(props.coordinates)
         .addTo(map)
-
-      // Find and add nearby towns within the radius
-      const nearbyTowns = findNearbyTowns(props.townName, townCoordinates, props.radiusMiles)
-
-      nearbyTowns.forEach((town) => {
-        const nearbyMarker = document.createElement('div')
-        nearbyMarker.style.cssText = `
-          width: 8px;
-          height: 8px;
-          background: #0ea5e9;
-          border: 2px solid white;
-          border-radius: 50%;
-          box-shadow: 0 0 6px rgba(14, 165, 233, 0.5);
-        `
-
-        new maplibregl.Marker({ element: nearbyMarker })
-          .setLngLat(town.coords)
-          .addTo(map!)
-      })
 
       mapLoaded.value = true
     })
