@@ -114,6 +114,7 @@ const navLinks = [
   { to: '/route', label: 'The Route' },
   { to: '/cols', label: 'The Cols' },
   { to: '/logistics', label: 'Logistics' },
+  { to: '/accommodation', label: 'Accommodation' },
 ]
 
 const isActive = (path: string) => {
