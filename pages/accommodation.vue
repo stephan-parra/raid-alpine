@@ -98,7 +98,7 @@
                     :coordinates="townCoordinates[acc.town]"
                     :town-name="acc.town"
                     :radius-miles="2"
-                    height="120px"
+                    height="160px"
                   />
                 </div>
 
@@ -166,7 +166,7 @@
                 :coordinates="townCoordinates[acc.town]"
                 :town-name="acc.town"
                 :radius-miles="2"
-                height="140px"
+                height="180px"
               />
             </div>
 
