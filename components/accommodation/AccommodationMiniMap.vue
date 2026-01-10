@@ -15,16 +15,6 @@
       <div class="w-6 h-6 border-2 border-alpine-500/30 border-t-alpine-500 rounded-full animate-spin" />
     </div>
 
-    <!-- Town label overlay -->
-    <div
-      v-if="mapLoaded"
-      class="absolute bottom-2 left-2 right-2 z-10"
-    >
-      <div class="bg-slate-900/90 backdrop-blur-sm rounded-lg px-2 py-1 text-center">
-        <span class="text-xs font-medium text-white">{{ townName }}</span>
-      </div>
-    </div>
-
     <!-- Radius indicator -->
     <div
       v-if="mapLoaded"
