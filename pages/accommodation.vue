@@ -48,14 +48,17 @@
             class="glass-dark rounded-3xl overflow-hidden"
           >
             <!-- Table Header -->
-            <div class="grid grid-cols-12 gap-6 p-6 border-b border-white/10 bg-white/5">
+            <div class="grid grid-cols-12 gap-4 p-6 border-b border-white/10 bg-white/5">
               <div class="col-span-1">
                 <span class="text-sm font-semibold uppercase tracking-wider text-snow-500">Day</span>
               </div>
-              <div class="col-span-4">
+              <div class="col-span-3">
                 <span class="text-sm font-semibold uppercase tracking-wider text-snow-500">Finish Town</span>
               </div>
-              <div class="col-span-4">
+              <div class="col-span-2">
+                <span class="text-sm font-semibold uppercase tracking-wider text-snow-500">Map</span>
+              </div>
+              <div class="col-span-3">
                 <span class="text-sm font-semibold uppercase tracking-wider text-snow-500">Accommodation</span>
               </div>
               <div class="col-span-3">
@@ -71,36 +74,49 @@
                 v-motion
                 :initial="{ opacity: 0, y: 20 }"
                 :visibleOnce="{ opacity: 1, y: 0, transition: { delay: index * 50 } }"
-                class="grid grid-cols-12 gap-6 p-6 hover:bg-white/5 transition-colors group"
+                class="grid grid-cols-12 gap-4 p-6 hover:bg-white/5 transition-colors group"
               >
                 <!-- Day -->
-                <div class="col-span-1">
+                <div class="col-span-1 flex items-center">
                   <div class="w-10 h-10 rounded-xl bg-alpine-500/20 flex items-center justify-center group-hover:bg-alpine-500/30 transition-colors">
                     <span class="text-lg font-semibold text-alpine-400">{{ acc.day }}</span>
                   </div>
                 </div>
 
                 <!-- Town -->
-                <div class="col-span-4">
+                <div class="col-span-3 flex items-center">
                   <div class="flex items-center gap-3">
                     <Icon name="heroicons:map-pin" class="w-5 h-5 text-summit-400 flex-shrink-0" />
                     <span class="text-lg font-semibold text-white">{{ acc.town }}</span>
                   </div>
                 </div>
 
+                <!-- Map -->
+                <div class="col-span-2">
+                  <AccommodationMiniMap
+                    v-if="townCoordinates[acc.town]"
+                    :coordinates="townCoordinates[acc.town]"
+                    :town-name="acc.town"
+                    :radius-miles="2"
+                    height="120px"
+                  />
+                </div>
+
                 <!-- Accommodation -->
-                <div class="col-span-4">
-                  <div class="flex items-center gap-3">
-                    <Icon name="heroicons:home" class="w-5 h-5 text-glacier-400 flex-shrink-0" />
-                    <span class="text-lg text-snow-300">{{ acc.name }}</span>
+                <div class="col-span-3 flex items-center">
+                  <div>
+                    <div class="flex items-center gap-3">
+                      <Icon name="heroicons:home" class="w-5 h-5 text-glacier-400 flex-shrink-0" />
+                      <span class="text-lg text-snow-300">{{ acc.name }}</span>
+                    </div>
+                    <p v-if="acc.notes" class="text-sm text-snow-500 mt-2 ml-8">
+                      {{ acc.notes }}
+                    </p>
                   </div>
-                  <p v-if="acc.notes" class="text-sm text-snow-500 mt-2 ml-8">
-                    {{ acc.notes }}
-                  </p>
                 </div>
 
                 <!-- Booking ID -->
-                <div class="col-span-3">
+                <div class="col-span-3 flex items-center">
                   <div v-if="acc.bookingId" class="flex items-center gap-2">
                     <span class="text-sm font-mono text-snow-400 select-none">
                       {{ unlockedBookings.has(acc.day) ? acc.bookingId : '••••••••' }}
@@ -141,6 +157,17 @@
               <span class="text-xs uppercase tracking-wider text-snow-500 font-semibold">
                 {{ acc.day === 0 ? 'Arrival' : acc.day === 7 ? 'Departure' : `Day ${acc.day}` }}
               </span>
+            </div>
+
+            <!-- Map -->
+            <div class="mb-4">
+              <AccommodationMiniMap
+                v-if="townCoordinates[acc.town]"
+                :coordinates="townCoordinates[acc.town]"
+                :town-name="acc.town"
+                :radius-miles="2"
+                height="140px"
+              />
             </div>
 
             <!-- Town -->
@@ -300,7 +327,7 @@
 </template>
 
 <script setup lang="ts">
-import { accommodations } from '~/data/route'
+import { accommodations, townCoordinates } from '~/data/route'
 
 useHead({
   title: 'Accommodation',
