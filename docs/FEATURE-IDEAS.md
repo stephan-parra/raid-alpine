@@ -142,7 +142,7 @@ Transforms the website from information resource to active training partner. Inc
 
 ### Overview
 
-Connect your Strava account to get personalized insights comparing your riding history against the RAID Alpine route, with predicted completion times and a "readiness score".
+Connect your Strava account to get personalised insights comparing your riding history against the RAID Alpine route, with predicted completion times and a "readiness score".
 
 ### Key Features
 
@@ -355,7 +355,7 @@ Short, high-quality drone and GoPro video clips for each major section of the ro
 ### Video Specifications
 
 - 30-60 second clips
-- 1080p optimized for web
+- 1080p optimised for web
 - Subtitles with location/stats
 - Optional music or ambient audio
 

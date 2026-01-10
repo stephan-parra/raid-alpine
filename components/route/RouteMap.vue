@@ -86,7 +86,7 @@ const initMap = async () => {
     maplibreModule = await import('maplibre-gl')
     const maplibregl = maplibreModule.default || maplibreModule
 
-    loadingText.value = 'Initializing map...'
+    loadingText.value = 'Initialising map...'
 
     map = new maplibregl.Map({
       container: mapContainer.value,
