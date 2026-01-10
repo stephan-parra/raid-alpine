@@ -155,7 +155,7 @@
                 <span class="text-xl font-semibold text-alpine-400">{{ acc.day }}</span>
               </div>
               <span class="text-xs uppercase tracking-wider text-snow-500 font-semibold">
-                {{ acc.day === 0 ? 'Arrival' : acc.day === 7 ? 'Departure' : `Day ${acc.day}` }}
+                {{ acc.day === 0 ? 'Start' : acc.day === 7 ? 'Departure' : `Day ${acc.day}` }}
               </span>
             </div>
 
