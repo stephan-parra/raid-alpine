@@ -202,7 +202,7 @@
             <div>
               <h4 class="font-semibold text-white mb-2">Accommodation Details</h4>
               <p class="text-snow-400">
-                Accommodation bookings are currently being finalized. This page will be updated with
+                Accommodation bookings are currently being finalised. This page will be updated with
                 specific hotel names, addresses, and contact information once confirmed.
               </p>
             </div>

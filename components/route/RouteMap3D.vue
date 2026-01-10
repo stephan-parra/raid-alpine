@@ -203,7 +203,7 @@ const initMap = async () => {
     maplibreModule = await import('maplibre-gl')
     const maplibregl = maplibreModule.default || maplibreModule
 
-    loadingText.value = 'Initializing 3D terrain...'
+    loadingText.value = 'Initialising 3D terrain...'
 
     // Calculate initial bearing
     const initialBearing = calculateBearing(
