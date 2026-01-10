@@ -96,6 +96,12 @@
                   Logistics
                 </NuxtLink>
               </li>
+              <li>
+                <NuxtLink to="/accommodation" class="text-snow-400 hover:text-summit-400 transition-colors flex items-center gap-2">
+                  <Icon name="heroicons:chevron-right" class="w-4 h-4" />
+                  Accommodation
+                </NuxtLink>
+              </li>
             </ul>
           </div>
         </div>

@@ -424,3 +424,52 @@ export const routeCoordinates: [number, number][] = [
   [6.9317, 44.0858], // Valberg
   [7.2620, 43.7102], // Nice
 ]
+
+// Accommodation data
+export interface Accommodation {
+  day: number
+  town: string
+  name: string
+  type?: 'hotel' | 'hostel' | 'guesthouse' | 'apartment'
+  address?: string
+  contact?: string
+  notes?: string
+}
+
+export const accommodations: Accommodation[] = [
+  {
+    day: 0,
+    town: 'Thonon-les-Bains',
+    name: 'TBC',
+  },
+  {
+    day: 1,
+    town: 'La Clusaz',
+    name: 'TBC',
+  },
+  {
+    day: 2,
+    town: 'Sainte-Foy-Tarentaise',
+    name: 'TBC',
+  },
+  {
+    day: 3,
+    town: 'Valloire',
+    name: 'TBC',
+  },
+  {
+    day: 4,
+    town: 'Vars',
+    name: 'TBC',
+  },
+  {
+    day: 5,
+    town: 'Valberg',
+    name: 'TBC',
+  },
+  {
+    day: 6,
+    town: 'Nice',
+    name: 'TBC',
+  },
+]
