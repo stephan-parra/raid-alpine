@@ -434,6 +434,7 @@ export interface Accommodation {
   address?: string
   contact?: string
   notes?: string
+  bookingId?: string
 }
 
 export const accommodations: Accommodation[] = [
@@ -441,35 +442,42 @@ export const accommodations: Accommodation[] = [
     day: 0,
     town: 'Thonon-les-Bains',
     name: 'TBC',
+    bookingId: 'TBC',
   },
   {
     day: 1,
     town: 'La Clusaz',
     name: 'TBC',
+    bookingId: 'TBC',
   },
   {
     day: 2,
     town: 'Sainte-Foy-Tarentaise',
     name: 'TBC',
+    bookingId: 'TBC',
   },
   {
     day: 3,
     town: 'Valloire',
     name: 'TBC',
+    bookingId: 'TBC',
   },
   {
     day: 4,
     town: 'Vars',
     name: 'TBC',
+    bookingId: 'TBC',
   },
   {
     day: 5,
     town: 'Valberg',
     name: 'TBC',
+    bookingId: 'TBC',
   },
   {
     day: 6,
     town: 'Nice',
     name: 'TBC',
+    bookingId: 'TBC',
   },
 ]
