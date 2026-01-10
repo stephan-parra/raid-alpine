@@ -89,7 +89,7 @@ Creates a deep emotional connection to the adventure before riders even leave ho
 
 ### Overview
 
-An intelligent tool that generates a customized training plan based on the user's current fitness level, available training time, and weeks remaining until RAID Alpine.
+An intelligent tool that generates a customised training plan based on the user's current fitness level, available training time, and weeks remaining until RAID Alpine.
 
 ### Key Features
 
@@ -100,7 +100,7 @@ An intelligent tool that generates a customized training plan based on the user'
   - Long steady climbs
   - Repeated threshold efforts
   - Back-to-back long days
-  - Heat acclimatization protocols
+  - Heat acclimatisation protocols
 - **Volume Recommendations**: Weekly hours/km targets with progressive overload
 - **Rest & Recovery**: Built-in recovery weeks and adaptation periods
 - **Calendar Export**: Download as .ics for Google Calendar, Apple Calendar, etc.

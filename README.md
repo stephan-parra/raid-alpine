@@ -42,7 +42,7 @@
 
 **Summary Option 1:**
 - Good flexibility with bikes/luggage (if hiring car)
-- Multiple legs to organize
+- Multiple legs to organise
 
 ### Option 2: Train to Dover + Ferry
 

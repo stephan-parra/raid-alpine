@@ -322,7 +322,7 @@ export const featuredCols: FeaturedCol[] = [
     length: 19.2,
     avgGrade: 5.9,
     maxGrade: 9.0,
-    description: 'Famous for the otherworldly Casse Déserte moonscape near the summit. Monuments honor cycling legends Coppi and Bobet.',
+    description: 'Famous for the otherworldly Casse Déserte moonscape near the summit. Monuments honour cycling legends Coppi and Bobet.',
     tourAppearances: 35,
     firstCrossed: 1922,
     day: 4,
