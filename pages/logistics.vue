@@ -132,7 +132,7 @@
                 </div>
                 <div class="flex items-center gap-2 text-yellow-400 mt-2">
                   <Icon name="heroicons:exclamation-triangle" class="w-5 h-5" />
-                  <span>Multiple legs to organize</span>
+                  <span>Multiple legs to organise</span>
                 </div>
               </div>
             </div>
