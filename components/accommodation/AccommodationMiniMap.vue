@@ -112,10 +112,15 @@ const initMap = async () => {
       },
       center: props.coordinates,
       zoom,
-      interactive: false,
       attributionControl: false,
       fadeDuration: 0,
     })
+
+    // Add zoom controls
+    map.addControl(
+      new maplibregl.NavigationControl({ showCompass: false }),
+      'bottom-right'
+    )
 
     map.on('load', () => {
       if (!map || !maplibreModule) return
