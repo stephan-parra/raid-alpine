@@ -98,6 +98,7 @@
                     :coordinates="townCoordinates[acc.town]"
                     :town-name="acc.town"
                     :radius-miles="2"
+                    :route-coordinates="getRouteForDay(acc.day)"
                     height="160px"
                   />
                 </div>
@@ -179,6 +180,7 @@
                 :coordinates="townCoordinates[acc.town]"
                 :town-name="acc.town"
                 :radius-miles="2"
+                :route-coordinates="getRouteForDay(acc.day)"
                 height="180px"
               />
             </div>
@@ -353,11 +355,17 @@
 </template>
 
 <script setup lang="ts">
-import { accommodations, townCoordinates } from '~/data/route'
+import { accommodations, townCoordinates, day1RouteCoordinates } from '~/data/route'
 
 useHead({
   title: 'Accommodation',
 })
+
+// Get route coordinates for a specific day
+const getRouteForDay = (day: number): [number, number][] | undefined => {
+  if (day === 1) return day1RouteCoordinates
+  return undefined
+}
 
 // Password for unlocking booking IDs (you can change this)
 const UNLOCK_PASSWORD = 'alpine2026'
