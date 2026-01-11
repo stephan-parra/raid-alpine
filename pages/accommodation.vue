@@ -78,8 +78,11 @@
               >
                 <!-- Day -->
                 <div class="col-span-1 flex items-center">
-                  <div class="w-10 h-10 rounded-xl bg-alpine-500/20 flex items-center justify-center group-hover:bg-alpine-500/30 transition-colors">
-                    <span class="text-lg font-semibold text-alpine-400">{{ acc.day }}</span>
+                  <div class="flex flex-col items-center gap-1">
+                    <div class="w-10 h-10 rounded-xl bg-alpine-500/20 flex items-center justify-center group-hover:bg-alpine-500/30 transition-colors">
+                      <span class="text-lg font-semibold text-alpine-400">{{ acc.day }}</span>
+                    </div>
+                    <span class="text-xs text-snow-500 whitespace-nowrap">{{ getDateForDay(acc.day) }}</span>
                   </div>
                 </div>
 
@@ -165,12 +168,17 @@
           >
             <!-- Day Badge -->
             <div class="flex items-center justify-between mb-4">
-              <div class="w-12 h-12 rounded-xl bg-alpine-500/20 flex items-center justify-center">
-                <span class="text-xl font-semibold text-alpine-400">{{ acc.day }}</span>
+              <div class="flex items-center gap-3">
+                <div class="w-12 h-12 rounded-xl bg-alpine-500/20 flex items-center justify-center">
+                  <span class="text-xl font-semibold text-alpine-400">{{ acc.day }}</span>
+                </div>
+                <div class="flex flex-col">
+                  <span class="text-sm font-semibold text-white">{{ getDateForDay(acc.day) }}</span>
+                  <span class="text-xs text-snow-500">
+                    {{ acc.day === 0 ? 'Arrival' : acc.day === 7 ? 'Departure' : `Day ${acc.day}` }}
+                  </span>
+                </div>
               </div>
-              <span class="text-xs uppercase tracking-wider text-snow-500 font-semibold">
-                {{ acc.day === 0 ? 'Start' : acc.day === 7 ? 'Departure' : `Day ${acc.day}` }}
-              </span>
             </div>
 
             <!-- Map -->
@@ -365,6 +373,18 @@ useHead({
 const getRouteForDay = (day: number): [number, number][] | undefined => {
   if (day === 1) return day1RouteCoordinates
   return undefined
+}
+
+// Get formatted date for a specific day (Day 0 = 11th July 2026)
+const getDateForDay = (day: number): string => {
+  const startDate = new Date(2026, 6, 11) // July 11, 2026 (month is 0-indexed)
+  const date = new Date(startDate)
+  date.setDate(date.getDate() + day)
+  return date.toLocaleDateString('en-GB', {
+    weekday: 'short',
+    day: 'numeric',
+    month: 'short'
+  })
 }
 
 // Password for unlocking booking IDs (you can change this)
