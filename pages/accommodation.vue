@@ -109,7 +109,10 @@
                       <Icon name="heroicons:home" class="w-5 h-5 text-glacier-400 flex-shrink-0" />
                       <span class="text-lg text-snow-300">{{ acc.name }}</span>
                     </div>
-                    <p v-if="acc.notes" class="text-sm text-snow-500 mt-2 ml-8">
+                    <p v-if="acc.address" class="text-sm text-snow-500 mt-1 ml-8">
+                      {{ acc.address }}
+                    </p>
+                    <p v-if="acc.notes" class="text-sm text-snow-500 mt-1 ml-8">
                       {{ acc.notes }}
                     </p>
                   </div>
@@ -186,7 +189,10 @@
                 <span class="text-xs uppercase tracking-wider text-snow-500 font-semibold">Accommodation</span>
               </div>
               <p class="text-lg text-snow-300 ml-6">{{ acc.name }}</p>
-              <p v-if="acc.notes" class="text-sm text-snow-500 mt-2 ml-6">
+              <p v-if="acc.address" class="text-sm text-snow-500 mt-1 ml-6">
+                {{ acc.address }}
+              </p>
+              <p v-if="acc.notes" class="text-sm text-snow-500 mt-1 ml-6">
                 {{ acc.notes }}
               </p>
             </div>
