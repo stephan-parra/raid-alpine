@@ -36,6 +36,7 @@ const props = withDefaults(defineProps<{
   townName: string
   radiusMiles?: number
   height?: string
+  routeCoordinates?: [number, number][]
 }>(), {
   radiusMiles: 2,
   height: '150px'
@@ -157,6 +158,53 @@ const initMap = async () => {
           'line-opacity': 0.8,
         },
       })
+
+      // Add route line if provided
+      if (props.routeCoordinates && props.routeCoordinates.length > 0) {
+        map.addSource('route', {
+          type: 'geojson',
+          data: {
+            type: 'Feature',
+            properties: {},
+            geometry: {
+              type: 'LineString',
+              coordinates: props.routeCoordinates
+            }
+          }
+        })
+
+        // Route line outline (for visibility)
+        map.addLayer({
+          id: 'route-outline',
+          type: 'line',
+          source: 'route',
+          layout: {
+            'line-join': 'round',
+            'line-cap': 'round'
+          },
+          paint: {
+            'line-color': '#ffffff',
+            'line-width': 5,
+            'line-opacity': 0.8,
+          },
+        })
+
+        // Route line
+        map.addLayer({
+          id: 'route-line',
+          type: 'line',
+          source: 'route',
+          layout: {
+            'line-join': 'round',
+            'line-cap': 'round'
+          },
+          paint: {
+            'line-color': '#f97316',
+            'line-width': 3,
+            'line-opacity': 1,
+          },
+        })
+      }
 
       // Add center marker (the finish town)
       const centerMarker = document.createElement('div')
