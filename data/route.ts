@@ -460,7 +460,7 @@ export const accommodations: Accommodation[] = [
     town: 'La Clusaz',
     name: 'Hôtel La Montagne',
     type: 'hotel',
-    address: '9, Route De La Piscine., La Clusaz',
+    address: '9 Route de la Piscine',
     bookingId: 'TBC',
   },
   {
