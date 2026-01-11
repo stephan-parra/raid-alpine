@@ -112,6 +112,16 @@
                     <p v-if="acc.address" class="text-sm text-snow-500 mt-1 ml-8">
                       {{ acc.address }}
                     </p>
+                    <a
+                      v-if="acc.bookingUrl"
+                      :href="acc.bookingUrl"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="inline-flex items-center gap-1.5 text-sm text-alpine-400 hover:text-alpine-300 mt-1 ml-8 transition-colors"
+                    >
+                      <Icon name="heroicons:arrow-top-right-on-square" class="w-4 h-4" />
+                      View on Booking.com
+                    </a>
                     <p v-if="acc.notes" class="text-sm text-snow-500 mt-1 ml-8">
                       {{ acc.notes }}
                     </p>
@@ -192,6 +202,16 @@
               <p v-if="acc.address" class="text-sm text-snow-500 mt-1 ml-6">
                 {{ acc.address }}
               </p>
+              <a
+                v-if="acc.bookingUrl"
+                :href="acc.bookingUrl"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-1.5 text-sm text-alpine-400 hover:text-alpine-300 mt-1 ml-6 transition-colors"
+              >
+                <Icon name="heroicons:arrow-top-right-on-square" class="w-4 h-4" />
+                View on Booking.com
+              </a>
               <p v-if="acc.notes" class="text-sm text-snow-500 mt-1 ml-6">
                 {{ acc.notes }}
               </p>

@@ -445,6 +445,7 @@ export interface Accommodation {
   address?: string
   contact?: string
   notes?: string
+  bookingUrl?: string
   bookingId?: string
 }
 
@@ -461,6 +462,7 @@ export const accommodations: Accommodation[] = [
     name: 'Hôtel La Montagne',
     type: 'hotel',
     address: '9 Route de la Piscine',
+    bookingUrl: 'https://www.booking.com/Share-YDH7ZL',
     bookingId: 'TBC',
   },
   {
