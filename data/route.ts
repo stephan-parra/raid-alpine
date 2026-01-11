@@ -428,7 +428,7 @@ export const routeCoordinates: [number, number][] = [
 // Town name to coordinates mapping for accommodation maps (town centers)
 export const townCoordinates: Record<string, [number, number]> = {
   'Thonon-les-Bains': [6.4793, 46.3706],
-  'La Clusaz': [6.4249, 45.9046],
+  'La Clusaz': [6.4269151, 45.9063723],
   'Sainte-Foy-Tarentaise': [6.8833, 45.5833],
   'Valloire': [6.4283, 45.1647],
   'Vars': [6.6700, 44.5600],
