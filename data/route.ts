@@ -452,7 +452,10 @@ export const accommodations: Accommodation[] = [
   {
     day: 2,
     town: 'Bourg-Saint-Maurice',
-    name: 'TBC',
+    name: 'Hôtel Arolla',
+    type: 'hotel',
+    address: '192 Avenue du Centenaire',
+    bookingUrl: 'https://www.booking.com/hotel/fr/ha-tel-arolla.html',
     bookingId: 'TBC',
   },
   {
