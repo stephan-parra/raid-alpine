@@ -417,6 +417,7 @@ export const townCoordinates: Record<string, [number, number]> = {
   'Valloire': [6.4283, 45.1647],
   'Vars': [6.6700, 44.5600],
   'Valberg': [6.9283, 44.0925],
+  'Beuil': [6.9900, 44.0975],
   'Nice': [7.2620, 43.7102],
 }
 
@@ -472,9 +473,13 @@ export const accommodations: Accommodation[] = [
   },
   {
     day: 5,
-    town: 'Valberg',
-    name: 'TBC',
+    town: 'Beuil',
+    name: 'Hôtel Génépi',
+    type: 'hotel',
+    address: '22 Boulevard Marcel Pourchier',
+    bookingUrl: 'https://www.hotelgenepi.fr',
     bookingId: 'TBC',
+    notes: '7km from Valberg',
   },
   {
     day: 6,
