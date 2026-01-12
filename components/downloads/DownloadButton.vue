@@ -33,7 +33,7 @@ import { downloadFormats, hasDownload } from '~/data/route'
 
 const props = withDefaults(defineProps<{
   day: number
-  format: 'gpx' | 'fit' | 'tcx'
+  format: 'gpx'
   size?: 'sm' | 'md'
   showLabel?: boolean
 }>(), {
@@ -59,13 +59,7 @@ const fileName = computed(() => `RAID_Alpine_Day_${props.day}.${props.format}`)
 const disabled = computed(() => !hasDownload(props.day))
 
 const variantClasses = computed(() => {
-  const color = formatConfig.value.color
-  const base = {
-    alpine: 'bg-alpine-500/20 text-alpine-400 hover:bg-alpine-500/30 hover:text-alpine-300 border-alpine-500/30',
-    summit: 'bg-summit-500/20 text-summit-400 hover:bg-summit-500/30 hover:text-summit-300 border-summit-500/30',
-    glacier: 'bg-glacier-500/20 text-glacier-400 hover:bg-glacier-500/30 hover:text-glacier-300 border-glacier-500/30',
-  }
-  return base[color]
+  return 'bg-alpine-500/20 text-alpine-400 hover:bg-alpine-500/30 hover:text-alpine-300 border-alpine-500/30'
 })
 
 const sizeClasses = computed(() => {

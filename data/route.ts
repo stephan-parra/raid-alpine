@@ -365,12 +365,12 @@ export const featuredCols: FeaturedCol[] = [
 
 // Download format types
 export interface DownloadFormat {
-  id: 'gpx' | 'fit' | 'tcx'
+  id: 'gpx'
   name: string
   icon: string
   description: string
   compatibleWith: string[]
-  color: 'alpine' | 'summit' | 'glacier'
+  color: 'alpine'
 }
 
 export const downloadFormats: DownloadFormat[] = [
@@ -381,26 +381,10 @@ export const downloadFormats: DownloadFormat[] = [
     description: 'Universal GPS format compatible with most apps and devices',
     compatibleWith: ['Strava', 'Komoot', 'Garmin Connect', 'Wahoo', 'RideWithGPS'],
     color: 'alpine'
-  },
-  {
-    id: 'fit',
-    name: 'FIT',
-    icon: 'mdi:file-chart',
-    description: 'Native Garmin format with rich activity data support',
-    compatibleWith: ['Garmin Edge', 'Garmin Forerunner', 'Wahoo ELEMNT', 'Hammerhead'],
-    color: 'summit'
-  },
-  {
-    id: 'tcx',
-    name: 'TCX',
-    icon: 'mdi:file-code',
-    description: 'Training Center XML format with broad compatibility',
-    compatibleWith: ['Garmin devices', 'Strava', 'TrainingPeaks', 'Zwift'],
-    color: 'glacier'
   }
 ]
 
-export function getDownloadPath(day: number, format: 'gpx' | 'fit' | 'tcx'): string {
+export function getDownloadPath(day: number, format: 'gpx'): string {
   return `downloads/routes/${format}/RAID_Alpine_Day_${day}.${format}`
 }
 
