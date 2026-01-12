@@ -175,7 +175,7 @@ const initMap = async () => {
       const stops = [
         { coords: routeCoordinates[0], name: 'Thonon-les-Bains', day: 'Start', color: '#22c55e' },
         { coords: routeCoordinates[1], name: 'La Clusaz', day: 'Day 1', color: '#0ea5e9' },
-        { coords: routeCoordinates[2], name: 'Sainte-Foy-Tarentaise', day: 'Day 2', color: '#0ea5e9' },
+        { coords: routeCoordinates[2], name: 'Bourg-Saint-Maurice', day: 'Day 2', color: '#0ea5e9' },
         { coords: routeCoordinates[3], name: 'Valloire', day: 'Day 3', color: '#0ea5e9' },
         { coords: routeCoordinates[4], name: 'Vars', day: 'Day 4', color: '#0ea5e9' },
         { coords: routeCoordinates[5], name: 'Valberg', day: 'Day 5', color: '#0ea5e9' },

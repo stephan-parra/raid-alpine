@@ -24,7 +24,7 @@ A comprehensive list of all 22 cols (mountain passes) climbed during the 763km R
 
 ---
 
-## Day 2: La Clusaz → Sainte-Foy-Tarentaise
+## Day 2: La Clusaz → Bourg-Saint-Maurice
 *109km | 3,150m elevation*
 
 | # | Col | Elevation | Length | Avg Grade | Tour Appearances |
@@ -36,7 +36,7 @@ A comprehensive list of all 22 cols (mountain passes) climbed during the 763km R
 
 ---
 
-## Day 3: Sainte-Foy-Tarentaise → Valloire
+## Day 3: Bourg-Saint-Maurice → Valloire
 *129km | 3,060m elevation*
 
 | # | Col | Elevation | Length | Avg Grade | Tour Appearances |
