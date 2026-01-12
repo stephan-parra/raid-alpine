@@ -319,18 +319,8 @@
         <UiSectionHeading
           eyebrow="Route Files"
           title="Download Your Routes"
-          description="Get the RAID Alpine route files for your GPS device in your preferred format."
+          description="Get the RAID Alpine GPX route files for your GPS device. Compatible with Garmin, Wahoo, Strava, Komoot, and most GPS cycling computers."
         />
-
-        <!-- Format info cards -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-          <DownloadsFormatInfoCard
-            v-for="(format, index) in downloadFormats"
-            :key="format.id"
-            :format="format"
-            :index="index"
-          />
-        </div>
 
         <!-- Download cards grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -347,7 +337,7 @@
 </template>
 
 <script setup lang="ts">
-import { days, featuredCols, ridingDays, downloadFormats } from '~/data/route'
+import { days, featuredCols, ridingDays } from '~/data/route'
 
 useHead({
   title: 'RAID Alpine | Lake Geneva to Nice',

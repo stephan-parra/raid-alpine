@@ -264,7 +264,7 @@ import { days, ridingDays, getDownloadPath, hasDownload } from '~/data/route'
 
 const config = useRuntimeConfig()
 
-function getDownloadUrl(day: number, format: 'gpx' | 'fit' | 'tcx'): string {
+function getDownloadUrl(day: number, format: 'gpx'): string {
   const baseURL = config.app.baseURL || '/'
   return `${baseURL}${getDownloadPath(day, format)}`
 }

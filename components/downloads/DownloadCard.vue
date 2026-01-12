@@ -38,8 +38,6 @@
     <div class="flex items-center gap-2 pt-3 border-t border-white/5">
       <template v-if="hasDownloadForDay">
         <DownloadsDownloadButton :day="day.day" format="gpx" size="md" />
-        <DownloadsDownloadButton :day="day.day" format="fit" size="md" />
-        <DownloadsDownloadButton :day="day.day" format="tcx" size="md" />
       </template>
       <div v-else class="flex items-center gap-2 text-snow-500">
         <Icon name="heroicons:clock" class="w-4 h-4" />
