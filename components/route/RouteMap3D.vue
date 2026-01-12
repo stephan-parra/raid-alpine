@@ -169,8 +169,8 @@ const routePoints = detailedRouteCoordinates.filter((_, i) => i % 3 === 0)
 // Day boundaries (approximate indices in sampled route - divided by 3)
 const dayBoundaries = [
   { index: 0, day: 1, name: 'Thonon-les-Bains → La Clusaz' },
-  { index: 57, day: 2, name: 'La Clusaz → Sainte-Foy' },
-  { index: 119, day: 3, name: 'Sainte-Foy → Valloire' },
+  { index: 57, day: 2, name: 'La Clusaz → Bourg-Saint-Maurice' },
+  { index: 119, day: 3, name: 'Bourg-Saint-Maurice → Valloire' },
   { index: 160, day: 4, name: 'Valloire → Vars' },
   { index: 201, day: 5, name: 'Vars → Valberg' },
   { index: 242, day: 6, name: 'Valberg → Nice' },
@@ -189,7 +189,7 @@ function updateDayInfo(routeIndex: number) {
   currentDistance.value = Math.round((routeIndex / routePoints.length) * totalDistance)
 
   // Update location name based on progress
-  const locations = ['Thonon-les-Bains', 'La Clusaz', 'Sainte-Foy', 'Valloire', 'Vars', 'Valberg', 'Nice']
+  const locations = ['Thonon-les-Bains', 'La Clusaz', 'Bourg-Saint-Maurice', 'Valloire', 'Vars', 'Valberg', 'Nice']
   const dayIdx = Math.min(currentDayInfo.day - 1, locations.length - 1)
   currentLocationName.value = locations[dayIdx]
 }
