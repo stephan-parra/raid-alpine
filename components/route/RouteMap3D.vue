@@ -124,7 +124,7 @@
     </div>
 
     <!-- Terrain exaggeration toggle -->
-    <div v-if="mapLoaded" class="absolute top-20 left-1/2 -translate-x-1/2 z-10">
+    <div v-if="mapLoaded" class="absolute top-32 md:top-20 left-1/2 -translate-x-1/2 z-10">
       <div class="glass rounded-xl p-2 flex gap-2">
         <button
           @click="terrainExaggeration = 1.0"
@@ -191,7 +191,7 @@
     <!-- Exit button (mobile) -->
     <NuxtLink
       to="/route"
-      class="absolute top-20 right-6 z-20 md:hidden glass rounded-full p-3"
+      class="absolute top-32 right-6 z-20 md:hidden glass rounded-full p-3"
       aria-label="Exit flythrough"
     >
       <Icon name="heroicons:x-mark" class="w-6 h-6 text-white" />
@@ -617,8 +617,8 @@ function animateFlythrough() {
   const delta = (now - lastTimestamp) / 1000
   lastTimestamp = now
 
-  // Base speed - completes in ~60 seconds at 1x
-  const baseSpeed = 0.015
+  // Base speed - completes in ~2 minutes at 1x
+  const baseSpeed = 0.008
   progress.value += delta * baseSpeed * flythroughSpeed.value
 
   if (progress.value >= 1) {

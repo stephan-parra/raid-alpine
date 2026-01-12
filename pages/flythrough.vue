@@ -23,7 +23,7 @@
     </NuxtLink>
 
     <!-- Title overlay -->
-    <div class="fixed bottom-32 md:bottom-8 right-6 z-20 text-right pointer-events-none">
+    <div class="fixed bottom-44 md:bottom-8 right-6 z-20 text-right pointer-events-none">
       <h1 class="text-2xl md:text-4xl font-bebas text-white/80 tracking-wide">RAID ALPINE</h1>
       <p class="text-sm text-snow-500">3D Route Flythrough</p>
     </div>
