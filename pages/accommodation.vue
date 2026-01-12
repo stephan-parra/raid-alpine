@@ -369,17 +369,36 @@ useHead({
   title: 'Accommodation',
 })
 
-// Get route coordinates for a specific day
+// Map day numbers to their finish town names
+const dayToTown: Record<number, string> = {
+  1: 'La Clusaz',
+  2: 'Sainte-Foy-Tarentaise',
+  3: 'Valloire',
+  4: 'Vars',
+  5: 'Valberg',
+  6: 'Nice',
+}
+
+// Get route coordinates for a specific day, ensuring route reaches town center
 const getRouteForDay = (day: number): [number, number][] | undefined => {
+  let baseRoute: [number, number][] | undefined
   switch (day) {
-    case 1: return day1RouteCoordinates
-    case 2: return day2RouteCoordinates
-    case 3: return day3RouteCoordinates
-    case 4: return day4RouteCoordinates
-    case 5: return day5RouteCoordinates
-    case 6: return day6RouteCoordinates
+    case 1: baseRoute = day1RouteCoordinates; break
+    case 2: baseRoute = day2RouteCoordinates; break
+    case 3: baseRoute = day3RouteCoordinates; break
+    case 4: baseRoute = day4RouteCoordinates; break
+    case 5: baseRoute = day5RouteCoordinates; break
+    case 6: baseRoute = day6RouteCoordinates; break
     default: return undefined
   }
+
+  // Append town center coordinates to ensure route reaches the marker
+  const townName = dayToTown[day]
+  const townCenter = townName ? townCoordinates[townName] : undefined
+  if (baseRoute && townCenter) {
+    return [...baseRoute, townCenter]
+  }
+  return baseRoute
 }
 
 // Get formatted date for a specific day (Day 0 = 11th July 2026)
