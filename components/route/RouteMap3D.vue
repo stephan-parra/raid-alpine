@@ -132,12 +132,12 @@
       </div>
     </div>
 
-    <!-- Terrain exaggeration toggle -->
-    <div v-if="mapLoaded" class="absolute top-44 md:top-20 left-1/2 -translate-x-1/2 z-10">
-      <div class="glass rounded-xl p-1.5 md:p-2 flex items-center gap-1 md:gap-2">
+    <!-- Terrain exaggeration toggle (desktop only) -->
+    <div v-if="mapLoaded" class="absolute top-20 left-1/2 -translate-x-1/2 z-10 hidden md:block">
+      <div class="glass rounded-xl p-2 flex items-center gap-2">
         <button
           @click="terrainExaggeration = 1.0"
-          class="px-2 md:px-3 py-1 md:py-1.5 rounded-lg text-xs transition-colors"
+          class="px-3 py-1.5 rounded-lg text-xs transition-colors"
           :class="terrainExaggeration === 1.0
             ? 'bg-alpine-500 text-white'
             : 'text-snow-400 hover:bg-white/10'"
@@ -146,7 +146,7 @@
         </button>
         <button
           @click="terrainExaggeration = 1.5"
-          class="px-2 md:px-3 py-1 md:py-1.5 rounded-lg text-xs transition-colors"
+          class="px-3 py-1.5 rounded-lg text-xs transition-colors"
           :class="terrainExaggeration === 1.5
             ? 'bg-alpine-500 text-white'
             : 'text-snow-400 hover:bg-white/10'"
@@ -155,23 +155,25 @@
         </button>
         <button
           @click="terrainExaggeration = 2.0"
-          class="px-2 md:px-3 py-1 md:py-1.5 rounded-lg text-xs transition-colors"
+          class="px-3 py-1.5 rounded-lg text-xs transition-colors"
           :class="terrainExaggeration === 2.0
             ? 'bg-alpine-500 text-white'
             : 'text-snow-400 hover:bg-white/10'"
         >
           Dramatic
         </button>
-        <!-- Exit button integrated on mobile -->
-        <NuxtLink
-          to="/route"
-          class="md:hidden ml-1 w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
-          aria-label="Exit flythrough"
-        >
-          <Icon name="heroicons:x-mark" class="w-5 h-5 text-white" />
-        </NuxtLink>
       </div>
     </div>
+
+    <!-- Exit button (mobile only) -->
+    <NuxtLink
+      v-if="mapLoaded"
+      to="/route"
+      class="absolute top-20 right-6 z-20 md:hidden glass rounded-full p-2.5"
+      aria-label="Exit flythrough"
+    >
+      <Icon name="heroicons:x-mark" class="w-5 h-5 text-white" />
+    </NuxtLink>
 
     <!-- Stats display (Distance & Elevation) - Desktop -->
     <div v-if="mapLoaded" class="absolute top-20 right-6 z-10 hidden md:block">
@@ -187,14 +189,14 @@
       </div>
     </div>
 
-    <!-- Compact stats display - Mobile -->
-    <div v-if="mapLoaded" class="absolute top-20 right-6 z-10 md:hidden">
-      <div class="glass rounded-lg px-3 py-2 flex items-center gap-3 text-xs">
+    <!-- Compact stats display - Mobile (below day indicator) -->
+    <div v-if="mapLoaded" class="absolute top-36 left-6 z-10 md:hidden">
+      <div class="glass rounded-lg px-3 py-1.5 flex items-center gap-3 text-xs">
         <div class="flex items-center gap-1">
           <Icon name="heroicons:map-pin" class="w-3 h-3 text-summit-400" />
           <span class="text-white font-medium">{{ currentDistance }}km</span>
         </div>
-        <div class="w-px h-4 bg-white/20" />
+        <div class="w-px h-3 bg-white/20" />
         <div class="flex items-center gap-1">
           <Icon name="heroicons:arrow-trending-up" class="w-3 h-3 text-alpine-400" />
           <span class="text-white font-medium">{{ currentElevation }}m</span>
