@@ -59,28 +59,28 @@
     </div>
 
     <!-- Flythrough controls -->
-    <div v-if="mapLoaded" class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10">
-      <div class="glass rounded-2xl px-6 py-4 flex items-center gap-6">
+    <div v-if="mapLoaded" class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 w-[calc(100%-3rem)] md:w-auto">
+      <div class="glass rounded-2xl px-4 md:px-6 py-3 md:py-4 flex items-center gap-3 md:gap-6">
         <!-- Play/Pause button -->
         <button
           @click="toggleFlythrough"
-          class="w-14 h-14 rounded-full bg-summit-500 hover:bg-summit-400 flex items-center justify-center transition-all hover:scale-105 shadow-lg shadow-summit-500/30"
+          class="w-12 h-12 md:w-14 md:h-14 rounded-full bg-summit-500 hover:bg-summit-400 flex items-center justify-center transition-all hover:scale-105 shadow-lg shadow-summit-500/30 flex-shrink-0"
           :aria-label="isPlaying ? 'Pause flythrough' : 'Play flythrough'"
         >
           <Icon
             :name="isPlaying ? 'heroicons:pause-solid' : 'heroicons:play-solid'"
-            class="w-6 h-6 text-white"
+            class="w-5 h-5 md:w-6 md:h-6 text-white"
             :class="{ 'ml-0.5': !isPlaying }"
           />
         </button>
 
         <!-- Progress bar -->
-        <div class="flex-1 min-w-[200px] md:min-w-[300px]">
-          <div class="flex items-center justify-between text-xs text-snow-400 mb-2">
-            <span>{{ currentLocationName }}</span>
-            <span>{{ Math.round(progress * 100) }}%</span>
+        <div class="flex-1 min-w-0">
+          <div class="flex items-center justify-between text-xs text-snow-400 mb-1.5 md:mb-2">
+            <span class="truncate">{{ currentLocationName }}</span>
+            <span class="flex-shrink-0 ml-2">{{ Math.round(progress * 100) }}%</span>
           </div>
-          <div class="h-2 bg-white/10 rounded-full overflow-hidden">
+          <div class="h-1.5 md:h-2 bg-white/10 rounded-full overflow-hidden">
             <div
               class="h-full bg-gradient-to-r from-alpine-500 to-summit-500 rounded-full transition-all duration-300"
               :style="{ width: `${progress * 100}%` }"
@@ -88,16 +88,25 @@
           </div>
         </div>
 
+        <!-- Mobile speed toggle (tap to cycle) -->
+        <button
+          @click="cycleSpeed"
+          class="md:hidden w-10 h-10 rounded-xl bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors flex-shrink-0"
+          aria-label="Change speed"
+        >
+          <span class="text-xs font-medium text-white">{{ flythroughSpeed }}x</span>
+        </button>
+
         <!-- Restart button -->
         <button
           @click="restartFlythrough"
-          class="w-10 h-10 rounded-xl bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
+          class="w-10 h-10 rounded-xl bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors flex-shrink-0"
           aria-label="Restart flythrough"
         >
           <Icon name="heroicons:arrow-path" class="w-5 h-5 text-white" />
         </button>
 
-        <!-- Speed control -->
+        <!-- Speed control - Desktop -->
         <div class="hidden md:flex items-center gap-2">
           <span class="text-xs text-snow-500">Speed:</span>
           <button
@@ -156,7 +165,7 @@
       </div>
     </div>
 
-    <!-- Stats display (Distance & Elevation) -->
+    <!-- Stats display (Distance & Elevation) - Desktop -->
     <div v-if="mapLoaded" class="absolute top-20 right-6 z-10 hidden md:block">
       <div class="glass rounded-xl p-4 text-right space-y-3">
         <div>
@@ -166,6 +175,21 @@
         <div class="border-t border-white/10 pt-3">
           <div class="text-xs text-snow-500 uppercase tracking-wider mb-1">Elevation</div>
           <div class="text-3xl font-bebas text-white">{{ currentElevation }}m</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Compact stats display - Mobile -->
+    <div v-if="mapLoaded" class="absolute top-20 right-6 z-10 md:hidden">
+      <div class="glass rounded-lg px-3 py-2 flex items-center gap-3 text-xs">
+        <div class="flex items-center gap-1">
+          <Icon name="heroicons:map-pin" class="w-3 h-3 text-summit-400" />
+          <span class="text-white font-medium">{{ currentDistance }}km</span>
+        </div>
+        <div class="w-px h-4 bg-white/20" />
+        <div class="flex items-center gap-1">
+          <Icon name="heroicons:arrow-trending-up" class="w-3 h-3 text-alpine-400" />
+          <span class="text-white font-medium">{{ currentElevation }}m</span>
         </div>
       </div>
     </div>
@@ -572,6 +596,24 @@ const initMap = async () => {
 
       mapLoaded.value = true
 
+      // Auto-pause on user map interaction
+      map.on('dragstart', () => {
+        if (isPlaying.value) {
+          pauseFlythrough()
+        }
+      })
+      map.on('zoomstart', (e) => {
+        // Only pause on user-initiated zoom (not programmatic)
+        if (e.originalEvent && isPlaying.value) {
+          pauseFlythrough()
+        }
+      })
+      map.on('pitchstart', (e) => {
+        if (e.originalEvent && isPlaying.value) {
+          pauseFlythrough()
+        }
+      })
+
       // Brief pause then start
       setTimeout(() => {
         startFlythrough()
@@ -682,16 +724,27 @@ function calculateBearing(lng1: number, lat1: number, lng2: number, lat2: number
 
 function toggleFlythrough() {
   if (isPlaying.value) {
-    isPlaying.value = false
-    if (animationFrame) {
-      cancelAnimationFrame(animationFrame)
-    }
+    pauseFlythrough()
   } else {
     if (progress.value >= 1) {
       progress.value = 0
     }
     startFlythrough()
   }
+}
+
+function pauseFlythrough() {
+  isPlaying.value = false
+  if (animationFrame) {
+    cancelAnimationFrame(animationFrame)
+  }
+}
+
+function cycleSpeed() {
+  const speeds = [1, 2, 4]
+  const currentIndex = speeds.indexOf(flythroughSpeed.value)
+  const nextIndex = (currentIndex + 1) % speeds.length
+  flythroughSpeed.value = speeds[nextIndex]
 }
 
 function restartFlythrough() {
