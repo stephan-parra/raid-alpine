@@ -15,6 +15,49 @@
       </div>
     </div>
 
+    <!-- Mini Elevation Profile -->
+    <div v-if="mapLoaded" class="absolute bottom-28 md:bottom-24 left-1/2 -translate-x-1/2 z-10 hidden md:block">
+      <div class="glass rounded-xl px-4 py-2">
+        <svg :viewBox="`0 0 ${elevationProfileWidth} ${elevationProfileHeight}`" class="w-[400px] h-[60px]">
+          <!-- Elevation profile path -->
+          <path
+            :d="elevationProfilePath"
+            fill="url(#elevationGradient)"
+            stroke="#f19333"
+            stroke-width="1.5"
+          />
+          <!-- Gradient definition -->
+          <defs>
+            <linearGradient id="elevationGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" style="stop-color:#f19333;stop-opacity:0.4" />
+              <stop offset="100%" style="stop-color:#f19333;stop-opacity:0.05" />
+            </linearGradient>
+          </defs>
+          <!-- Current position marker -->
+          <circle
+            :cx="progress * elevationProfileWidth"
+            :cy="getElevationY(Math.floor(progress * (routePointsWithElevation.length - 1)))"
+            r="4"
+            fill="#ffffff"
+            stroke="#f19333"
+            stroke-width="2"
+          />
+          <!-- Day boundary markers -->
+          <line
+            v-for="boundary in dayBoundaries.slice(1)"
+            :key="boundary.day"
+            :x1="(boundary.index / routePointsWithElevation.length) * elevationProfileWidth"
+            :y1="0"
+            :x2="(boundary.index / routePointsWithElevation.length) * elevationProfileWidth"
+            :y2="elevationProfileHeight"
+            stroke="rgba(255,255,255,0.2)"
+            stroke-width="1"
+            stroke-dasharray="2,2"
+          />
+        </svg>
+      </div>
+    </div>
+
     <!-- Flythrough controls -->
     <div v-if="mapLoaded" class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10">
       <div class="glass rounded-2xl px-6 py-4 flex items-center gap-6">
@@ -113,13 +156,37 @@
       </div>
     </div>
 
-    <!-- Distance display -->
-    <div v-if="mapLoaded" class="absolute top-20 right-6 z-10">
-      <div class="glass rounded-xl p-4 text-right">
-        <div class="text-xs text-snow-500 uppercase tracking-wider mb-1">Distance</div>
-        <div class="text-3xl font-bebas text-white">{{ currentDistance }}km</div>
+    <!-- Stats display (Distance & Elevation) -->
+    <div v-if="mapLoaded" class="absolute top-20 right-6 z-10 hidden md:block">
+      <div class="glass rounded-xl p-4 text-right space-y-3">
+        <div>
+          <div class="text-xs text-snow-500 uppercase tracking-wider mb-1">Distance</div>
+          <div class="text-3xl font-bebas text-white">{{ currentDistance }}km</div>
+        </div>
+        <div class="border-t border-white/10 pt-3">
+          <div class="text-xs text-snow-500 uppercase tracking-wider mb-1">Elevation</div>
+          <div class="text-3xl font-bebas text-white">{{ currentElevation }}m</div>
+        </div>
       </div>
     </div>
+
+    <!-- Col indicator (appears when passing a col) -->
+    <Transition
+      enter-active-class="transition-all duration-500 ease-out"
+      leave-active-class="transition-all duration-300 ease-in"
+      enter-from-class="opacity-0 translate-y-4"
+      enter-to-class="opacity-100 translate-y-0"
+      leave-from-class="opacity-100 translate-y-0"
+      leave-to-class="opacity-0 -translate-y-4"
+    >
+      <div v-if="currentColName" class="absolute bottom-40 md:bottom-32 left-1/2 -translate-x-1/2 z-10">
+        <div class="glass rounded-xl px-6 py-3 text-center">
+          <div class="text-xs text-summit-400 uppercase tracking-wider mb-1">Summit</div>
+          <div class="text-xl font-semibold text-white">{{ currentColName }}</div>
+          <div class="text-sm text-snow-400">{{ currentElevation }}m</div>
+        </div>
+      </div>
+    </Transition>
 
     <!-- Exit button (mobile) -->
     <NuxtLink
@@ -133,8 +200,8 @@
 </template>
 
 <script setup lang="ts">
-import { detailedRouteCoordinates } from '~/data/detailedRoute'
-import { days } from '~/data/route'
+import { detailedRouteCoordinates, dayBoundaries, elevationStats } from '~/data/detailedRoute'
+import { days, featuredCols } from '~/data/route'
 import type { Map as MaplibreMap } from 'maplibre-gl'
 
 const mapContainer = ref<HTMLElement | null>(null)
@@ -150,6 +217,49 @@ const currentDay = ref(0)
 const currentLocationName = ref('Thonon-les-Bains')
 const currentStageName = ref('')
 const currentDistance = ref(0)
+const currentElevation = ref(0)
+const currentColName = ref('')
+
+// Elevation profile constants
+const elevationProfileWidth = 400
+const elevationProfileHeight = 60
+const elevationPadding = 5
+
+// Get Y coordinate for elevation profile
+function getElevationY(index: number): number {
+  if (index < 0 || index >= detailedRouteCoordinates.length) return elevationProfileHeight
+  const ele = detailedRouteCoordinates[index][2]
+  const normalizedEle = (ele - elevationStats.min) / (elevationStats.max - elevationStats.min)
+  return elevationProfileHeight - elevationPadding - (normalizedEle * (elevationProfileHeight - elevationPadding * 2))
+}
+
+// Generate elevation profile SVG path (computed once)
+const elevationProfilePath = computed(() => {
+  const points: string[] = []
+  const step = Math.max(1, Math.floor(detailedRouteCoordinates.length / 200)) // Sample for performance
+
+  // Start from bottom left
+  points.push(`M 0 ${elevationProfileHeight}`)
+
+  // Draw line to first elevation point
+  points.push(`L 0 ${getElevationY(0)}`)
+
+  // Draw elevation profile
+  for (let i = 0; i < detailedRouteCoordinates.length; i += step) {
+    const x = (i / (detailedRouteCoordinates.length - 1)) * elevationProfileWidth
+    const y = getElevationY(i)
+    points.push(`L ${x} ${y}`)
+  }
+
+  // Ensure we include the last point
+  points.push(`L ${elevationProfileWidth} ${getElevationY(detailedRouteCoordinates.length - 1)}`)
+
+  // Close the path to bottom right
+  points.push(`L ${elevationProfileWidth} ${elevationProfileHeight}`)
+  points.push('Z')
+
+  return points.join(' ')
+})
 
 let map: MaplibreMap | null = null
 let maplibreModule: typeof import('maplibre-gl') | null = null
@@ -163,18 +273,44 @@ const bearingSmoothFactor = 0.05 // Lower = smoother (0.05 = very smooth)
 // Total route distance
 const totalDistance = 763
 
-// Sample every 3rd point for smoother movement (reduces jerkiness)
-const routePoints = detailedRouteCoordinates.filter((_, i) => i % 3 === 0)
+// Route points with coordinates and elevation from GPX data
+// Format: [longitude, latitude, elevation]
+const routePointsWithElevation = detailedRouteCoordinates
 
-// Day boundaries (approximate indices in sampled route - divided by 3)
-const dayBoundaries = [
-  { index: 0, day: 1, name: 'Thonon-les-Bains → La Clusaz' },
-  { index: 57, day: 2, name: 'La Clusaz → Bourg-Saint-Maurice' },
-  { index: 119, day: 3, name: 'Bourg-Saint-Maurice → Valloire' },
-  { index: 160, day: 4, name: 'Valloire → Vars' },
-  { index: 201, day: 5, name: 'Vars → Valberg' },
-  { index: 242, day: 6, name: 'Valberg → Nice' },
-]
+// Extract just [lng, lat] for map rendering
+const routePoints: [number, number][] = routePointsWithElevation.map(p => [p[0], p[1]])
+
+// Col positions along the route for marker display
+const colPositions = featuredCols.map(col => {
+  // Find approximate position in route based on day
+  const dayBoundary = dayBoundaries.find(b => b.day === col.day)
+  const nextDayBoundary = dayBoundaries.find(b => b.day === col.day + 1)
+  if (!dayBoundary) return null
+
+  // Estimate position within the day (cols are usually in the middle-to-end of a day)
+  const dayStart = dayBoundary.index
+  const dayEnd = nextDayBoundary ? nextDayBoundary.index : routePointsWithElevation.length
+
+  // Position cols at points close to their elevation
+  let bestIndex = dayStart
+  let bestDiff = Infinity
+
+  for (let i = dayStart; i < dayEnd; i++) {
+    const pointEle = routePointsWithElevation[i][2]
+    const diff = Math.abs(pointEle - col.elevation)
+    if (diff < bestDiff) {
+      bestDiff = diff
+      bestIndex = i
+    }
+  }
+
+  return {
+    name: col.name,
+    elevation: col.elevation,
+    index: bestIndex,
+    coordinates: [routePointsWithElevation[bestIndex][0], routePointsWithElevation[bestIndex][1]] as [number, number]
+  }
+}).filter(Boolean)
 
 // Get day info based on route index
 function updateDayInfo(routeIndex: number) {
@@ -187,6 +323,14 @@ function updateDayInfo(routeIndex: number) {
   currentDay.value = currentDayInfo.day
   currentStageName.value = currentDayInfo.name
   currentDistance.value = Math.round((routeIndex / routePoints.length) * totalDistance)
+
+  // Update elevation from route data
+  const idx = Math.min(Math.floor(routeIndex), routePointsWithElevation.length - 1)
+  currentElevation.value = routePointsWithElevation[idx][2]
+
+  // Check if near a col (within 3 points)
+  const nearbyCol = colPositions.find(col => col && Math.abs(col.index - routeIndex) < 5)
+  currentColName.value = nearbyCol ? nearbyCol.name : ''
 
   // Update location name based on progress
   const locations = ['Thonon-les-Bains', 'La Clusaz', 'Bourg-Saint-Maurice', 'Valloire', 'Vars', 'Valberg', 'Nice']
