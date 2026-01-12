@@ -97,8 +97,8 @@
                 <!-- Map -->
                 <div class="col-span-2">
                   <AccommodationMiniMap
-                    v-if="townCoordinates[acc.town]"
-                    :coordinates="townCoordinates[acc.town]"
+                    v-if="getMapCenter(acc.day, acc.town)"
+                    :coordinates="getMapCenter(acc.day, acc.town)!"
                     :town-name="acc.town"
                     :radius-miles="2"
                     :route-coordinates="getRouteForDay(acc.day)"
@@ -184,8 +184,8 @@
             <!-- Map -->
             <div class="mb-4">
               <AccommodationMiniMap
-                v-if="townCoordinates[acc.town]"
-                :coordinates="townCoordinates[acc.town]"
+                v-if="getMapCenter(acc.day, acc.town)"
+                :coordinates="getMapCenter(acc.day, acc.town)!"
                 :town-name="acc.town"
                 :radius-miles="2"
                 :route-coordinates="getRouteForDay(acc.day)"
@@ -369,36 +369,26 @@ useHead({
   title: 'Accommodation',
 })
 
-// Map day numbers to their finish town names
-const dayToTown: Record<number, string> = {
-  1: 'La Clusaz',
-  2: 'Sainte-Foy-Tarentaise',
-  3: 'Valloire',
-  4: 'Vars',
-  5: 'Valberg',
-  6: 'Nice',
-}
-
-// Get route coordinates for a specific day, ensuring route reaches town center
+// Get route coordinates for a specific day
 const getRouteForDay = (day: number): [number, number][] | undefined => {
-  let baseRoute: [number, number][] | undefined
   switch (day) {
-    case 1: baseRoute = day1RouteCoordinates; break
-    case 2: baseRoute = day2RouteCoordinates; break
-    case 3: baseRoute = day3RouteCoordinates; break
-    case 4: baseRoute = day4RouteCoordinates; break
-    case 5: baseRoute = day5RouteCoordinates; break
-    case 6: baseRoute = day6RouteCoordinates; break
+    case 1: return day1RouteCoordinates
+    case 2: return day2RouteCoordinates
+    case 3: return day3RouteCoordinates
+    case 4: return day4RouteCoordinates
+    case 5: return day5RouteCoordinates
+    case 6: return day6RouteCoordinates
     default: return undefined
   }
+}
 
-  // Append town center coordinates to ensure route reaches the marker
-  const townName = dayToTown[day]
-  const townCenter = townName ? townCoordinates[townName] : undefined
-  if (baseRoute && townCenter) {
-    return [...baseRoute, townCenter]
+// Get map center - use route endpoint for riding days, town center for Day 0
+const getMapCenter = (day: number, town: string): [number, number] | undefined => {
+  const route = getRouteForDay(day)
+  if (route && route.length > 0) {
+    return route[route.length - 1]
   }
-  return baseRoute
+  return townCoordinates[town]
 }
 
 // Get formatted date for a specific day (Day 0 = 11th July 2026)
