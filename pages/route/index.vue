@@ -87,7 +87,7 @@
       <div class="container-wide">
         <UiSectionHeading
           eyebrow="Interactive Map"
-          title="The Journey"
+          title="The Route"
           description="Follow the route from Lake Geneva south through the heart of the French Alps."
         />
 

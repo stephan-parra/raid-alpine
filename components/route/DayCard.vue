@@ -109,8 +109,6 @@
         <div class="flex items-center gap-2">
           <template v-if="hasDownloadForDay">
             <DownloadsDownloadButton :day="day.day" format="gpx" />
-            <DownloadsDownloadButton :day="day.day" format="fit" />
-            <DownloadsDownloadButton :day="day.day" format="tcx" />
           </template>
           <span v-else class="text-xs text-snow-500 bg-white/5 px-3 py-1.5 rounded-lg">
             Coming Soon
