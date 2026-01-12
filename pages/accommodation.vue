@@ -363,7 +363,7 @@
 </template>
 
 <script setup lang="ts">
-import { accommodations, townCoordinates, day1RouteCoordinates } from '~/data/route'
+import { accommodations, townCoordinates, day1RouteCoordinates, day2RouteCoordinates, day3RouteCoordinates, day4RouteCoordinates, day5RouteCoordinates, day6RouteCoordinates } from '~/data/route'
 
 useHead({
   title: 'Accommodation',
@@ -371,8 +371,15 @@ useHead({
 
 // Get route coordinates for a specific day
 const getRouteForDay = (day: number): [number, number][] | undefined => {
-  if (day === 1) return day1RouteCoordinates
-  return undefined
+  switch (day) {
+    case 1: return day1RouteCoordinates
+    case 2: return day2RouteCoordinates
+    case 3: return day3RouteCoordinates
+    case 4: return day4RouteCoordinates
+    case 5: return day5RouteCoordinates
+    case 6: return day6RouteCoordinates
+    default: return undefined
+  }
 }
 
 // Get formatted date for a specific day (Day 0 = 11th July 2026)
