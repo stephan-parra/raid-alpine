@@ -97,8 +97,8 @@
                 <!-- Map -->
                 <div class="col-span-2">
                   <AccommodationMiniMap
-                    v-if="townCoordinates[acc.town]"
-                    :coordinates="townCoordinates[acc.town]"
+                    v-if="getMapCenter(acc.day, acc.town)"
+                    :coordinates="getMapCenter(acc.day, acc.town)!"
                     :town-name="acc.town"
                     :radius-miles="2"
                     :route-coordinates="getRouteForDay(acc.day)"
@@ -184,8 +184,8 @@
             <!-- Map -->
             <div class="mb-4">
               <AccommodationMiniMap
-                v-if="townCoordinates[acc.town]"
-                :coordinates="townCoordinates[acc.town]"
+                v-if="getMapCenter(acc.day, acc.town)"
+                :coordinates="getMapCenter(acc.day, acc.town)!"
                 :town-name="acc.town"
                 :radius-miles="2"
                 :route-coordinates="getRouteForDay(acc.day)"
@@ -380,6 +380,15 @@ const getRouteForDay = (day: number): [number, number][] | undefined => {
     case 6: return day6RouteCoordinates
     default: return undefined
   }
+}
+
+// Get map center - use route endpoint for riding days, town center for Day 0
+const getMapCenter = (day: number, town: string): [number, number] | undefined => {
+  const route = getRouteForDay(day)
+  if (route && route.length > 0) {
+    return route[route.length - 1]
+  }
+  return townCoordinates[town]
 }
 
 // Get formatted date for a specific day (Day 0 = 11th July 2026)
