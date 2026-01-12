@@ -126,18 +126,18 @@
 
     <!-- Day indicator -->
     <div v-if="mapLoaded && currentDay > 0" class="absolute top-20 left-6 z-10">
-      <div class="glass rounded-xl p-4">
-        <div class="text-xs text-summit-400 uppercase tracking-wider mb-1">Day {{ currentDay }}</div>
-        <div class="text-lg font-semibold text-white">{{ currentStageName }}</div>
+      <div class="glass rounded-xl p-3 md:p-4">
+        <div class="text-xs text-summit-400 uppercase tracking-wider mb-0.5 md:mb-1">Day {{ currentDay }}</div>
+        <div class="text-sm md:text-lg font-semibold text-white truncate max-w-[140px] md:max-w-none">{{ currentStageName }}</div>
       </div>
     </div>
 
     <!-- Terrain exaggeration toggle -->
-    <div v-if="mapLoaded" class="absolute top-32 md:top-20 left-1/2 -translate-x-1/2 z-10">
-      <div class="glass rounded-xl p-2 flex gap-2">
+    <div v-if="mapLoaded" class="absolute top-44 md:top-20 left-1/2 -translate-x-1/2 z-10">
+      <div class="glass rounded-xl p-1.5 md:p-2 flex items-center gap-1 md:gap-2">
         <button
           @click="terrainExaggeration = 1.0"
-          class="px-3 py-1.5 rounded-lg text-xs transition-colors"
+          class="px-2 md:px-3 py-1 md:py-1.5 rounded-lg text-xs transition-colors"
           :class="terrainExaggeration === 1.0
             ? 'bg-alpine-500 text-white'
             : 'text-snow-400 hover:bg-white/10'"
@@ -146,7 +146,7 @@
         </button>
         <button
           @click="terrainExaggeration = 1.5"
-          class="px-3 py-1.5 rounded-lg text-xs transition-colors"
+          class="px-2 md:px-3 py-1 md:py-1.5 rounded-lg text-xs transition-colors"
           :class="terrainExaggeration === 1.5
             ? 'bg-alpine-500 text-white'
             : 'text-snow-400 hover:bg-white/10'"
@@ -155,13 +155,21 @@
         </button>
         <button
           @click="terrainExaggeration = 2.0"
-          class="px-3 py-1.5 rounded-lg text-xs transition-colors"
+          class="px-2 md:px-3 py-1 md:py-1.5 rounded-lg text-xs transition-colors"
           :class="terrainExaggeration === 2.0
             ? 'bg-alpine-500 text-white'
             : 'text-snow-400 hover:bg-white/10'"
         >
           Dramatic
         </button>
+        <!-- Exit button integrated on mobile -->
+        <NuxtLink
+          to="/route"
+          class="md:hidden ml-1 w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
+          aria-label="Exit flythrough"
+        >
+          <Icon name="heroicons:x-mark" class="w-5 h-5 text-white" />
+        </NuxtLink>
       </div>
     </div>
 
@@ -212,14 +220,6 @@
       </div>
     </Transition>
 
-    <!-- Exit button (mobile) -->
-    <NuxtLink
-      to="/route"
-      class="absolute top-32 right-6 z-20 md:hidden glass rounded-full p-3"
-      aria-label="Exit flythrough"
-    >
-      <Icon name="heroicons:x-mark" class="w-6 h-6 text-white" />
-    </NuxtLink>
   </div>
 </template>
 
