@@ -389,13 +389,13 @@ export function getDownloadPath(day: number, format: 'gpx'): string {
 }
 
 export function hasDownload(day: number): boolean {
-  // Day 3 not yet available - returns false for placeholder state
-  return [1, 2, 4, 5, 6].includes(day)
+  // All riding days have downloads available
+  return [1, 2, 3, 4, 5, 6].includes(day)
 }
 
 export function isComingSoon(day: number): boolean {
-  // Day 3 route is not yet complete
-  return day === 3
+  // All routes are now available
+  return false
 }
 
 // Route coordinates for map (riding days only)
