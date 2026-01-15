@@ -462,8 +462,10 @@ export const accommodations: Accommodation[] = [
   {
     day: 3,
     town: 'Valloire',
-    name: 'TBC',
-    bookingId: 'TBC',
+    name: 'Chalet Moulinot',
+    address: 'Place des Chouillères 8, 73450 Valloire, France',
+    bookingUrl: 'https://secure.booking.com/app_link/myreservations.en.html?stid=325542&bn=5798588171&aid=866831',
+    bookingId: '4979',
   },
   {
     day: 4,
@@ -471,7 +473,8 @@ export const accommodations: Accommodation[] = [
     name: 'Apt 45 m2 sur les pistes',
     type: 'apartment',
     address: '506 Le Lubéron 360D cours Brayer, 05560 Vars, France',
-    bookingId: 'TBC',
+    bookingUrl: 'https://secure.booking.com/app_link/myreservations.en.html?stid=325542&bn=6845948470&aid=332731',
+    bookingId: '9820',
   },
   {
     day: 5,
