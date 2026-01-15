@@ -49,7 +49,6 @@
 - **Location:** Valloire
 - **Accommodation:** Chalet Moulinot
 - **Address:** Place des Chouilleres 8, 73450 Valloire, France
-- **Booking ID:** 4979
 - **Booking:** [View Reservation](https://secure.booking.com/app_link/myreservations.en.html?stid=325542&bn=5798588171&aid=866831)
 
 ---
@@ -59,7 +58,6 @@
 - **Accommodation:** Apt 45 m2 sur les pistes
 - **Address:** 506 Le Luberon 360D cours Brayer, 05560 Vars, France
 - **Type:** Apartment
-- **Booking ID:** 9820
 - **Booking:** [View Reservation](https://secure.booking.com/app_link/myreservations.en.html?stid=325542&bn=6845948470&aid=332731)
 
 ---
@@ -85,7 +83,3 @@
 
 **Confirmed Bookings:** Days 1, 2, 3, 4, 5
 **Still TBC:** Days 0, 6
-
-**Booking IDs to Remember:**
-- Day 3 (Valloire): 4979
-- Day 4 (Vars): 9820
