@@ -468,7 +468,9 @@ export const accommodations: Accommodation[] = [
   {
     day: 4,
     town: 'Vars',
-    name: 'TBC',
+    name: 'Apt 45 m2 sur les pistes',
+    type: 'apartment',
+    address: '506 Le Lubéron 360D cours Brayer, 05560 Vars, France',
     bookingId: 'TBC',
   },
   {
