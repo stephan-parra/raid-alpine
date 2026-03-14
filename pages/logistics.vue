@@ -45,28 +45,213 @@
       </div>
     </section>
 
-    <!-- Getting There -->
+    <!-- Agreed Travel Plan -->
     <section class="section bg-slate-950">
       <div class="container-wide">
         <UiSectionHeading
-          eyebrow="Transport"
-          title="Getting There"
-          description="Five options to reach the start at Thonon-les-Bains."
+          eyebrow="Confirmed"
+          title="Agreed Travel Plan"
+          description="The final logistics for getting to the start and home from the finish."
         />
 
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <!-- Option 1: Drive Own Car -->
+        <!-- Timeline -->
+        <div class="max-w-4xl mx-auto">
+          <!-- Outbound: 11 Jul -->
           <div
             v-motion
             :initial="{ opacity: 0, y: 20 }"
             :visibleOnce="{ opacity: 1, y: 0 }"
-            class="glass-dark rounded-3xl p-8 ring-2 ring-green-500/30"
+            class="glass-dark rounded-3xl p-8 ring-2 ring-green-500/30 mb-8"
           >
-            <div class="absolute -top-3 right-6">
-              <span class="px-3 py-1 bg-green-500 text-white text-xs font-semibold rounded-full">
-                Easiest
-              </span>
+            <div class="flex items-center gap-3 mb-6">
+              <div class="w-10 h-10 rounded-xl bg-green-500/20 flex items-center justify-center">
+                <Icon name="heroicons:paper-airplane" class="w-5 h-5 text-green-400" />
+              </div>
+              <div>
+                <h3 class="text-2xl font-display text-white">Outbound &mdash; Friday 11 July</h3>
+                <p class="text-snow-500 text-sm">London &rarr; Lyon &rarr; Thonon-les-Bains</p>
+              </div>
             </div>
+
+            <div class="space-y-6">
+              <!-- Flight -->
+              <div class="flex gap-4">
+                <div class="flex flex-col items-center">
+                  <div class="w-8 h-8 rounded-full bg-summit-500/20 flex items-center justify-center">
+                    <Icon name="heroicons:paper-airplane" class="w-4 h-4 text-summit-400" />
+                  </div>
+                  <div class="w-0.5 flex-1 bg-white/10 mt-2" />
+                </div>
+                <div class="pb-6">
+                  <h4 class="font-semibold text-white">Fly: London Heathrow &rarr; Lyon Saint-Exup&eacute;ry</h4>
+                  <div class="mt-2 space-y-1 text-snow-400 text-sm">
+                    <p><strong class="text-snow-200">Flight:</strong> British Airways BA0356 &mdash; Airbus A320</p>
+                    <p><strong class="text-snow-200">Depart:</strong> 07:15 LHR Terminal 5</p>
+                    <p><strong class="text-snow-200">Arrive:</strong> 09:55 LYS Terminal 1</p>
+                    <p><strong class="text-snow-200">Duration:</strong> 1h 40m</p>
+                    <p><strong class="text-snow-200">Class:</strong> Economy O</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Train to Thonon -->
+              <div class="flex gap-4">
+                <div class="flex flex-col items-center">
+                  <div class="w-8 h-8 rounded-full bg-glacier-500/20 flex items-center justify-center">
+                    <Icon name="mdi:train" class="w-4 h-4 text-glacier-400" />
+                  </div>
+                  <div class="w-0.5 flex-1 bg-white/10 mt-2" />
+                </div>
+                <div class="pb-6">
+                  <h4 class="font-semibold text-white">Train: Lyon Part-Dieu &rarr; Thonon-Les-Bains</h4>
+                  <div class="mt-2 space-y-1 text-snow-400 text-sm">
+                    <p><strong class="text-snow-200">Depart:</strong> 12:38 PM Lyon Part-Dieu</p>
+                    <p><strong class="text-snow-200">Arrive:</strong> 3:29 PM Thonon-Les-Bains</p>
+                    <p><strong class="text-snow-200">Duration:</strong> 2h 51m (1 connection)</p>
+                    <p><strong class="text-snow-200">Price:</strong> from &euro;96.40</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Arrive -->
+              <div class="flex gap-4">
+                <div class="flex flex-col items-center">
+                  <div class="w-8 h-8 rounded-full bg-green-500/20 flex items-center justify-center">
+                    <Icon name="heroicons:map-pin" class="w-4 h-4 text-green-400" />
+                  </div>
+                </div>
+                <div>
+                  <h4 class="font-semibold text-green-400">Arrive Thonon-Les-Bains &mdash; Start Point</h4>
+                  <p class="text-snow-400 text-sm mt-1">Ready for Day 1 of the RAID Alpine</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- The Ride -->
+          <div
+            v-motion
+            :initial="{ opacity: 0, y: 20 }"
+            :visibleOnce="{ opacity: 1, y: 0, transition: { delay: 100 } }"
+            class="glass-dark rounded-3xl p-8 ring-2 ring-summit-500/30 mb-8"
+          >
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-10 h-10 rounded-xl bg-summit-500/20 flex items-center justify-center">
+                <Icon name="mdi:bicycle" class="w-5 h-5 text-summit-400" />
+              </div>
+              <div>
+                <h3 class="text-2xl font-display text-white">The Ride &mdash; 12&ndash;17 July</h3>
+                <p class="text-snow-500 text-sm">Thonon-les-Bains &rarr; Nice</p>
+              </div>
+            </div>
+            <p class="text-snow-400">
+              6 days cycling through the French Alps. 763 km, 17,360 m of climbing, crossing some of the most iconic cols in cycling.
+            </p>
+          </div>
+
+          <!-- Return: 18 Jul -->
+          <div
+            v-motion
+            :initial="{ opacity: 0, y: 20 }"
+            :visibleOnce="{ opacity: 1, y: 0, transition: { delay: 200 } }"
+            class="glass-dark rounded-3xl p-8 ring-2 ring-alpine-500/30"
+          >
+            <div class="flex items-center gap-3 mb-6">
+              <div class="w-10 h-10 rounded-xl bg-alpine-500/20 flex items-center justify-center">
+                <Icon name="heroicons:home" class="w-5 h-5 text-alpine-400" />
+              </div>
+              <div>
+                <h3 class="text-2xl font-display text-white">Return &mdash; Friday 18 July</h3>
+                <p class="text-snow-500 text-sm">Nice &rarr; Avignon &rarr; Lyon &rarr; London</p>
+              </div>
+            </div>
+
+            <div class="space-y-6">
+              <!-- Train Nice to Avignon -->
+              <div class="flex gap-4">
+                <div class="flex flex-col items-center">
+                  <div class="w-8 h-8 rounded-full bg-glacier-500/20 flex items-center justify-center">
+                    <Icon name="mdi:train" class="w-4 h-4 text-glacier-400" />
+                  </div>
+                  <div class="w-0.5 flex-1 bg-white/10 mt-2" />
+                </div>
+                <div class="pb-6">
+                  <h4 class="font-semibold text-white">Train: Nice &rarr; Avignon Centre</h4>
+                  <div class="mt-2 space-y-1 text-snow-400 text-sm">
+                    <p><strong class="text-snow-200">Duration:</strong> ~4h 38m (1 connection)</p>
+                    <p><strong class="text-snow-200">Price:</strong> from &euro;136.80</p>
+                    <p class="text-snow-500 italic">Multiple departures available from 7:25 AM</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Train Avignon to Lyon -->
+              <div class="flex gap-4">
+                <div class="flex flex-col items-center">
+                  <div class="w-8 h-8 rounded-full bg-glacier-500/20 flex items-center justify-center">
+                    <Icon name="mdi:train" class="w-4 h-4 text-glacier-400" />
+                  </div>
+                  <div class="w-0.5 flex-1 bg-white/10 mt-2" />
+                </div>
+                <div class="pb-6">
+                  <h4 class="font-semibold text-white">Train: Avignon Centre &rarr; Lyon Part-Dieu</h4>
+                  <div class="mt-2 space-y-1 text-snow-400 text-sm">
+                    <p><strong class="text-snow-200">Duration:</strong> ~2h 27&ndash;30m (Direct TER)</p>
+                    <p><strong class="text-snow-200">Price:</strong> from &euro;171.60</p>
+                    <p class="text-snow-500 italic">Multiple departures from 2:10 PM &mdash; need to connect with 21:30 flight</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Flight home -->
+              <div class="flex gap-4">
+                <div class="flex flex-col items-center">
+                  <div class="w-8 h-8 rounded-full bg-summit-500/20 flex items-center justify-center">
+                    <Icon name="heroicons:paper-airplane" class="w-4 h-4 text-summit-400" />
+                  </div>
+                  <div class="w-0.5 flex-1 bg-white/10 mt-2" />
+                </div>
+                <div class="pb-6">
+                  <h4 class="font-semibold text-white">Fly: Lyon Saint-Exup&eacute;ry &rarr; London Heathrow</h4>
+                  <div class="mt-2 space-y-1 text-snow-400 text-sm">
+                    <p><strong class="text-snow-200">Flight:</strong> British Airways BA0363 &mdash; Airbus A319</p>
+                    <p><strong class="text-snow-200">Depart:</strong> 21:30 LYS Terminal 1</p>
+                    <p><strong class="text-snow-200">Arrive:</strong> 22:10 LHR Terminal 5</p>
+                    <p><strong class="text-snow-200">Duration:</strong> 1h 40m</p>
+                    <p><strong class="text-snow-200">Class:</strong> Economy O</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Home -->
+              <div class="flex gap-4">
+                <div class="flex flex-col items-center">
+                  <div class="w-8 h-8 rounded-full bg-green-500/20 flex items-center justify-center">
+                    <Icon name="heroicons:home" class="w-4 h-4 text-green-400" />
+                  </div>
+                </div>
+                <div>
+                  <h4 class="font-semibold text-green-400">Home</h4>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Other Options Considered -->
+    <section class="section bg-slate-900/50">
+      <div class="container-wide">
+        <UiSectionHeading
+          eyebrow="Archive"
+          title="Other Options Considered"
+          description="These alternatives were explored during planning but not selected."
+        />
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 opacity-60">
+          <!-- Option 1: Drive Own Car -->
+          <div class="glass-dark rounded-3xl p-8">
             <div class="w-14 h-14 rounded-2xl bg-green-500/20 flex items-center justify-center mb-6">
               <Icon name="heroicons:truck" class="w-7 h-7 text-green-400" />
             </div>
@@ -106,12 +291,7 @@
           </div>
 
           <!-- Option 2: Drive -->
-          <div
-            v-motion
-            :initial="{ opacity: 0, y: 20 }"
-            :visibleOnce="{ opacity: 1, y: 0, transition: { delay: 100 } }"
-            class="glass-dark rounded-3xl p-8"
-          >
+          <div class="glass-dark rounded-3xl p-8">
             <div class="w-14 h-14 rounded-2xl bg-alpine-500/20 flex items-center justify-center mb-6">
               <Icon name="heroicons:truck" class="w-7 h-7 text-alpine-400" />
             </div>
@@ -139,12 +319,7 @@
           </div>
 
           <!-- Option 3: Train -->
-          <div
-            v-motion
-            :initial="{ opacity: 0, y: 20 }"
-            :visibleOnce="{ opacity: 1, y: 0, transition: { delay: 200 } }"
-            class="glass-dark rounded-3xl p-8"
-          >
+          <div class="glass-dark rounded-3xl p-8">
             <div class="w-14 h-14 rounded-2xl bg-glacier-500/20 flex items-center justify-center mb-6">
               <Icon name="mdi:train" class="w-7 h-7 text-glacier-400" />
             </div>
@@ -171,22 +346,12 @@
             </div>
           </div>
 
-          <!-- Option 4: Fly -->
-          <div
-            v-motion
-            :initial="{ opacity: 0, y: 20 }"
-            :visibleOnce="{ opacity: 1, y: 0, transition: { delay: 300 } }"
-            class="glass-dark rounded-3xl p-8 ring-2 ring-summit-500/30"
-          >
-            <div class="absolute -top-3 right-6">
-              <span class="px-3 py-1 bg-summit-500 text-white text-xs font-semibold rounded-full">
-                Fastest
-              </span>
-            </div>
+          <!-- Option 4: Fly (via Geneva) -->
+          <div class="glass-dark rounded-3xl p-8">
             <div class="w-14 h-14 rounded-2xl bg-summit-500/20 flex items-center justify-center mb-6">
               <Icon name="heroicons:paper-airplane" class="w-7 h-7 text-summit-400" />
             </div>
-            <h3 class="text-2xl font-display text-white mb-4">Option 4: Fly</h3>
+            <h3 class="text-2xl font-display text-white mb-4">Option 4: Fly (via Geneva)</h3>
             <div class="space-y-4 text-snow-400">
               <p>
                 <strong class="text-white">Fly to Geneva</strong><br>
@@ -211,25 +376,10 @@
                 </div>
               </div>
             </div>
-
-            <a
-              href="https://www.britishairways.com/en-gb/information/baggage-essentials/sports-equipment"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-flex items-center gap-2 mt-6 text-summit-400 hover:text-summit-300 transition-colors text-sm"
-            >
-              BA Sports Equipment Info
-              <Icon name="heroicons:arrow-top-right-on-square" class="w-4 h-4" />
-            </a>
           </div>
 
           <!-- Option 5: Fly & Hire Bikes -->
-          <div
-            v-motion
-            :initial="{ opacity: 0, y: 20 }"
-            :visibleOnce="{ opacity: 1, y: 0, transition: { delay: 400 } }"
-            class="glass-dark rounded-3xl p-8"
-          >
+          <div class="glass-dark rounded-3xl p-8">
             <div class="w-14 h-14 rounded-2xl bg-green-500/20 flex items-center justify-center mb-6">
               <Icon name="mdi:bicycle" class="w-7 h-7 text-green-400" />
             </div>
