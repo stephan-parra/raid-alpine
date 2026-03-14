@@ -119,7 +119,7 @@
                     <p><strong class="text-snow-200">Depart:</strong> 12:38 PM Lyon Part-Dieu</p>
                     <p><strong class="text-snow-200">Arrive:</strong> 3:29 PM Thonon-Les-Bains</p>
                     <p><strong class="text-snow-200">Duration:</strong> 2h 51m (1 connection)</p>
-                    <p><strong class="text-snow-200">Price:</strong> from &euro;96.40</p>
+                    <p><strong class="text-snow-200">Price:</strong> from &euro;96.40 (for 4 people)</p>
                   </div>
                 </div>
               </div>
