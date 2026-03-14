@@ -40,9 +40,9 @@
     <section class="section bg-slate-950">
       <div class="container-wide">
         <UiSectionHeading
-          eyebrow="Confirmed"
-          title="Agreed Travel Plan"
-          description="The final logistics for getting to the start and home from the finish."
+          eyebrow="Proposed"
+          title="Proposed Travel Plan"
+          description="Our current plan for getting to the start and home from the finish. Subject to final confirmation."
         />
 
         <!-- Timeline -->
