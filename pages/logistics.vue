@@ -81,6 +81,7 @@
                     <p><strong class="text-snow-200">Arrive:</strong> 09:55 LYS Terminal 1</p>
                     <p><strong class="text-snow-200">Duration:</strong> 1h 40m</p>
                     <p><strong class="text-snow-200">Class:</strong> Economy O</p>
+                    <p><strong class="text-snow-200">Cost:</strong> &pound;177 return (includes checked luggage / bikes)</p>
                   </div>
                 </div>
               </div>
