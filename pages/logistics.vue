@@ -32,15 +32,6 @@
           >
             Logistics Guide
           </h1>
-          <p
-            v-motion
-            :initial="{ opacity: 0, y: 20 }"
-            :enter="{ opacity: 1, y: 0, transition: { delay: 200 } }"
-            class="text-xl text-snow-400 mt-6 max-w-2xl"
-          >
-            Everything you need to plan your RAID Alpine adventure.
-            From getting there to what to pack, we've got you covered.
-          </p>
         </div>
       </div>
     </section>
