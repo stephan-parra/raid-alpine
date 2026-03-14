@@ -59,7 +59,7 @@
                 <Icon name="heroicons:paper-airplane" class="w-5 h-5 text-green-400" />
               </div>
               <div>
-                <h3 class="text-2xl font-display text-white">Outbound &mdash; Friday 11 July</h3>
+                <h3 class="text-2xl font-display text-white">Outbound &mdash; Saturday 11 July</h3>
                 <p class="text-snow-500 text-sm">London &rarr; Lyon &rarr; Thonon-les-Bains</p>
               </div>
             </div>
@@ -172,7 +172,7 @@
                 <Icon name="heroicons:home" class="w-5 h-5 text-alpine-400" />
               </div>
               <div>
-                <h3 class="text-2xl font-display text-white">Return &mdash; Friday 18 July</h3>
+                <h3 class="text-2xl font-display text-white">Return &mdash; Saturday 18 July</h3>
                 <p class="text-snow-500 text-sm">Nice &rarr; Avignon &rarr; Lyon &rarr; London</p>
               </div>
             </div>
