@@ -32,15 +32,6 @@
           >
             Logistics Guide
           </h1>
-          <p
-            v-motion
-            :initial="{ opacity: 0, y: 20 }"
-            :enter="{ opacity: 1, y: 0, transition: { delay: 200 } }"
-            class="text-xl text-snow-400 mt-6 max-w-2xl"
-          >
-            Everything you need to plan your RAID Alpine adventure.
-            From getting there to what to pack, we've got you covered.
-          </p>
         </div>
       </div>
     </section>
@@ -49,9 +40,9 @@
     <section class="section bg-slate-950">
       <div class="container-wide">
         <UiSectionHeading
-          eyebrow="Confirmed"
-          title="Agreed Travel Plan"
-          description="The final logistics for getting to the start and home from the finish."
+          eyebrow="Proposed"
+          title="Proposed Travel Plan"
+          description="Our current plan for getting to the start and home from the finish. Subject to final confirmation."
         />
 
         <!-- Timeline -->
@@ -90,6 +81,7 @@
                     <p><strong class="text-snow-200">Arrive:</strong> 09:55 LYS Terminal 1</p>
                     <p><strong class="text-snow-200">Duration:</strong> 1h 40m</p>
                     <p><strong class="text-snow-200">Class:</strong> Economy O</p>
+                    <p><strong class="text-snow-200">Cost:</strong> &pound;177 return (includes checked luggage / bikes)</p>
                   </div>
                 </div>
               </div>
