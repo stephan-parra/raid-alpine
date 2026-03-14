@@ -94,6 +94,25 @@
                 </div>
               </div>
 
+              <!-- Rhonexpress to Part-Dieu -->
+              <div class="flex gap-4">
+                <div class="flex flex-col items-center">
+                  <div class="w-8 h-8 rounded-full bg-alpine-500/20 flex items-center justify-center">
+                    <Icon name="mdi:tram" class="w-4 h-4 text-alpine-400" />
+                  </div>
+                  <div class="w-0.5 flex-1 bg-white/10 mt-2" />
+                </div>
+                <div class="pb-6">
+                  <h4 class="font-semibold text-white">Rh&ocirc;nexpress: Lyon Airport &rarr; Lyon Part-Dieu</h4>
+                  <div class="mt-2 space-y-1 text-snow-400 text-sm">
+                    <p><strong class="text-snow-200">Duration:</strong> ~29 minutes</p>
+                    <p><strong class="text-snow-200">Frequency:</strong> Every 15 minutes</p>
+                    <p><strong class="text-snow-200">Price:</strong> &euro;16.70 one-way (&euro;15.20 if booked online)</p>
+                    <p class="text-snow-500 italic">Express tram direct from airport terminal to Part-Dieu station</p>
+                  </div>
+                </div>
+              </div>
+
               <!-- Train to Thonon -->
               <div class="flex gap-4">
                 <div class="flex flex-col items-center">
@@ -199,6 +218,24 @@
                     <p><strong class="text-snow-200">Duration:</strong> ~2h 27&ndash;30m (Direct TER)</p>
                     <p><strong class="text-snow-200">Price:</strong> from &euro;171.60</p>
                     <p class="text-snow-500 italic">Multiple departures from 2:10 PM &mdash; need to connect with 21:30 flight</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Rhonexpress to Airport -->
+              <div class="flex gap-4">
+                <div class="flex flex-col items-center">
+                  <div class="w-8 h-8 rounded-full bg-alpine-500/20 flex items-center justify-center">
+                    <Icon name="mdi:tram" class="w-4 h-4 text-alpine-400" />
+                  </div>
+                  <div class="w-0.5 flex-1 bg-white/10 mt-2" />
+                </div>
+                <div class="pb-6">
+                  <h4 class="font-semibold text-white">Rh&ocirc;nexpress: Lyon Part-Dieu &rarr; Lyon Airport</h4>
+                  <div class="mt-2 space-y-1 text-snow-400 text-sm">
+                    <p><strong class="text-snow-200">Duration:</strong> ~29 minutes</p>
+                    <p><strong class="text-snow-200">Frequency:</strong> Every 15 minutes (every 30 min after 9 PM)</p>
+                    <p><strong class="text-snow-200">Price:</strong> &euro;16.70 one-way (&euro;15.20 if booked online)</p>
                   </div>
                 </div>
               </div>
