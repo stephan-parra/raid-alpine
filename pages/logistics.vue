@@ -40,9 +40,9 @@
     <section class="section bg-slate-950">
       <div class="container-wide">
         <UiSectionHeading
-          eyebrow="Proposed"
-          title="Proposed Travel Plan"
-          description="Our current plan for getting to the start and home from the finish. Subject to final confirmation."
+          eyebrow="Overview"
+          title="Travel Plan"
+          description="Our plan for getting to the start and home from the finish."
         />
 
         <!-- Timeline -->
@@ -263,6 +263,222 @@
                   <h4 class="font-semibold text-green-400">Home</h4>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Travel Itinerary Table -->
+    <section class="section bg-slate-900/50">
+      <div class="container-wide max-w-6xl">
+        <UiSectionHeading
+          eyebrow="Confirmed"
+          title="Full Itinerary"
+          description="All travel legs with booking references, bike reservations, and ticket status."
+        />
+
+        <!-- === Desktop Table View === -->
+        <div class="hidden lg:block">
+          <div
+            v-for="(group, gi) in itineraryGroups"
+            :key="group.label"
+            v-motion
+            :initial="{ opacity: 0, y: 20 }"
+            :visibleOnce="{ opacity: 1, y: 0, transition: { delay: gi * 100 } }"
+            class="glass-dark rounded-3xl overflow-hidden mb-8 last:mb-0"
+          >
+            <!-- Group Header -->
+            <div class="flex items-center gap-3 px-6 py-4 bg-white/5 border-b border-white/10">
+              <div class="w-8 h-8 rounded-lg flex items-center justify-center" :class="group.iconBg">
+                <Icon :name="group.icon" class="w-4 h-4" :class="group.iconColor" />
+              </div>
+              <h3 class="text-lg font-display text-white">{{ group.label }}</h3>
+            </div>
+
+            <!-- Column Headers -->
+            <div class="grid grid-cols-12 gap-4 px-6 py-3 border-b border-white/10 bg-white/[0.02]">
+              <div class="col-span-1">
+                <span class="text-xs font-semibold uppercase tracking-wider text-snow-500">#</span>
+              </div>
+              <div class="col-span-2">
+                <span class="text-xs font-semibold uppercase tracking-wider text-snow-500">Route</span>
+              </div>
+              <div class="col-span-2">
+                <span class="text-xs font-semibold uppercase tracking-wider text-snow-500">Ref</span>
+              </div>
+              <div class="col-span-3">
+                <span class="text-xs font-semibold uppercase tracking-wider text-snow-500">From &rarr; To</span>
+              </div>
+              <div class="col-span-1">
+                <span class="text-xs font-semibold uppercase tracking-wider text-snow-500">Times</span>
+              </div>
+              <div class="col-span-2">
+                <span class="text-xs font-semibold uppercase tracking-wider text-snow-500">Bikes</span>
+              </div>
+              <div class="col-span-1">
+                <span class="text-xs font-semibold uppercase tracking-wider text-snow-500">Ticket</span>
+              </div>
+            </div>
+
+            <!-- Rows -->
+            <div class="divide-y divide-white/5">
+              <div
+                v-for="(leg, li) in group.legs"
+                :key="leg.leg"
+                v-motion
+                :initial="{ opacity: 0, y: 10 }"
+                :visibleOnce="{ opacity: 1, y: 0, transition: { delay: gi * 100 + li * 50 } }"
+                class="grid grid-cols-12 gap-4 px-6 py-4 hover:bg-white/5 transition-colors items-center"
+              >
+                <!-- # + Mode icon -->
+                <div class="col-span-1 flex items-center gap-2">
+                  <span class="text-lg">{{ leg.icon }}</span>
+                  <span class="text-sm font-semibold text-snow-400">{{ leg.leg }}</span>
+                </div>
+
+                <!-- Route summary -->
+                <div class="col-span-2">
+                  <span class="text-sm text-white font-medium">{{ leg.mode === 'Flight' ? 'Flight' : 'Train' }}</span>
+                </div>
+
+                <!-- Ref -->
+                <div class="col-span-2">
+                  <span class="text-sm font-mono text-snow-300">{{ leg.ref }}</span>
+                </div>
+
+                <!-- From → To -->
+                <div class="col-span-3">
+                  <div class="text-sm text-snow-300">
+                    <span class="text-white">{{ leg.from }}</span>
+                    <span class="text-snow-500 mx-1">&rarr;</span>
+                    <span class="text-white">{{ leg.to }}</span>
+                  </div>
+                </div>
+
+                <!-- Times -->
+                <div class="col-span-1">
+                  <div class="text-sm text-snow-400">
+                    <span>{{ leg.dep }}</span>
+                    <span class="text-snow-600 mx-0.5">&ndash;</span>
+                    <span>{{ leg.arr }}</span>
+                  </div>
+                </div>
+
+                <!-- Bikes badge -->
+                <div class="col-span-2">
+                  <span
+                    class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium whitespace-nowrap"
+                    :class="badgeClass(leg.bikesStatus)"
+                  >
+                    {{ leg.bikes }}
+                  </span>
+                </div>
+
+                <!-- Pax Ticket badge -->
+                <div class="col-span-1">
+                  <span
+                    class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium"
+                    :class="badgeClass(leg.ticketStatus)"
+                  >
+                    {{ leg.ticket }}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- === Mobile Card View === -->
+        <div class="lg:hidden space-y-8">
+          <div v-for="(group, gi) in itineraryGroups" :key="group.label">
+            <!-- Group Label -->
+            <div
+              v-motion
+              :initial="{ opacity: 0, y: 20 }"
+              :visibleOnce="{ opacity: 1, y: 0, transition: { delay: gi * 100 } }"
+              class="flex items-center gap-3 mb-4"
+            >
+              <div class="w-8 h-8 rounded-lg flex items-center justify-center" :class="group.iconBg">
+                <Icon :name="group.icon" class="w-4 h-4" :class="group.iconColor" />
+              </div>
+              <h3 class="text-lg font-display text-white">{{ group.label }}</h3>
+            </div>
+
+            <!-- Cards -->
+            <div class="space-y-4">
+              <div
+                v-for="(leg, li) in group.legs"
+                :key="leg.leg"
+                v-motion
+                :initial="{ opacity: 0, y: 20 }"
+                :visibleOnce="{ opacity: 1, y: 0, transition: { delay: gi * 100 + li * 60 } }"
+                class="glass-dark rounded-2xl p-5"
+              >
+                <!-- Card header -->
+                <div class="flex items-center justify-between mb-3">
+                  <div class="flex items-center gap-2">
+                    <span class="text-xl">{{ leg.icon }}</span>
+                    <span class="text-sm font-semibold text-white">Leg {{ leg.leg }}</span>
+                    <span class="text-sm text-snow-500">&middot;</span>
+                    <span class="text-sm text-snow-400">{{ leg.mode === 'Flight' ? 'Flight' : 'Train' }}</span>
+                  </div>
+                </div>
+
+                <!-- Ref -->
+                <div class="mb-3">
+                  <span class="text-xs uppercase tracking-wider text-snow-500 font-semibold">Ref</span>
+                  <p class="text-sm font-mono text-snow-300 mt-0.5">{{ leg.ref }}</p>
+                </div>
+
+                <!-- Route -->
+                <div class="mb-3">
+                  <span class="text-xs uppercase tracking-wider text-snow-500 font-semibold">Route</span>
+                  <p class="text-sm text-white mt-0.5">{{ leg.from }} &rarr; {{ leg.to }}</p>
+                  <p class="text-sm text-snow-400 mt-0.5">{{ leg.dep }} &ndash; {{ leg.arr }}</p>
+                </div>
+
+                <!-- Badges row -->
+                <div class="flex flex-wrap gap-2">
+                  <div>
+                    <span class="text-xs uppercase tracking-wider text-snow-500 font-semibold block mb-1">Bikes</span>
+                    <span
+                      class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium"
+                      :class="badgeClass(leg.bikesStatus)"
+                    >
+                      {{ leg.bikes }}
+                    </span>
+                  </div>
+                  <div>
+                    <span class="text-xs uppercase tracking-wider text-snow-500 font-semibold block mb-1">Ticket</span>
+                    <span
+                      class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium"
+                      :class="badgeClass(leg.ticketStatus)"
+                    >
+                      {{ leg.ticket }}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Warning callout -->
+        <div
+          v-motion
+          :initial="{ opacity: 0, y: 20 }"
+          :visibleOnce="{ opacity: 1, y: 0 }"
+          class="mt-8 p-6 rounded-2xl bg-yellow-500/10 border border-yellow-500/30"
+        >
+          <div class="flex items-start gap-4">
+            <Icon name="heroicons:exclamation-triangle" class="w-6 h-6 text-yellow-500 flex-shrink-0" />
+            <div>
+              <h4 class="font-semibold text-white mb-2">Action Required &mdash; Passenger Tickets</h4>
+              <p class="text-snow-400">
+                Passenger tickets are still needed for <strong class="text-white">Leg 2</strong> (Lyon Part-Dieu &rarr; Bellegarde) and <strong class="text-white">Leg 3</strong> (Bellegarde &rarr; Thonon-les-Bains) on 11 July. Bike reservations are confirmed but individual passenger tickets must still be purchased via
+                <a href="https://www.sncf-connect.com/" target="_blank" rel="noopener noreferrer" class="text-yellow-400 hover:text-yellow-300 underline transition-colors">SNCF Connect</a>.
+              </p>
             </div>
           </div>
         </div>
@@ -723,6 +939,58 @@
 useHead({
   title: 'Logistics',
 })
+
+// --- Itinerary data ---
+interface ItineraryLeg {
+  leg: number
+  date: string
+  mode: 'Flight' | 'Train'
+  icon: string
+  ref: string
+  from: string
+  to: string
+  dep: string
+  arr: string
+  bikes: string
+  bikesStatus: 'green' | 'amber' | 'grey'
+  ticket: string
+  ticketStatus: 'green' | 'amber' | 'grey'
+}
+
+const itineraryLegs: ItineraryLeg[] = [
+  { leg: 1, date: '11 Jul 2026', mode: 'Flight', icon: '✈️', ref: 'BA0356', from: 'London Heathrow (T5)', to: 'Lyon Saint-Exupéry (T1)', dep: '07:15', arr: '09:55', bikes: 'N/A', bikesStatus: 'grey', ticket: 'Confirmed', ticketStatus: 'green' },
+  { leg: 2, date: '11 Jul 2026', mode: 'Train', icon: '🚆', ref: 'TER N° 96514', from: 'Lyon Part-Dieu', to: 'Bellegarde', dep: '14:38', arr: '16:04', bikes: 'Booked (n°90598022)', bikesStatus: 'green', ticket: 'Still needed', ticketStatus: 'amber' },
+  { leg: 3, date: '11 Jul 2026', mode: 'Train', icon: '🚆', ref: 'TER N° 884525', from: 'Bellegarde', to: 'Thonon-les-Bains', dep: '16:15', arr: '17:29', bikes: 'Booked (n°90598022)', bikesStatus: 'green', ticket: 'Still needed', ticketStatus: 'amber' },
+  { leg: 4, date: '18 Jul 2026', mode: 'Train', icon: '🚆', ref: 'TER N° 17472', from: 'Nice', to: 'Marseille Saint-Charles', dep: '08:25', arr: '11:05', bikes: 'Not required', bikesStatus: 'green', ticket: 'Confirmed', ticketStatus: 'green' },
+  { leg: 5, date: '18 Jul 2026', mode: 'Train', icon: '🚆', ref: 'TER N° 886560', from: 'Marseille Saint-Charles', to: 'Avignon Centre', dep: '11:40', arr: '13:05', bikes: 'Booked (n°90598028)', bikesStatus: 'green', ticket: 'Confirmed', ticketStatus: 'green' },
+  { leg: 6, date: '18 Jul 2026', mode: 'Train', icon: '🚆', ref: 'TER N° 17702', from: 'Avignon Centre', to: 'Lyon Part-Dieu', dep: '14:10', arr: '16:40', bikes: 'Booked (n°90598028)', bikesStatus: 'green', ticket: 'Confirmed', ticketStatus: 'green' },
+  { leg: 7, date: '18 Jul 2026', mode: 'Flight', icon: '✈️', ref: 'BA0363', from: 'Lyon Saint-Exupéry (T1)', to: 'London Heathrow (T5)', dep: '21:30', arr: '22:10', bikes: 'N/A', bikesStatus: 'grey', ticket: 'Confirmed', ticketStatus: 'green' },
+]
+
+const itineraryGroups = [
+  {
+    label: 'Outbound — Saturday 11 July 2026',
+    icon: 'heroicons:paper-airplane',
+    iconBg: 'bg-green-500/20',
+    iconColor: 'text-green-400',
+    legs: itineraryLegs.filter(l => l.date === '11 Jul 2026'),
+  },
+  {
+    label: 'Return — Saturday 18 July 2026',
+    icon: 'heroicons:home',
+    iconBg: 'bg-alpine-500/20',
+    iconColor: 'text-alpine-400',
+    legs: itineraryLegs.filter(l => l.date === '18 Jul 2026'),
+  },
+]
+
+const badgeClass = (status: 'green' | 'amber' | 'grey') => {
+  switch (status) {
+    case 'green': return 'bg-green-500/20 text-green-400'
+    case 'amber': return 'bg-yellow-500/20 text-yellow-400'
+    case 'grey': return 'bg-white/10 text-snow-500'
+  }
+}
 
 const packingCycling = [
   'Road bike + spares/tools',
